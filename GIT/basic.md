@@ -4,12 +4,18 @@
 
 파일의 변경사항을 추적하고 여러 사용자들 간의 작업을 조율하기 위한 분산 버전 관리 시스템이다. 무료이고 오픈소스들을 제공해 빠른 속도와 효율성을 가지고 크고 작은 프로젝트들을 다룰 수 있다. 
 
+
+
 ## Git 설치
 
 1. git-scm.com 에서 다운로드
 2. 계속 next로 설치
 
+
+
 ## Git 사용법
+
+
 
 ### 최초 설정
 
@@ -31,6 +37,8 @@ git config user.name
 
 이메일과 이름을 출력할 수 있다. 
 
+
+
 ### 상태점검
 
 `git status`
@@ -38,6 +46,8 @@ git config user.name
 <img src="basic.assets/image-20201222165058452.png" alt="image-20201222165058452" style="zoom:80%;" />
 
 수시로 해주기
+
+
 
 ### 초기화
 
@@ -49,13 +59,19 @@ $ git init
 
 <img src="basic.assets/image-20201222165058452.png" alt="image-20201222165058452" style="zoom:80%;" />
 
+(master) 는 그 자식들에게 모두 영향
 
 
-### stage 올리기
+
+### Stage 올리기
 
 untracked 상태인 디렉토리의 파일들은 stage에 올려야 commit할 수 있다.
 
 tracking을 하려면 `$ git add`을 이용하면 된다.
+
+```
+$ git add <filename>
+```
 
 <img src="basic.assets/image-20201222173749932.png" alt="image-20201222173749932" style="zoom:80%;" />
 
@@ -63,11 +79,27 @@ tracking을 하려면 `$ git add`을 이용하면 된다.
 
 
 
-### commit 하기
+### Stage 내리기
+
+`$ git restore --staged <filename> `을 이용하여 내릴 수 있다.
 
 
 
-### Summary
+### Commit 하기
+
+반드시 stage에 올라와있는 상태여야 하며, `$ git commit -m 'msg'`로 저장한다. (주의 : `$ git commit `만 입력하게 되면 어딘가에 처박힘. 이럴때는 Esc 연타 후 `:qa!`로 빠져나온다. )
+
+msg는 어떤 내용인지 혹은 수정내용이 명확하게 드러나도록 작성.
+
+``` 
+$ git commit -m 'msg'
+```
+
+<img src="basic.assets/image-20201222180520170.png" alt="image-20201222180520170" style="zoom:80%;" />
+
+
+
+## Summary
 
 | 명령어                              | 설명                                        |
 | ----------------------------------- | ------------------------------------------- |
