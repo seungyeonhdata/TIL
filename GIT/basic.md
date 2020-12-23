@@ -99,6 +99,33 @@ $ git commit -m 'msg'
 
 
 
+### Log 보기
+
+### 원격 저장소 등록하기
+
+```$ git remote add origin <URL>
+$ git remote add origin <URL> #origin 키로 url 등록
+
+$ git remote -v #확인하기
+origin <URL>...
+
+$ git remote rm <remote_repo_name>
+```
+
+
+
+### 원격 저장소에 push 하기
+
+```$ git push origin master #origin을 master에 밀기
+$ git push origin master 
+```
+
+origin을 master에 밀기
+
+
+
+
+
 ## Summary
 
 | 명령어                              | 설명                                        |
@@ -114,5 +141,6 @@ $ git commit -m 'msg'
 | `$ git log`                         | 지금까지의 기록 보기                        |
 | `$ git restore --staged <filename>` | 스테이지에서 내리기                         |
 | `$ mv <before> <after>`             | 이름 변경                                   |
-|                                     |                                             |
+| `$ git remote add origin <URL>`     | remote repo(url)로 키 값(origin) 등록       |
+| `$ git remote -v`                   | 확인하기                                    |
 
