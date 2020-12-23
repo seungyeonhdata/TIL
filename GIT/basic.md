@@ -4,6 +4,8 @@
 
 파일의 변경사항을 추적하고 여러 사용자들 간의 작업을 조율하기 위한 분산 버전 관리 시스템이다. 무료이고 오픈소스들을 제공해 빠른 속도와 효율성을 가지고 크고 작은 프로젝트들을 다룰 수 있다. 
 
+교과서 - https://git-scm.com/book/ko/v2
+
 
 
 ## Git 설치
@@ -67,7 +69,7 @@ $ git init
 
 untracked 상태인 디렉토리의 파일들은 stage에 올려야 commit할 수 있다.
 
-tracking을 하려면 `$ git add`을 이용하면 된다.
+tracking을 하려면 `$ git add`을 이용하면 된다. `$ git add .` 모든 파일 올리기
 
 ```
 $ git add <filename>
@@ -97,7 +99,7 @@ $ git commit -m 'msg'
 
 <img src="basic.assets/image-20201222180520170.png" alt="image-20201222180520170" style="zoom:80%;" />
 
-
+`$ git --amend` msg 바꾸기
 
 ### Log 보기
 
@@ -105,11 +107,11 @@ $ git commit -m 'msg'
 $ git log
 ```
 
-`$ log -n`  최근 n개만 보기
+`$ log -n`  #최근 n개만 보기
 
-`$ git log --pretty=oneline` 한줄로 보기
+`$ git log --pretty=oneline` #한줄로 보기
 
-`$ git log --pretty=format:"%h %s" --graph` 간단한 포맷으로 보기
+`$ git log --pretty=format:"%h %s" --graph` #간단한 포맷으로 보기
 
 
 
@@ -163,6 +165,10 @@ $ git pull origin master
 | `$ mv <before> <after>`             | 이름 변경                                   |
 | `$ git remote add origin <URL>`     | remote repo(url)로 키 값(origin) 등록       |
 | `$ git remote -v`                   | 확인하기                                    |
+
+
+
+
 
 #### 심화교육
 
