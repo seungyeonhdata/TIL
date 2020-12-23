@@ -1,4 +1,4 @@
-# Github - Basic
+# Git - Basic
 
 ## Git이란?
 
@@ -101,6 +101,18 @@ $ git commit -m 'msg'
 
 ### Log 보기
 
+```
+$ git log
+```
+
+`$ log -n`  최근 n개만 보기
+
+`$ git log --pretty=oneline` 한줄로 보기
+
+`$ git log --pretty=format:"%h %s" --graph` 간단한 포맷으로 보기
+
+
+
 ### 원격 저장소 등록하기
 
 ```$ git remote add origin <URL>
@@ -120,7 +132,15 @@ $ git remote rm <remote_repo_name>
 $ git push origin master 
 ```
 
-origin을 master에 밀기
+master의 내용들을 origin으로 밀어주기
+
+
+
+### 원격 저장소에서 pull 하기
+
+```
+$ git pull origin master
+```
 
 
 
@@ -143,4 +163,8 @@ origin을 master에 밀기
 | `$ mv <before> <after>`             | 이름 변경                                   |
 | `$ git remote add origin <URL>`     | remote repo(url)로 키 값(origin) 등록       |
 | `$ git remote -v`                   | 확인하기                                    |
+
+#### 심화교육
+
+the missing semester
 
