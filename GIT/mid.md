@@ -96,6 +96,8 @@ $ git pull origin master
 
 
 
+## error 해결하기
+
 
 
 ## 파일 무시하기
@@ -111,6 +113,8 @@ $ git pull origin master
 이미 만들었으면 `$ git rm --cached <filename>` 으로 untracked로 만들기
 
 `$ git rm -r --cached <foldername>`  #폴더일때
+
+
 
 
 
