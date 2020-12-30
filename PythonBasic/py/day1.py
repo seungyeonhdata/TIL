@@ -1,7 +1,6 @@
 # a,b = input("두 수 입력해").split()
  # split앞에 있는 문자열을 공백으로 분리
 
-
 # a,b=(input("숫자 두 개 입력 : ").split())
 # print(int(a)+int(b))
 
@@ -16,7 +15,7 @@
 # x=x[0:1]+"y"+x[2:]
 # print(x)
 
-
+# 연습 문제
 # 1. 첫번째와 세번째 문자를 출력하세요.
 letters='python'
 print(letters[0]+letters[2])
