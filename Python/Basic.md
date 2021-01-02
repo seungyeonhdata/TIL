@@ -28,7 +28,7 @@ Pycharm 설치하기
 
 ```python
 print(출력 내용 [, sep = 구분자] [, end = 끝 문자])
-# []는 생략 가능
+#[]는 생략 가능
 ```
 
 
@@ -177,10 +177,10 @@ print("%10s" % "hi") # 자리수 지정
 x = 5
 y = "apple"
 print("I eat %d %s" % (x, y))
-
+#문자열 뒤에 % 연산자와 표식 위치에 들어갈 값을 밝힌다.
 ```
 
--문자열 뒤에 % 연산자와 표식 위치에 들어갈 값을 밝힌다.
+
 
 - format 메서드로도 가능
 
@@ -197,9 +197,9 @@ print("I eat %d %s" % (x, y))
 * bool() 불리안
 
 ```python
-print(1==1.0) True # 값 비교 
-print(1 is 1.0) False # 객체 비교
-0:False 1:True # 그 외 숫자나 텍스트도 참. 빈 문자열은 거짓
+print(1==1.0) True #값 비교 
+print(1 is 1.0) False #객체 비교
+0:False 1:True #그 외 숫자나 텍스트도 참. 빈 문자열은 거짓
 ```
 
 ```python
@@ -220,8 +220,8 @@ print(",").join("abcd")
 ※ 내장 함수랑 객체 소속의 메서드는 호출 방식 다름
 
 ```python
-len(s) # 내장 함수
-s.find('a') # 메서드
+len(s) #내장 함수
+s.find('a') #메서드
 ```
 
 
@@ -234,27 +234,71 @@ s.find('a') # 메서드
 
 ### 리스트: []
 
-```
+```python
 ','로 자료 구분하여 순서대로 저장
+리스트는 리스트를 포함한 다양한 자료형을 요소값으로 저장 가능
 
+b=[] 
+b=list() #빈 리스트 생성
+
+b=[1,2,3]
+print(b[0]+b[2])
+#4
+
+#'too' 출력
+a=[1, 2, ['life', 'is',['too', 'short']]]
+print(a[2][2][0])
+print(a[-1][-1][-2])
 ```
+
+
 
 * 리스트 슬라이싱
 
 ```python
+x=[10,20,30,40,50]
+print(x[1:4:-1]) #1부터 3번 요소까지 -1간격으로
+
 a=[1,2,3,['x','y','z'],4,5]
 print(a[3][:2])
-# ['x','y']
+#['x','y']
+
+range(5) #0~5-1까지 숫자를 생성
+print(list(range(5)))
+
+print(list(range(3,10))) #3~9까지
+
+print(list(range(3,10,2))) #3~9까지 2간격으로 추출
+
+print(list(range(10,0,-1))) #10에서 1까지 -1간격으로 
 ```
+
+
 
 * 리스트 연산
 
-```
+```python
 a=[1,2]
 b=[3,4]
 print(a+b)
 #[1,2,3,4]
-print
+print("ab"+"cd")
+#abcd
+
+print(a*3) #[1,2,1,2,1,2] a가 3번 반복
+print("ab"*3) #ababab
+print(len(a)) #2
+
+print(a[0]+"hi") #에러 발생. 정수와 문자열은 더할 수 없다
+print(type(a[0])) #int
+print(type("hi")) #str
+
+str(a[0]) # 숫자 1 -> 문자열 "1"
+print(str(a[0])+"hi")  => 1hi 출력
+#str 함수: 정수나 실수를 문자열로 변환해주는 함수
+
+#리스트 요소값 변경
+
 ```
 
 
