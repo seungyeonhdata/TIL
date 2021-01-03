@@ -18,17 +18,15 @@
 
 ```python
 x=10
-x+=10
-#x=20
 
 x*=2
-#x=40
+#20
 
 x/=5
-#x=8
+#4
 
-x%=5
-#x=3
+x%=3
+#1
 ```
 
 
@@ -161,23 +159,25 @@ s = "엄청나게 길어서 한 줄에 다 쓸 수 없는 \
 .swapcase()
 .capitalize()
 .title()
+
 .strip()
 str=", python,."
-print(str.lstrip(","))
-print(str.lstrip(","))
-print(str.lstrip(", ")) #큰따옴표 안에 제거대상 문자를 나열
+print(str.lstrip(",")) 
+# python,.
+print(str.lstrip(", ")) #큰따옴표 안에 제거대상 문자 나열
+#python,.
 print(str.lstrip(" ,."))
-
+#python,.
 print(str.rstrip(" ,."))
-#[l|r]strip("삭제대상문자들")
+#, python
 print(str.strip(" ,."))
+#python
 
 import string
 print((string.punctuation))
-#punctuation(구두점) : !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-
-print(str.strip(string.punctuation))
-print(str.strip(string.punctuation+" "))
+#!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+print(str.strip(string.punctuation)) #특수문자 다 걸러냄
+print(str.strip(string.punctuation+" ")) #공백포함
 
 ```
 
@@ -239,9 +239,28 @@ print("".join(['a','b','c','d']))
 
 ```python
 s="Life is too short"
-
 print(s.replace("Life","Your leg")) #대소문자 구분
 #Your leg is too short
+
+변환테이블(t) 생성
+t=str.maketrans('aeiou', '12345')
+print('apple'.translate(t)) 
+#1ppl2
+
+문자열 폭 지정 후 글자 배치
+print('python'.rjust(10))
+#    python
+s='python'.rjust(10)
+print(s.upper())
+#    PYTHON
+print('python'.center(10).upper())
+#  PYTHON  
+
+padding:특정값으로 빈자리 채우기
+print("hello".zfill(10)) 
+print("345".zfill(10)) 
+#00000hello
+#0000000345
 ```
 
 * 분할
@@ -249,55 +268,19 @@ print(s.replace("Life","Your leg")) #대소문자 구분
 ```python
 print(s.split()) #공백문자로 분리
 
+s="Life$is$too$short"
+print(s.split("$")) 
+#['Life', 'is', 'too', 'short']
+print('1,2,3'.split(','))
+#['1', '2', '3']
+```
+
+* 정렬
+
+```python
 print('python'.ljust(10)) #10자리 확보 후 좌측 정렬
 print('python'.rjust(10))
 print('python'.center(10))
-
-
-.strip()
-print("hi")
-print("            hi")
-print("hi            ")
-
-print("%10s" % "hi")
-print("hello%10s" % "hi")
-
-print("%-10shello" % "hi")
-
-print("%.4f" % 3.141592) #소수 이하 5번째 자리에서 반올림 -> 4번째 자리까지 표현
-print("%10.4f" % 3.141592) #10자리를 확보한 다음 출력(우측 맞춤)
-
-
-South Korea, south korea, SOUTH KOREA,...
-
-
-#"   대한민국" "대한민국  " "대한민국" ...
-n1=" 대한민국"
-n2="대한민국  "
-n3="  대한민국   "
-print(n1.lstrip())
-print(n2.rstrip())
-print(n3.strip())
-
-chaining 
-print('python'.rjust(10))
-s='python'.rjust(10)
-print(s.upper())
-
-print('python'.rjust(10).upper())
-
-padding:특정값으로 빈자리 채우기
-print("hello".zfill(10)) #zero fill
-print("345".zfill(10)) #zero fill
-
-s="Life$is$too$short"
-print(s.split("$")) #method(=function), class
-print('1,2,3'.split(','))
-
-t=str.maketrans('aeiou', '12345')
-print('apple'.translate(t)) #apple 문자열을 t변환테이블을 참조하여 변환하세요.
-#문자바꾸기
-#str.maketrans('바꿀문자', '새문자') 작성하여 변환테이블(t) 생성
 ```
 
 
@@ -351,7 +334,11 @@ print("I eat %s eggs every %d days for %d%% chance" % (x,d,per))
 
 
 ```python
-print("%10s" % "hi") #자리수 지정
+#자리수 지정
+print("%10s" % "hi") 
+print("%10s" % "hi")
+print("hello%10s" % "hi")
+print("%-10shello" % "hi")
 
 %-10s #왼쪽 정렬
 
@@ -376,18 +363,21 @@ print(1 is 1.0) False #객체 비교
 0:False 1:True #그 외 숫자나 텍스트도 참. 빈 문자열은 거짓
 ```
 
-```python
-
-```
-
-
+* 함수
 
 ```python
 
 ```
 
+* 함수
+
 ```python
-map
+
+```
+
+* `map()`
+
+```python
 x1, x2= map(int,  input("숫자 두 개 입력 : ").split())   
 #['1', '2']
 int함수
@@ -406,18 +396,16 @@ print(x1+x2)
 #7
 
 
-#입력값을 컴마로 구분
+#컴마로 구분
 x1, x2= map(int,  input("숫자 두 개 입력 : ").split(","))
-#"1,2"-> ['1','2'] -> [1,2] -> x1=1, x2=2
+"1,2"
+['1','2']
+[1,2]
+x1=1, x2=2
 print(x1+x2)
-
-입력 :10,20
+입력 : 10,20
 #30
 ```
-
-
-
-print(",").join("abcd")
 
 
 
