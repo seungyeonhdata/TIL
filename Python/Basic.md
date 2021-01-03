@@ -1,8 +1,8 @@
 # Basic
 
-참고 서적 : 파이썬 정복 by 김상형
+* 참고 서적 : 파이썬 정복 by 김상형
 
-Pycharm 설치하기
+* Pycharm 설치하기
 
 
 
@@ -12,9 +12,24 @@ Pycharm 설치하기
 * `a % b` : 나머지
 * `a ** b` : 거듭제곱
 * `divmod(a,b)` : a(피젯수)를 b(젯수)로 나눈 몫과 나머지
-* `x+=10` : x=x+10 축약형
 * `==` : 같다
 * `!=` : 다르다
+* `x+=10` : x=x+10 축약형
+
+```python
+x=10
+x+=10
+#x=20
+
+x*=2
+#x=40
+
+x/=5
+#x=8
+
+x%=5
+#x=3
+```
 
 
 
@@ -68,17 +83,18 @@ print(출력 내용 [, sep = 구분자] [, end = 끝 문자])
 a,b,c = 1,2,3 #변수와 값의 개수가 같아야 한다
 ```
 
+* `a=None` : 변수만 만들고 값을 저장하지 않을때
 
+* `a=''` : 변수 값이 공백
 
-* 변수만 만들고 값을 저장하지 않을때
+- `del a` : 변수 a 삭제
 
 ```python
-변수 = None
+x,y=1,2
+x,y=y,x   #x,y 값 바꾸기
+print(x,y)   
+#2 1
 ```
-
-
-
-- `del` : 변수 삭제
 
 
 
@@ -131,23 +147,162 @@ s = "엄청나게 길어서 한 줄에 다 쓸 수 없는 \
 
 
 
-
-
-## 정리해 넣을것
-
-정렬
-
-print("%10s" % "hi") # 자리수 지정
-
-왼쪽 정렬 %-10s
-
-%.4f # 소수 이하 넷째 자리까지 표현
-
-%10.4f # 우측에 10자리 확보 후 소수 이하 넷째 자리까지 표현
-
-
-
 ## 문자열 
+
+
+
+### 문자열 전처리
+
+* 변경
+
+```python
+.upper()
+.lower()
+.swapcase()
+.capitalize()
+.title()
+.strip()
+str=", python,."
+print(str.lstrip(","))
+print(str.lstrip(","))
+print(str.lstrip(", ")) #큰따옴표 안에 제거대상 문자를 나열
+print(str.lstrip(" ,."))
+
+print(str.rstrip(" ,."))
+#[l|r]strip("삭제대상문자들")
+print(str.strip(" ,."))
+
+import string
+print((string.punctuation))
+#punctuation(구두점) : !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+
+print(str.strip(string.punctuation))
+print(str.strip(string.punctuation+" "))
+
+```
+
+* 검색
+
+```python
+a="hello"
+print(a.count("l"))
+#2
+print(len(a))
+#5
+print(a.find('l')) 
+#2
+print(a.find('x')) 
+#-1
+print(a.rfind('l'))
+#3
+print(a.index('l'))
+#2
+print(a.index('x'))
+#에러
+print(a.rindex('l'))
+#3
+
+```
+
+* 조사
+
+```python
+print('l' in a)
+#True
+print(a.startswith("h"))
+#True
+isalpha
+islower
+isupper
+isspace
+isalnum
+isdecimal
+isdigit
+isnumeric
+isidentifier
+ispritable
+```
+
+* 문자열 삽입
+
+```python
+print(",".join("abcd"))
+#a,b,c,d
+print(",".join(['a','b','c','d']))
+#a,b,c,d
+#리스트 각각의 문자들이 컴마와 결합하여 하나의 문자열("a,b,c,d")이 됨
+print("".join(['a','b','c','d'])) 
+#abcd
+```
+
+* 치환 
+
+```python
+s="Life is too short"
+
+print(s.replace("Life","Your leg")) #대소문자 구분
+#Your leg is too short
+```
+
+* 분할
+
+```python
+print(s.split()) #공백문자로 분리
+
+print('python'.ljust(10)) #10자리 확보 후 좌측 정렬
+print('python'.rjust(10))
+print('python'.center(10))
+
+
+.strip()
+print("hi")
+print("            hi")
+print("hi            ")
+
+print("%10s" % "hi")
+print("hello%10s" % "hi")
+
+print("%-10shello" % "hi")
+
+print("%.4f" % 3.141592) #소수 이하 5번째 자리에서 반올림 -> 4번째 자리까지 표현
+print("%10.4f" % 3.141592) #10자리를 확보한 다음 출력(우측 맞춤)
+
+
+South Korea, south korea, SOUTH KOREA,...
+
+
+#"   대한민국" "대한민국  " "대한민국" ...
+n1=" 대한민국"
+n2="대한민국  "
+n3="  대한민국   "
+print(n1.lstrip())
+print(n2.rstrip())
+print(n3.strip())
+
+chaining 
+print('python'.rjust(10))
+s='python'.rjust(10)
+print(s.upper())
+
+print('python'.rjust(10).upper())
+
+padding:특정값으로 빈자리 채우기
+print("hello".zfill(10)) #zero fill
+print("345".zfill(10)) #zero fill
+
+s="Life$is$too$short"
+print(s.split("$")) #method(=function), class
+print('1,2,3'.split(','))
+
+t=str.maketrans('aeiou', '12345')
+print('apple'.translate(t)) #apple 문자열을 t변환테이블을 참조하여 변환하세요.
+#문자바꾸기
+#str.maketrans('바꿀문자', '새문자') 작성하여 변환테이블(t) 생성
+```
+
+
+
+
 
 ### 슬라이싱
 
@@ -174,10 +329,17 @@ print("%10s" % "hi") # 자리수 지정
 
 
 ```python
-x = 5
-y = "apple"
-print("I eat %d %s" % (x, y))
 #문자열 뒤에 % 연산자와 표식 위치에 들어갈 값을 밝힌다.
+
+x = 5
+y = "apples"
+print("I eat %d %s" % (x, y))
+
+x="five"
+d=2
+per=30
+print("I eat %s eggs every %d days for %d%% chance" % (x,d,per))
+#I eat five eggs every 2 days for 30% chance
 ```
 
 
@@ -188,7 +350,19 @@ print("I eat %d %s" % (x, y))
 
 
 
+```python
+print("%10s" % "hi") #자리수 지정
 
+%-10s #왼쪽 정렬
+
+%.4f #소수 이하 넷째 자리까지 표현
+
+%10.4f #우측에 10자리 확보 후 소수 이하 넷째 자리까지 표현
+```
+
+
+
+## 정리해 넣을것
 
 
 
@@ -203,25 +377,60 @@ print(1 is 1.0) False #객체 비교
 ```
 
 ```python
-`.replace('a','b')` : a를 b로 문자(열) 치환
+
 ```
 
-* 
-* `.find()` : 여러개 있는 경우 처음 나온 위치 출력. 없는 경우 -1
-* `.index()` : 
-* strip
-* split
-* 
+
+
+```python
+
+```
+
+```python
+map
+x1, x2= map(int,  input("숫자 두 개 입력 : ").split())   
+#['1', '2']
+int함수
+[1, 2]
+#x1=1, x2=2
+print(x1+x2)
+#mapping:사상  
+x > f > y
+입력 : 10 20
+30
+
+
+함수출력=map(함수, 함수입력)
+x1,x2=map(int, ['3', '4'])
+print(x1+x2)
+#7
+
+
+#입력값을 컴마로 구분
+x1, x2= map(int,  input("숫자 두 개 입력 : ").split(","))
+#"1,2"-> ['1','2'] -> [1,2] -> x1=1, x2=2
+print(x1+x2)
+
+입력 :10,20
+#30
+```
+
+
 
 print(",").join("abcd")
 
 
 
-※ 내장 함수랑 객체 소속의 메서드는 호출 방식 다름
-
 ```python
+※ 내장 함수랑 객체 소속의 메서드는 호출 방식 다름
 len(s) #내장 함수
 s.find('a') #메서드
+
+외장함수 : 별도로 적재를 해야 하는 함수
+import random
+print(random.random())  #난수 발생
+#모듈명.함수명()
+print(random.randint(1,10))
 ```
 
 
