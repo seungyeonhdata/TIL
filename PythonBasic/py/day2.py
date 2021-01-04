@@ -80,6 +80,7 @@
 # a=[1,2]
 # b=[3,4]
 # print(a*3)
+# print("a"*3)
 # print(len(a))
 # a에 "hi" 더하기
 # print(str(a[0])+"hi")
@@ -90,11 +91,14 @@
 # a[2]=4 # 변경
 # a.append(4) # 추가
 # a.extend([5,6,7]) # 확장 a+=[5,6,7]
-# a.insert(1,4) # 1 다음에 4 추가
+# a.insert(0,4) # 1 자리에 4 추가
 # del a[1] # 위치 삭제
 # a.remove(2) # '2' 1개 제거
 # a.pop() # 가장 마지막 위치의 데이터 제거
 
+# a=list(range(1,10))
+# del a[:5]
+# print(a)
 
 # 리스트 정렬
 # a=[3,5,6,2]
@@ -175,3 +179,29 @@ print(a)
 list=['Life', 'is', 'too', 'short']
 print(" ".join(list))
 
+# a=[1,2,3]
+# a+=[4]
+# a.append(4)
+# print(a)
+# a+=[5,6,7]
+# a.extend([5,6,7])
+# print(a)
+
+# a.append([5,6,7]) #리스트가 추가
+# print(a)
+# [1, 2, 3, 4, [5, 6, 7]]
+
+# a.extend([5,6,7]) #확장 a=a+[5,6,7]
+# print(a)
+
+# b=[1,2,3]
+# b.extend([4,5])
+# print(b)
+# b=b+[4,5]
+# b+=[4,5]
+# print(b)
+# [1, 2, 3, 4, 5, 4, 5]
+
+
+print("hello".zfill(10)) #zero fill
+print("345".zfill(10)) #zero fill
