@@ -18,15 +18,17 @@
 
 ```python
 x=10
-
 x*=2
 #20
-
 x/=5
 #4
-
 x%=3
 #1
+
+논리연산자
+and 모두다
+or 하나만
+not 반대로
 ```
 
 
@@ -334,16 +336,18 @@ print("I eat %s eggs every %d days for %d%% chance" % (x,d,per))
 
 
 ```python
+%[-]폭[.유효자리수]서식
+
 #자리수 지정
 print("%10s" % "hi") 
-print("%10s" % "hi")
+#        hi
 print("hello%10s" % "hi")
+#hello        hi
 print("%-10shello" % "hi")
+#hi        hello      
 
 %-10s #왼쪽 정렬
-
 %.4f #소수 이하 넷째 자리까지 표현
-
 %10.4f #우측에 10자리 확보 후 소수 이하 넷째 자리까지 표현
 ```
 
@@ -363,10 +367,17 @@ print(1 is 1.0) False #객체 비교
 0:False 1:True #그 외 숫자나 텍스트도 참. 빈 문자열은 거짓
 ```
 
-* 함수
+* `input()`
 
 ```python
+a,b = input("두 수 입력 :").split()
+#split앞에 있는 문자열을 공백으로 분리
 
+a,b=(input("숫자 두 개 입력 : ").split())
+print(int(a)+int(b))
+
+a,b=map(int,input("숫자 두 개 입력 : ").split())
+print(a+b)
 ```
 
 * 함수
@@ -378,33 +389,27 @@ print(1 is 1.0) False #객체 비교
 * `map()`
 
 ```python
-x1, x2= map(int,  input("숫자 두 개 입력 : ").split())   
-#['1', '2']
-int함수
-[1, 2]
-#x1=1, x2=2
-print(x1+x2)
-#mapping:사상  
-x > f > y
-입력 : 10 20
-30
-
-
 함수출력=map(함수, 함수입력)
 x1,x2=map(int, ['3', '4'])
 print(x1+x2)
 #7
 
+x1, x2= map(int,  input("숫자 두 개 입력 : ").split())   
+입력 : 1 2
+#['1', '2']
+#[1,2]
+#x1=1, x2=2 #type==int
+print(x1+x2)
+#3
 
 #컴마로 구분
 x1, x2= map(int,  input("숫자 두 개 입력 : ").split(","))
-"1,2"
-['1','2']
-[1,2]
-x1=1, x2=2
+입력 : 1,2
+#['1','2']
+#[1,2]
+#x1=1, x2=2
 print(x1+x2)
-입력 : 10,20
-#30
+#3
 ```
 
 
@@ -429,6 +434,78 @@ print(random.randint(1,10))
 
 
 
+### 시퀀스 자료형
+
+ : list, tuple, 문자열, range, bytes, bytearray 등 값들이 연속적으로 저장된 형태
+
+* 데이터 존재 유무 확인
+
+  ```python
+  찾고자하는 값 in 시퀀스객체
+  
+  print(30 in a) #True
+  print(30 not in a) #False
+  ```
+
+* 시퀀스 객체 연결 ('+' 덧셈연산자)
+
+  ```python
+  a=[1,2]
+  b=[3,4]
+  print(a+b)
+  #[1,2,3,4]
+  
+  a=(1,2)
+  b=(3,4)
+  print(a+b)
+  #(1,2,3,4)
+  
+  #range 객체는 list나 tuple로 변경 후 연결
+  print(list(range(0,4))+list(range(4,6)))
+  #[0,1,2,3,4,5]
+  
+  #문자열+숫자> 숫자를 str로
+  "hi"+str(100)
+  ```
+
+* 시퀀스 객체 반복('*' 곱셈연산자)
+
+  ```python
+  print([1,2]*2)
+  #[1,2,1,2]
+  
+  #range는 list나 tuple로 변경 후 반복
+  print(list(range(0,4,2))*2)
+  #[0,2,0,2]
+  ```
+
+* 길이
+
+  ```python
+  s="안녕하세요"
+  print(len(s))
+  #5
+  print(len(s.encode('utf-8')))
+  #15
+  #utf-8에서는 한 글자가 3byte
+  ```
+
+* 대괄호로 참조; 참조하여 삭제는 리스트만 가능 `del s[0]`
+
+* slice 객체로 자르기
+
+  ```python
+  print(list(range(5,20)[slice(3,9,2)])
+  #[8,10,12]
+  
+  #교체
+  a=list(range(8))
+  a[1:4]=['a','b','c']
+  #[0,'a','b','c',4,5,6,7]
+  ```
+
+
+
 ### 리스트: []
 
 ```python
@@ -438,9 +515,17 @@ print(random.randint(1,10))
 b=[] 
 b=list() #빈 리스트 생성
 
-b=[1,2,3]
-print(b[0]+b[2])
-#4
+s="hello"
+print(list(s))
+#['h','e','l','l','o']
+
+a=list(range(1,7))
+#[1,2,3,4,5,6]
+
+print(list(range(5))) #[0,1,2,3,4]
+print(list(range(3,10))) #[3,4,5,6,7,8,9]
+print(list(range(3,10,2))) #[3,5,7,9]
+print(list(range(10,0,-1))) #[10,9,8,7,6,5,4,3,2,1]
 
 #'too' 출력
 a=[1, 2, ['life', 'is',['too', 'short']]]
@@ -450,11 +535,10 @@ print(a[-1][-1][-2])
 
 
 
-#### 리스트 컴프리헨션
+* 리스트 컴프리헨션
 
 ```python
 문법으로 요소의 집합 정의하기
-
 nums=[n*2 for n in range(1,7)]
 
 nums=[]
@@ -469,28 +553,28 @@ nums=[n*2 for n in range(1,7) if n%3==0]
 
 
 
-#### 리스트 슬라이싱
+* 리스트 슬라이싱
 
 ```python
+[begin:end:step]
+
 x=[10,20,30,40,50]
 print(x[1:4:-1]) #1부터 3번 요소까지 -1간격으로
 
 a=[1,2,3,['x','y','z'],4,5]
 print(a[3][:2])
 #['x','y']
-
-range(5) #0~5-1까지 숫자를 생성
-print(list(range(5)))
-print(list(range(3,10))) #3~9까지
-print(list(range(3,10,2))) #3~9까지 2간격으로 추출
-print(list(range(10,0,-1))) #10에서 1까지 -1간격으로 
 ```
 
 
 
-#### 리스트 연산
+* 리스트 연산
 
 ```python
+b=[1,2,3]
+print(b[0]+b[2])
+#4
+
 a=[1,2]
 b=[3,4]
 print(a+b)
@@ -513,7 +597,7 @@ print(str(a[0])+"hi")  => 1hi 출력
 
 
 
-#### 리스트 값 변경
+* 리스트 값 변경
 
 ```python
 a=[1,2,3]
@@ -527,7 +611,7 @@ a[1:4]=[10,20,30]
 
 
 
-#### 리스트 추가, 확장, 삽입(append, extend, insert)
+* 리스트 추가, 확장, 삽입(append, extend, insert)
 
 ```python
 a=[1,2,3]
@@ -556,7 +640,7 @@ nums[2] = [90,91,92] #대체
 
 
 
-#### 리스트 값 제거(del, remove, pop)
+* 리스트 값 제거(del, remove, pop)
 
 ```python
 #del : 위치 삭제. 내장함수
@@ -589,7 +673,7 @@ a.pop()
 
 
 
-#### 리스트 정렬
+* 리스트 정렬
 
 ```python
 a=[3,5,6,2]
@@ -612,15 +696,88 @@ print(b2)
 
 ### 튜플: ()
 
-튜플에 저장된 각각의 인수들을 요소라고 한다.
+```python
+t=()
+t=tuple()
+tu=2, #요소가 하나면 일반 변수랑 구분안돼서 값 다음에 콤마 찍어 튜플 표시
+t0=5,6,7 #만들때 괄호 안써도 됨
 
-변수를 여러개 쓰면 튜플 내의 값들에 순서대로 저장됨.
+tuple(range(5)) #(0,1,2,3,4)
+tuple(range(1,9,2)) #(1,3,5,7)
+
+s="hello"
+print(tuple(s))
+#('h','e','l','l','o')
+
+#unpacking
+tu="김","이","강"
+kim,lee,kang=tu
+print(lee) #이
+print(kim) #김
+print(kang) #강
+
+#swap
+a,b=12,34
+a,b=b,a
+print(a,b)
+#34,12
+```
+
+* 튜플은 값을 변경할 수 없다.
+
+```python
+t1[1]=20 #불가능
+del t1[1] #불가능
+
+#값 변경 (튜플>리스트>요소값 변경)
+x=tuple(range(1,5)) #튜플생성
+print(list(x)) #리스트로 변경
+tempx=list(x) #리스트로 새로 저장
+tempx[2]=30 #요소값 변경
+print(tempx)
+
+y=[1,2,3]
+tempy=tuple(y) #리스트>튜플
+```
+
+* 변수를 여러개 쓰면 튜플 내의 값들에 순서대로 저장됨.
 
 ```python
 ex1, ex2 = divmod(9,4)
-#ex1은 2, ex2는 1이 저장됨
+#ex1=2, ex2=1 
+
+1,2,3=(a,b,c)
+```
+
+* 연산
+
+```python
+t1=(1,2,3)
+t2=('a',3,4)
+t3=5,6 
+print(t1[:2]) #(1, 2)
+print(t1+t2) #(1, 2, 3, 'a', 3, 4)
+print(t3*5) #(5, 6, 5, 6, 5, 6)
+print(t1+(7,8)) #(1,2,3,7,8)
 ```
 
 
 
 ### 딕셔너리,셋: {}
+
+```python
+키와 값의 쌍을 저장하는 대용량 자료구조
+해시 알고리즘을 사용하여 일대일로 대응되는 특성이 있어 맵이라고도 부름.
+연관배열이라고도 함.
+
+dic={}
+```
+
+
+
+
+
+```python
+
+```
+
