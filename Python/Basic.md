@@ -770,14 +770,69 @@ print(t1+(7,8)) #(1,2,3,7,8)
 해시 알고리즘을 사용하여 일대일로 대응되는 특성이 있어 맵이라고도 부름.
 연관배열이라고도 함.
 
-dic={}
+dic={'name':'kim','add':'seoul','nn':['사과','바나나']}
+#키가 중복되면 마지막에 저장한 값이 남는다.
+#키는 고유값, 값은 중복가능
+#키에 딕셔너리, 리스트 등 자료구조 안됨
+#순서 없음
+
+dict(name='kim',add='seoul',nn=['사과','바나나'])
+
+#zip 객체를 dict로 변환
+#dict(zip([키 리스트],[값 리스트]))) 
+print(dict(zip(['a','b'],[1,2]))) 
+#{'a': 1, 'b': 2}
+
+#키로 검색한다. 수 만개 있어도 빠름
+print(dic['name'])
+#kim
+
+#키가 있는지 확인
+dic={'boy':'소년','id':'홍길동','school':'동학농민학교'}
+print('age' in dic)
+#False
+
+#요소 개수
+print(len(dic))
+
+#키가 없는 경우 
+#.get으로 None리턴
+dic={'name':'kim','add':'seoul','nn':['사과','바나나']}
+print(dic.get('age'))
+#None
+print(dic.get('age','사전에 없는 단어'))
+#두 번째 인수로 대신 돌려줄 디폴트값 지정
+
+li=[('nn','bear'),('add','seoul'),('age','10')]
+dic=dict(li) 
+#리스트나 튜플로 딕셔더리 생성 가능
 ```
 
 
 
-
+* 삽입, 삭제, 수정
 
 ```python
+dic={'nn':'bear','add':'seoul','age:10'}
+dic['nn']='pup' #수정
+dic['height']='170' #삽입
+del dic['age'] #삭제
+print(dic)
+#{'nn':'pup','add':'seoul','height':'170'}
 
+word={'boy':'소년','school':'학교'}
+word2={'student':'학생'}
+word.update(word2)
+print(word)
+#{'boy':'소년','school':'학교','student':'학생'}
+
+dic={'nn':'bear','add':'seoul','age:10'}
+print(dic.keys()) #키만 추출
+print(dic.values()) #값만 추출
+print(dic.items()) #키와 값 쌍으로 추출
+
+#요소 추출하려면 리스트로 만들기
+mykey=dic.keys()
+listmykey=list(mykey)
 ```
 
