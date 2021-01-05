@@ -336,9 +336,9 @@ print("I eat %s eggs every %d days for %d%% chance" % (x,d,per))
 
 
 ```python
+#자리수 지정
 %[-]폭[.유효자리수]서식
 
-#자리수 지정
 print("%10s" % "hi") 
 #        hi
 print("hello%10s" % "hi")
@@ -357,6 +357,142 @@ print("%-10shello" % "hi")
 
 
 
+## if 조건문
+
+```python
+x=1
+if x==1:
+    pass #코드를 수행하지 않고 넘어감
+print(x)
+
+in : 검사 
+print('h' in "hello")
+#True
+
+elif : 조건이 여러개일때
+money=6500
+if money>=20000:
+    print("taxi")
+elif money>=10000:
+    print("bus")
+elif money>=5000:
+    print("walk")
+#walk
+```
+
+* 변수의 논리값
+
+  | 타입                   | 참                  | 거짓    |
+  | ---------------------- | ------------------- | ------- |
+  | 숫자                   | 0이 아닌 숫자       | 0       |
+  | 문자열                 | 비어 있지 않은 상태 | ""      |
+  | 리스트, 튜플, 딕셔너리 | 비어 있지 않은 상태 | 빈 상태 |
+
+* 논리 연산자
+
+  | 연산자 | 설명                       |
+  | ------ | -------------------------- |
+  | or     | 두 조건 중 하나라도 참이다 |
+  | not    | 조건을 반대로 뒤집는다     |
+  | and    | 두 조건이 모두 참이다      |
+
+  
+
+  
+
+## 반복문
+
+### for
+
+```python
+for 변수 in 컬렉션(리스트, 튜플, 문자열):
+    명령
+```
+
+* 연습
+
+```python
+for i in [(1,2),(3,4),(5,6)]:
+    print(i)
+#각 튜플이 i가 됨
+for i,j in [(1,2),(3,4),(5,6)]:
+    print(i)
+    print(j)
+#튜플의 요소가 i,j가 됨
+
+for i in range(3,10,2):
+    print(i)
+#3 5 7 9
+
+#구구단 2~9단 표현
+for dan in range(2,10):
+    for i in range(1,10):
+        print(dan*i, end=" ")
+    print("") #줄바꿈
+    
+```
+
+
+
+### while
+
+```python
+while 조건:
+    명령
+```
+
+* 연습
+
+```python
+i=0
+while i<10:
+    i=i+1
+    print(i,"번째 반복 수행")
+    if i>10:
+        break #반복문 빠져나가기
+        
+prompt="""
+1.취소
+2.입력
+3.종료
+입력 :
+"""
+
+a=0
+while a<10:
+    a=a+1
+    if a%2==0:continue #while의 시작위치로 이동
+    print(a)
+#1
+#3
+#5
+#7
+#9
+
+#1~100사이의 자연수 중 4의 배수의 합 출력
+num=1
+sum=0
+while num<=100:
+    if num % 4 == 0:
+        sum=sum+num
+    num += 1
+print(sum)
+------------------or-------------------
+num=0
+sum=0
+while num<100:
+    num += 1
+    if num % 4 == 0:
+        sum=sum+num
+print(sum)
+```
+
+
+
+
+
+
+
 ## 함수
 
 * bool() 불리안
@@ -365,6 +501,27 @@ print("%-10shello" % "hi")
 print(1==1.0) True #값 비교 
 print(1 is 1.0) False #객체 비교
 0:False 1:True #그 외 숫자나 텍스트도 참. 빈 문자열은 거짓
+
+a=[4,5]
+a=b
+print(a is b) #a와 b가 가리키는 메모리상의 대상이 동일한가
+#True
+
+a=[1,2]
+b=[1,2] 
+print(a is b) #False
+print(a==b) #True
+
+#a 변수 값을 가진 다른 주소(c) 만들기
+a=[2,4,6]
+c=a[:]
+print(a is c) #False
+print(a==c) #True
+
+from copy import copy #모듈에서 함수 가져오기
+c=copy(a)
+print(a is c) #False
+print(a==c) #True
 ```
 
 * `input()`
@@ -380,10 +537,11 @@ a,b=map(int,input("숫자 두 개 입력 : ").split())
 print(a+b)
 ```
 
-* 함수
+* 최대,최소
 
 ```python
-
+.max() : 최대
+.min() : 최소
 ```
 
 * `map()`
@@ -632,6 +790,7 @@ a.insert(1,4) # 1번 요소에 4 추가
 nums = [1,2,3,4]
 nums[2:2] = [90,91,92] #삽입
 #[1,2,90,91,92,3,4]
+print(num.insert(2,[90,91,92]))
 
 nums = [1,2,3,4]
 nums[2] = [90,91,92] #대체
@@ -763,7 +922,7 @@ print(t1+(7,8)) #(1,2,3,7,8)
 
 
 
-### 딕셔너리,셋: {}
+### 딕셔너리: {}
 
 ```python
 키와 값의 쌍을 저장하는 대용량 자료구조
@@ -773,7 +932,7 @@ print(t1+(7,8)) #(1,2,3,7,8)
 dic={'name':'kim','add':'seoul','nn':['사과','바나나']}
 #키가 중복되면 마지막에 저장한 값이 남는다.
 #키는 고유값, 값은 중복가능
-#키에 딕셔너리, 리스트 등 자료구조 안됨
+#키에 딕셔너리, 리스트 등 자료구조 안됨. 튜플은 가능
 #순서 없음
 
 dict(name='kim',add='seoul',nn=['사과','바나나'])
@@ -788,7 +947,7 @@ print(dic['name'])
 #kim
 
 #키가 있는지 확인
-dic={'boy':'소년','id':'홍길동','school':'동학농민학교'}
+dic={'boy':'소년','id':'홍길동','school':'학교'}
 print('age' in dic)
 #False
 
@@ -834,5 +993,56 @@ print(dic.items()) #키와 값 쌍으로 추출
 #요소 추출하려면 리스트로 만들기
 mykey=dic.keys()
 listmykey=list(mykey)
+
+dic.clear() #모든 요소 제거
+```
+
+
+
+### 집합: Set{}
+
+```python
+순서 없음
+키 중복 안됨
+값을 포함하고 있느냐 아니냐만 중요하다.
+
+s1=set([1,2,3,4,2]) #리스트 자료를 기초로 집합(중복 제외) 생성
+#{2,4,3,1}
+s2=set("hihello")
+#{'h', 'o', 'l', 'i', 'e'}
+s3={'blue':'sky','pink':'blush','red':'blank'}
+#{'blue','pink','red'}
+
+#교집합
+s1&s2
+s1.intersection(s2)
+
+#합집합
+s1|s2
+s1.union(s2)
+
+#차집합
+s1-s2
+s1.difference(s2)
+```
+
+* 편집
+
+```python
+add함수 : 하나만 추가
+s3=set()
+s3.add(3)
+#{3}
+s3.add([3,4]) #리스트 안됨
+
+update함수 : 여러 개 추가
+s3.update([1,2,3,4])
+#{1,2,3,4}
+s3.update([1,5,7])
+#{1,2,3,4,5,7}
+
+remove : 하나만 제거
+s3.remove(2)
+#{1,3,4,5,7}
 ```
 
