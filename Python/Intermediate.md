@@ -312,7 +312,7 @@ print(a+b)
 
 
 
-### 사용자 함수 `def` 
+###  def
 
 ```python
 def 매개변수(인수목록):
@@ -397,7 +397,70 @@ def mytest(a): #함수 안에서만 사용되는 a
     a+=1
 mytest(a)
 print(a)
-#1 처음에 정의해준 a값
+#1 #처음에 정의해준 a값
+
+#안에서 밖에 있는 변수 증가시키기
+1. return
+a=1
+def mytest2(a):
+    a+=1
+    return a
+a=mytest2(a)
+print(a)
+
+2.global
+a=1
+def mytest3():
+    global a
+    a+=1
+mytest3()
+print(a)
+
+#최대값구하기
+def mymax(*arg):
+	print(max(arg))
+#for 넣어서 최대값 구하기
+def mymax(*arg):
+    m=0
+    for i in range(len(arg)):
+        if m<arg[i]:
+            m=arg[i]
+    return m
+print(mymax(3,5,8,9))
+
+#map으로 인수에 간단한 함수를 적용하기
+# [1,2,3] 에 10을 더해 [11,12,13] 만들기
+def pt(x):
+    return x+10
+print(list(map(pt,[1,2,3])))
 ```
 
-* 
+### lambda
+
+: def와 동일한 기능 수행하는 예약어.
+
+함수 정의시 일반적으로는 def를 사용하나 함수가 복잡하거나 def를 사용하지 못하는 경우 람다 사용
+
+```python
+lambda 매개변수:식
+
+print((lambda x:x+10)(1))
+print((lambda x,y:x+y)(1,2))
+
+#람다 함수 내에서는 변수를 생성할 수 없다
+print((lambda x:y=2;x+y)(1)) #에러
+y=2
+print((lambda x:x+y)(1)) #3
+print((lambda x,y=3:x+y)(1)) #4
+
+#map의 인수로 람다표현
+# [1,2,3] 에 10을 더해 [11,12,13] 만들기
+print(list(map(lambda x:x+10,[1,2,3])))
+
+#매개변수가 없는 함수 표현
+print((lambda : 1)()) #1
+
+```
+
+
+
