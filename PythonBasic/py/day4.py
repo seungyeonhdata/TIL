@@ -114,26 +114,29 @@
 # import random
 # print(random.random()) #0~1
 # print(random.randrange(1,7)) #1~6사이 랜덤하게 나옴. 간격 줄 수 있음.
-# print(random.randint(1,46)) #1~45사이
+# print(random.randint(1,45)) #1~45사이
 
 #연습문제
 # 1. a 리스트에서 중복 숫자를 제거해 보자.
-a = [1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5]
-a2=[]
-for i in a:
-    if i not in a2:
-        a2.append(i)
-print(a2)
+# a = [1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5]
+# a2=[]
+# for i in a:
+#     if i not in a2:
+#         a2.append(i)
+# print(a2)
+
+#a2=list(set(a))
+#print(a2)
 
 # 2. while문을 사용해 1부터 1000까지의 자연수 중 3의 배수이면서 7의 배수인
 # 수의 합을 구해 보자.
-num=0
-sum=0
-while num<1000:
-    num+=1
-    if num%3==0 and num%7==0:
-        sum+=num
-print(sum)
+# num=0
+# sum=0
+# while num<1000:
+#     num+=1
+#     if num%3==0 and num%7==0:
+#         sum+=num
+# print(sum)
 
 
 # 3. while문을 사용하여 다음과 같이 별(*)을 표시하는 프로그램을 작성해 보자.
@@ -144,28 +147,28 @@ print(sum)
 # ****
 # *****
 
-1번
-x=0
-while x<5:
-    x+=1
-    print('*'*x)
-
-2번
-x=0
-y=0
-while x<5:
-    x+=1
-    y=0
-    while y<x:
-        y+=1
-        print("*",end='')
-    print()
-
-3번
-for i in range(5):
-    for j in range(i+1):
-        print('*', end = '')
-    print() #한 줄이 끝나면 새 줄로 바꿈
+# 1번
+# x=0
+# while x<5:
+#     x+=1
+#     print('*'*x)
+#
+# 2번
+# x=0
+# y=0
+# while x<5:
+#     x+=1
+#     y=0
+#     while y<x:
+#         y+=1
+#         print("*",end='')
+#     print()
+#
+# for 루프
+# for i in range(5):
+#     for j in range(i+1):
+#         print('*', end = '')
+#     print() #한 줄이 끝나면 새 줄로 바꿈
 
 # 2)
 #      *
@@ -173,19 +176,19 @@ for i in range(5):
 #    ***
 #   ****
 #  *****
-1번
-y=5
-while y>0:
-    y-=1
-    print(" "*y+"*"*(5-y))
-
-for 루프
-for i in range(1,6):
-    for j in range(5-i):
-        print(" ",end="")
-    for j in range(i):
-        print("*",end="")
-    print()
+#
+# y=5
+# while y>0:
+#     y-=1
+#     print(" "*y+"*"*(5-y))
+#
+# for 루프
+# for i in range(1,6):
+#     for j in range(5-i):
+#         print(" ",end="")
+#     for j in range(i):
+#         print("*",end="")
+#     print()
 
 # 3)adv
 #      *
@@ -195,46 +198,51 @@ for i in range(1,6):
 #  *********
 
 #
-z=0
-while z<10:
-    z+=1
-    if z%2==0:continue
-    print(' '*((9-z)//2)+'*'*(z))
+# z=0
+# while z<10:
+#     z+=1
+#     if z%2==0:continue
+#     print(' '*((9-z)//2)+'*'*(z))
+#
+# for 루프
+# for i in range(1,6):
+#     for j in range(6-i):
+#         print(" ",end="")
+#     for j in range(2*i-1):
+#         print("*",end="")
+#     print()
 
-for 루프
-for i in range(1,6):
-    for j in range(6-i):
-        print(" ",end="")
-    for j in range(2*i-1):
-        print("*",end="")
-    print()
 # 4.
 # for문을 사용해 1부터 100까지의 숫자를 출력해 보자.
-for a in range(1,101):
-   print(a)
+# for a in range(1,101):
+#    print(a)
 
 # 4-1.(adv)
 # for문을 사용해 2부터 100까지의 숫자 중에서 소수를(prime number) 출력해 보자.
 # *소수란? 1과 자기 자신으로만 나누어 떨어지는 수(ex. 2, 3, 5, 7, 11, 13,...)
 
-for i in range(2,101):
-    boolean=True
-    for j in range(2,i):
-        if i%j==0:
-            boolean=False
-            break
-    if boolean:
-        print(i, end=' ')
+# for i in range(2,101):
+#     boolean=True
+#     for j in range(2,i+1):
+#         if i%j==0:
+#             boolean=False
+#             break
+#     if boolean:
+#         print(i, end=' ')
+
+# 제곱근으로 코드 최적화
+# 제곱근 정수부분까지만 나누어 떨어지면 소수 아니다
+# 97 : 2 to 9 ->8번만 연산하면 된다
 
 
 # 5.
 # A 학급에 총 10명의 학생이 있다. 이 학생들의 중간고사 점수는 다음과 같다.
-score=[70, 60, 55, 75, 95, 90, 80, 80, 85, 100]
-# for문을 사용하여 A 학급의 평균 점수를 구해 보자.
-sum=0
-for s in score:
-    sum+=s
-print(sum/len(score))
+# score=[70, 60, 55, 75, 95, 90, 80, 80, 85, 100]
+# # for문을 사용하여 A 학급의 평균 점수를 구해 보자.
+# sum=0
+# for s in score:
+#     sum+=s
+# print(sum/len(score))
 
 
 # 6. 로또 당첨 번호 제작(adv)
@@ -243,35 +251,47 @@ print(sum/len(score))
 
 import random
 
-for i in range(1,7):
-    num=random.randint(1,46)
+for i in range(6):
+    num=random.randint(1,45)
     print(num,end=" ")
+#중복된 수가 나오면 수가 5개만 나올 수도 있음
+#while true로 무한루프 돌려서 길이가 6이 되는순간 빠져나가도록
+num=set()
+while len(num) <6:
+    nums=random.randint(1,45)
+    num.add(nums)
+print(num,end=" ")
 
-7. 자판기(pro, 커피 한 잔에 300원이라 가정, 초기 커피는 10개)
-돈을 넣어 주세요: 500
-거스름돈 200를 주고 커피를 줍니다.
-돈을 넣어 주세요: 300
-커피를 줍니다.
-돈을 넣어 주세요: 100
-돈을 다시 돌려주고 커피를 주지 않습니다.
-남은 커피의 양은 8개입니다.
-돈을 넣어 주세요: 0
-종료합니다
-coffee = 10
-while True:
-    money = int(input("돈을 넣어 주세요: "))
-    if money == 300:
-        print("커피를 줍니다.")
-        coffee = coffee -1
-    elif money > 300:
-        print("거스름돈 %d를 주고 커피를 줍니다." % (money-300))
-        coffee = coffee -1
-    else:
-        print("돈을 다시 돌려주고 커피를 주지 않습니다.")
-        print("남은 커피의 양은 %d개 입니다." % coffee)
-    if not coffee:
-        print("종료합니다")
-        break
+# for i in range(6):
+#     [].append(randint(1,45))
+# if len(set[])==6:
+#     print()
+
+# 7. 자판기(pro, 커피 한 잔에 300원이라 가정, 초기 커피는 10개)
+# 돈을 넣어 주세요: 500
+# 거스름돈 200를 주고 커피를 줍니다.
+# 돈을 넣어 주세요: 300
+# 커피를 줍니다.
+# 돈을 넣어 주세요: 100
+# 돈을 다시 돌려주고 커피를 주지 않습니다.
+# 남은 커피의 양은 8개입니다.
+# 돈을 넣어 주세요: 0
+# 종료합니다
+# coffee = 10
+# while True:
+#     money = int(input("돈을 넣어 주세요: "))
+#     if money == 300:
+#         print("커피를 줍니다.")
+#         coffee = coffee -1
+#     elif money > 300:
+#         print("거스름돈 %d를 주고 커피를 줍니다." % (money-300))
+#         coffee = coffee -1
+#     else:
+#         print("돈을 다시 돌려주고 커피를 주지 않습니다.")
+#         print("남은 커피의 양은 %d개 입니다." % coffee)
+#     if not coffee:
+#         print("종료합니다")
+#         break
 
 
 
