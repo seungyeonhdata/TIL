@@ -353,10 +353,6 @@ print("%-10shello" % "hi")
 
 
 
-## 정리해 넣을것
-
-
-
 ## if 조건문
 
 ```python
@@ -398,302 +394,19 @@ elif money>=5000:
 
   
 
-  
-
-## 반복문
-
-### for
-
-```python
-for 변수 in 컬렉션(리스트, 튜플, 문자열):
-    명령
-```
-
-* 연습
-
-```python
-for i in [(1,2),(3,4),(5,6)]:
-    print(i)
-#각 튜플이 i가 됨
-for i,j in [(1,2),(3,4),(5,6)]:
-    print(i)
-    print(j)
-#튜플의 요소가 i,j가 됨
-
-for i in range(3,10,2):
-    print(i)
-#3 5 7 9
-
-#구구단 2~9단 표현
-for dan in range(2,10):
-    for i in range(1,10):
-        print(dan*i, end=" ")
-    print("") #줄바꿈
-   
-#중복 숫자를 제거
-a = [1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5]
-a2=[]
-for i in a:
-    if i not in a2:
-        a2.append(i)
-print(a2)
-
-#1부터 100까지 출력
-for a in range(1,101):
-   print(a)
-
-#소수 출력
-for i in range(2,101):
-    boolean=True
-    for j in range(2,i):
-        if i%j==0:
-            boolean=False
-            break
-    if boolean:
-        print(i, end=' ')
-     
-#평균 구하기
-score=[70, 60, 55, 75, 95, 90, 80, 80, 85, 100]
-sum=0
-for s in score:
-    sum+=s
-print(sum/len(score))
-
-#로또 당첨 번호 제작
-import random
-
-for i in range(1,7):
-    num=random.randint(1,46)
-    print(num,end=" ")
-
-```
-
-
-
-### while
-
-```python
-while 조건:
-    명령
-```
-
-* 연습
-
-```python
-i=0
-while i<10:
-    i=i+1
-    print(i,"번째 반복 수행")
-    if i>10:
-        break #반복문 빠져나가기
-        
-prompt="""
-1.취소
-2.입력
-3.종료
-입력 :
-"""
-
-a=0
-while a<10:
-    a=a+1
-    if a%2==0:continue #while의 시작위치로 이동
-    print(a)
-#1
-#3
-#5
-#7
-#9
-
-#1~100사이의 자연수 중 4의 배수의 합 출력
-num=1
-sum=0
-while num<=100:
-    if num % 4 == 0:
-        sum=sum+num
-    num += 1
-print(sum)
-------------------or-------------------
-num=0
-sum=0
-while num<100:
-    num += 1
-    if num % 4 == 0:
-        sum=sum+num
-print(sum)
-
-#1부터 1000까지의 자연수 중 3의 배수이면서 7의 배수의 합
-num=0
-sum=0
-while num<1000:
-    num+=1
-    if num%3==0 and num%7==0:
-        sum+=num
-print(sum)
-
-
-자판기(pro, 커피 한 잔에 300원이라 가정, 초기 커피는 10개)
-돈을 넣어 주세요: 500
-거스름돈 200를 주고 커피를 줍니다.
-돈을 넣어 주세요: 300
-커피를 줍니다.
-돈을 넣어 주세요: 100
-돈을 다시 돌려주고 커피를 주지 않습니다.
-남은 커피의 양은 8개입니다.
-돈을 넣어 주세요: 0
-종료합니다
-
-coffee = 10
-while True:
-    money = int(input("돈을 넣어 주세요: "))
-    if money == 300:
-        print("커피를 줍니다.")
-        coffee = coffee -1
-    elif money > 300:
-        print("거스름돈 %d를 주고 커피를 줍니다." % (money-300))
-        coffee = coffee -1
-    else:
-        print("돈을 다시 돌려주고 커피를 주지 않습니다.")
-        print("남은 커피의 양은 %d개 입니다." % coffee)
-    if not coffee:
-        print("종료합니다")
-        break
-
-```
-
-
-
-#### 삼각형 그리기
-
-```python
-#삼각형 그리기
-
-*
-**
-***
-****
-*****
-
-1) while 루프
-x=0
-while x<5:
-    x+=1
-    print('*'*x)
-
-2) while 루프
-x=0
-y=0
-while x<5:
-    x+=1
-    y=0
-    while y<x:
-        y+=1
-        print("*",end='')
-    print()
-
-3) for 루프
-for i in range(5):
-    for j in range(i+1):
-        print('*', end = '')
-    print() #한 줄이 끝나면 새 줄로 바꿈
-
-
-     *
-    **
-   ***
-  ****
- *****
-
-1) while 루프
-y=5
-while y>0:
-    y-=1
-    print(" "*y+"*"*(5-y))
-
-2) for 루프
-for i in range(1,6):
-    for j in range(5-i):
-        print(" ",end="")
-    for j in range(i):
-        print("*",end="")
-    print()
-
-
-     *
-    ***
-   *****
-  *******
- *********
-
-1) while 루프
-z=0
-while z<10:
-    z+=1
-    if z%2==0:continue
-    print(' '*((9-z)//2)+'*'*(z))
-
-2) for 루프
-for i in range(1,6):
-    for j in range(6-i):
-        print(" ",end="")
-    for j in range(2*i-1):
-        print("*",end="")
-    print()
-```
-
-
-
-
 
 ## 함수
 
-* bool() 불리안
-
 ```python
-print(1==1.0) True #값 비교 
-print(1 is 1.0) False #객체 비교
-0:False 1:True #그 외 숫자나 텍스트도 참. 빈 문자열은 거짓
+※ 내장 함수랑 객체 소속의 메서드는 호출 방식 다름
+len(s) #내장 함수
+s.find('a') #메서드
 
-a=[4,5]
-a=b
-print(a is b) #a와 b가 가리키는 메모리상의 대상이 동일한가
-#True
-
-a=[1,2]
-b=[1,2] 
-print(a is b) #False
-print(a==b) #True
-
-#a 변수 값을 가진 다른 주소(c) 만들기
-a=[2,4,6]
-c=a[:]
-print(a is c) #False
-print(a==c) #True
-
-from copy import copy #모듈에서 함수 가져오기
-c=copy(a)
-print(a is c) #False
-print(a==c) #True
-```
-
-* `input()`
-
-```python
-a,b = input("두 수 입력 :").split()
-#split앞에 있는 문자열을 공백으로 분리
-
-a,b=(input("숫자 두 개 입력 : ").split())
-print(int(a)+int(b))
-
-a,b=map(int,input("숫자 두 개 입력 : ").split())
-print(a+b)
-```
-
-* 최대,최소
-
-```python
-.max() : 최대
-.min() : 최소
+외장함수 : 별도로 적재를 해야 하는 함수
+import random
+print(random.random())  #난수 발생
+#모듈명.함수명()
+print(random.randint(1,10))
 ```
 
 * `map()`
@@ -722,21 +435,7 @@ print(x1+x2)
 #3
 ```
 
-
-
-```python
-※ 내장 함수랑 객체 소속의 메서드는 호출 방식 다름
-len(s) #내장 함수
-s.find('a') #메서드
-
-외장함수 : 별도로 적재를 해야 하는 함수
-import random
-print(random.random())  #난수 발생
-#모듈명.함수명()
-print(random.randint(1,10))
-```
-
-
+## 
 
 ## 컬렉션
 
