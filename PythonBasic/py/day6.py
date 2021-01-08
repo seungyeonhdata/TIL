@@ -107,11 +107,50 @@
 # print(msub(2,1))
 
 # from mod1 import * #모든 함수 다 가져오기
+#
+# import mod1 as m
+# #이 상태로 실행하면 mod1.py의 실행값 가져옴
+#
+# print(m.madd(3,5))
 
-import mod1 as m
-#이 상태로 실행하면 mod1.py의 실행값 가져옴
+# 연습문제
 
-print(m.madd(3,5))
+a=3
+a.isodd()
+# def is_odd():
+#     num = int(input("숫자 입력 :")
+#     return num.isodd()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

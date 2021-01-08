@@ -252,5 +252,6 @@ for i in range(1,10001):
     eight+=str(i).count("8")
 print(eight)
 
+#range를 list로 만들면 str의 나열이 됨
 count_8 = str(list(range(1, 10001))).count('8')
 print(count_8)
