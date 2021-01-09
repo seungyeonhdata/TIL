@@ -9,16 +9,16 @@
 # for idx,i in enumerate(['aaa','bbb','ccc']):
 #     print(idx,i)
 
-#eval():문자열로 구성된 수식을 입력받아서 문자열을 실행한 결과를 리턴
+# eval():문자열로 구성된 수식을 입력받아서 문자열을 실행한 결과를 리턴
 # print(eval("10+20")) #30
 #
 # for i in range(10,14):
 #     print(i+int((str(i))))
+
 #
-#
-# #filter():월하는 데이터를 걸러내는 함수
-# #filter(함수이름, 1번째 인수에 있는 함수에 입력될 반복 가능한 자료형)
-# #리턴값이 True/False로 나와야함. True인 값들만 묶어서 돌려준다
+#filter():월하는 데이터를 걸러내는 함수
+#filter(함수이름, 1번째 인수에 있는 함수에 입력될 반복 가능한 자료형)
+#리턴값이 True/False로 나와야함. True인 값들만 묶어서 돌려준다
 # #1.사용안함
 # def pos(li):
 #     res=[]
@@ -43,11 +43,11 @@
 #경제적인 코딩: comprehension
 #리스트
 # print([n for n in range(5)])
-#1~10까지 짝수 저장
+# 1~10까지 짝수 저장
 # print([i for i in range(1,11) if i%2==0])
-#for문 여러개
+# for문 여러개
 # print([(d,d2) for d in ['쌈밥','치킨','피자'] for d2 in ['사과','아이스크림']])
-#0~9까지 수 중 5보다 작으면서 2로 나누어 떨어지는 수
+# 0~9까지 수 중 5보다 작으면서 2로 나누어 떨어지는 수
 # print([for i in range(10) if i<5 and i%2==0])
 #셋
 # print({x+y for x in range(10) for y in range(10)})
@@ -55,7 +55,7 @@
 # print({x+y:"값" for x in range(5) for y in range(5)})
 # scores={'철수':50,'영희':70,'순신':100}
 # print({name:score for name, score in scores.items() if name!= '순신'})
-#점수 60점 이상이면 pass, 미만이면 fail (else는 for문이 뒤로감)
+# 점수 60점 이상이면 pass, 미만이면 fail (else는 for문이 뒤로감)
 # print({
 #     name:'pass' if score>=60 else 'fail'
 #     for name,score in scores.items()
@@ -87,13 +87,13 @@
 # del x['f']
 # x.clear() 딕셔너리 전체 삭제
 # print(x)
-
-#리스트(튜플)을 딕셔너리로
+#
+# 리스트(튜플)을 딕셔너리로
 # li=['a','b','c']
 # d=dict.fromkeys(li,10)
 # print(d)
 # from collections import defaultdict
-#print(d['z']) #키 없어서 에러
+# print(d['z']) #키 없어서 에러
 # d=defaultdict(int)
 # print(d['z']) #0
 
@@ -141,13 +141,19 @@
 
 
 #
+
+# def palindrom(str):
+#   oneword=str.replace(" ","")
+#   print(oneword==oneword[::-1])
+#
+
 # def palindrom(str):
 #    oneword=str.replace(" ","")
 #    if oneword==oneword[::-1]:
 #       print("True")
 #    else:
 #       print("False")
-#
+
 # palindrom("tenet")
 
 #다른풀이 1
