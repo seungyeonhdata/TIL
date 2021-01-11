@@ -131,10 +131,10 @@
 # fhand.write(text)
 # fhand.close()
 
-with open("test.txt","a") as f:
-    f.write("Life is too short\n")
-    text=input("파일에 입력할 내용:")
-    f.write({0}".format(")
+# with open("test.txt","a") as f:
+#     f.write("Life is too short\n")
+#     text=input("파일에 입력할 내용:")
+#     f.write({0}".format("))
 
 # # 1. 주어진 자연수가 홀수인지 짝수인지 판별해 주는 함수(is_odd)를 작성해 보자.
 # def is_odd (n):
