@@ -488,11 +488,22 @@ counts={}
 for word in words:
     counts[word]=counts.get(word,0)+1
 counts_max=max(counts.keys(),key=lambda k:counts[k])
-print(counts_max,"(이)라는 단어가",counts[counts_max],"번으로 가장 많이 나왔습니다.")
+print("'{0}'(이)라는 단어가 {1}번으로 가장 많이 나왔습니다".format(counts_max,counts[counts_max]))
 
 
 
-
+# 혜지님 풀이
+# splits=news.replace('\n',' ').replace('-',' ').split(' ')
+# lst = [word for word in splits if word!= '']
+# 
+# words_count={}
+# for word in lst:
+#     if word in words_count:
+#         words_count[word] += 1
+#     else:
+#         words_count[word] = 1
+# sorted_words=sorted(words_count.items(), key=lambda x: x[1], reverse=True)
+# print('가장 많이 등장한 단어는 "{0}" 입니다. {1}회 등장했습니다.'.format(sorted_words[0][0],sorted_words[0][1]))
 
 
 #import re
