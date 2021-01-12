@@ -9,11 +9,11 @@ kim 950202-2345678
 # jumin 데이터의 뒷 부분을 모두 *로 변환하여 출력
 # park 850101-*******
 # kim 950202-*******
-for line in jumin.split("\n"):
-    for word in line.split(" "):
-        if len(word)==14 and word[:6].isdigit() and word[7:].isdigit():
-            word=word[:6]+"-"+"*******"
-            print(word)
+# for line in jumin.split("\n"):
+#     for word in line.split(" "):
+#         if len(word)==14 and word[:6].isdigit() and word[7:].isdigit():
+#             word=word[:6]+"-"+"*******"
+#             print(word)
 
 #print(jumin.split("\n")) # \n : 엔터 문자(줄바꿈 문자)
 
@@ -76,10 +76,10 @@ ex) [abcdef] 의미? a,b,...,f 중에서 어떤 한 개의 문자와 매치
 'a' 문자는 정규표현식에 매치됨
 """
 import re
-print(re.match("[abcdef]","a")) #매치됨
-print(re.match("[abcdef]","g")) #매치 안됨
-print(re.match("[abcdef]","abc")) #매치됨
-print(re.match("[abcdef]","c")) #매치됨
+# print(re.match("[abcdef]","a")) #매치됨
+# print(re.match("[abcdef]","g")) #매치 안됨
+# print(re.match("[abcdef]","abc")) #매치됨
+# print(re.match("[abcdef]","c")) #매치됨
 
 print(re.match("my","hello, my world"))
 print(re.search("my","hello, my world"))

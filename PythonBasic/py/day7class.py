@@ -288,7 +288,7 @@
 # d2=defaultdict(int)
 # print(d2['z'])
 
-d3={'a':10, 'b':20}
+# d3={'a':10, 'b':20}
 #키만 출력
 #값만 출력
 #키,값 쌍을 출력
@@ -303,33 +303,33 @@ d3={'a':10, 'b':20}
 # for k,v in d3.items():
 #     print(k,v)
 
-keys=['a','b','c','d']
-print(dict.fromkeys(keys))
+# keys=['a','b','c','d']
+# print(dict.fromkeys(keys))
 
 # for key, value in dict.fromkeys(keys).items(): #dict.fromkeys(keys)는 딕셔너리
 #     print(key, value)
-
-d4={key:value for key, value in dict.fromkeys(keys).items()}
-print(d4)
-
-x = {'a': 10, 'b': 20, 'c': 30, 'd': 40, 'e':20}
+#
+# d4={key:value for key, value in dict.fromkeys(keys).items()}
+# print(d4)
+#
+# x = {'a': 10, 'b': 20, 'c': 30, 'd': 40, 'e':20}
 
 #newx는 x에 저장된 데이터에서 'b'를 뺀 나머지를 저장
-newx={k:v for k, v in x.items() if k!='b'}
-print(newx)
+# newx={k:v for k, v in x.items() if k!='b'}
+# print(newx)
 
 #newx는 x에 저장된 데이터에서 값이 '20'인 자료를 뺀 나머지를 저장
-newx={k:v for k, v in x.items() if v!=20}
-print(newx)
+# newx={k:v for k, v in x.items() if v!=20}
+# print(newx)
 
 
 #딕셔너리={키1: {키a:값a,키b:값b}, 키2:{키c:값c,키d:값d}}
 
-영화평점={'BTS':{'머큐리':4.5,'매트릭스':4.0},'소녀시대':{'머큐리':3.5,'매트릭스':3.0}}
-print(영화평점['BTS']['매트릭스'])
-
-영화평점['BTS']['매트릭스']=5
-print(영화평점['BTS']['매트릭스'])
+# 영화평점={'BTS':{'머큐리':4.5,'매트릭스':4.0},'소녀시대':{'머큐리':3.5,'매트릭스':3.0}}
+# print(영화평점['BTS']['매트릭스'])
+#
+# 영화평점['BTS']['매트릭스']=5
+# print(영화평점['BTS']['매트릭스'])
 
 x={'a':0,'b':1}
 y=x #실제로는 딕셔너리가 1개 만들어짐
@@ -354,14 +354,14 @@ print(y)
 print(x)
 
 #중첩 딕셔너리에서는 copy메서드 대신 copy모듈의 deepcopy함수를 사용
-x={'a':{'python':'3.8'}, 'b':{'python':'2.7'}}
-import copy
-y=copy.deepcopy(x) #깊은 복사
-y['a']['python']="2.77777"
-print(y)
-print("="*50)
-print(x)
-
+# x={'a':{'python':'3.8'}, 'b':{'python':'2.7'}}
+# import copy
+# y=copy.deepcopy(x) #깊은 복사
+# y['a']['python']="2.77777"
+# print(y)
+# print("="*50)
+# print(x)
+#
 
 
 

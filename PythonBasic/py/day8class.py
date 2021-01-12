@@ -79,9 +79,9 @@
 # # filter:특정 조건으로 걸러진 요소들을 묶어서 리턴, map과의 차이점이라면, 함수의 결과가 참/거짓인지에
 # # 따라 요소를 포함할지를 결정
 #
-# t=list(range(1,11))
-# print(t)
-# #짝수 리스트를 출력
+t=list(range(1,11))
+print(t)
+#짝수 리스트를 출력
 # #1. for
 # def isEven(n):
 #     return True if n % 2==0 else False   #n이 2로 나누어 떨어지면 True, 아니면 False 리턴
@@ -96,28 +96,28 @@
 #
 # #3. lambda
 # print(list(filter(lambda x: x%2==0, t)))
-#
-# #os 모듈:디렉토리, 파일의 경로 등 확인/제어
-# import os
-# print(os.environ)
-#
-# print(os.getcwd()) # 현재 작업 경로
-# #os.mkdir("sample") #현재 작업 위치에 폴더 생성
-# #os.rmdir("sample")
-# #os.rename("sample", "test") #폴더명 변경
-# #os.renames("hello.txt", "hi.txt")
-#
-# import shutil
-# shutil.copy("hi.txt", "hicopy.txt") #파일 복사
-#
-# #특정 폴더 내에 있는 폴더 또는 파일 목록 등을 조사
-# import glob
-# #모든 파일 목록 출력
-# #print(glob.glob("C:/Users/i/PycharmProjects/pythonBasic/*"))
-#
-# #파일 확장자가  py인 파일들을 출력
-# print(glob.glob("C:/Users/i/PycharmProjects/pythonBasic/*.py"))
-#
+
+#os 모듈:디렉토리, 파일의 경로 등 확인/제어
+import os
+print(os.environ)
+
+print(os.getcwd()) # 현재 작업 경로
+#os.mkdir("sample") #현재 작업 위치에 폴더 생성
+#os.rmdir("sample")
+#os.rename("sample", "test") #폴더명 변경
+#os.renames("hello.txt", "hi.txt")
+
+import shutil
+shutil.copy("hi.txt", "hicopy.txt") #파일 복사
+
+#특정 폴더 내에 있는 폴더 또는 파일 목록 등을 조사
+import glob
+#모든 파일 목록 출력
+#print(glob.glob("C:/Users/i/PycharmProjects/pythonBasic/*"))
+
+#파일 확장자가  py인 파일들을 출력
+print(glob.glob("C:/Users/i/PycharmProjects/pythonBasic/*.py"))
+
 #
 # 1.문자열 바꾸기
 # a='a:b:c:d'
@@ -159,36 +159,36 @@
 #     msg+=morse[word]
 # print(msg)
 #
-sen1='오늘 멀티캠퍼스에서 너무 쉬운 프로그래밍을 공부했다.'
-sen2='멀티캠퍼스에서 공부했던 오늘의 프로그래밍은 너무 쉬웠다.'
-
-n=2
-def ngram(sen,n):
-    spl=[]
-    for i in range(len(sen)-n+1):
-        spl.append(sen[i:i+n])
-    return spl
-# print(ngram('오늘 멀티캠퍼스에서 너무 쉬운 프로그래밍을 공부했다.',2))
-
-def getAccuracy(sen1,sen2,n):
-    spl1=ngram(sen1,n)
-    spl2=ngram(sen2,n)
-    res = []
-    count=0
-    for i in spl1:
-        for j in spl2:
-            if i==j:
-                res.append(i)
-                count+=1
-    return count/len(spl1),count/len(spl2)
-
-acc1,acc2 = getAccuracy(sen1,sen2,2)
-print("첫번째 문장 유사도:",acc1)
-print("두번째 문장 유사도:",acc2)
-
-acc1,acc2 = getAccuracy(sen1,sen2,3)
-print("첫번째 문장 유사도:","%.2f" % acc1)
-print("두번째 문장 유사도:","%.2f" % acc2)
+# sen1='오늘 멀티캠퍼스에서 너무 쉬운 프로그래밍을 공부했다.'
+# sen2='멀티캠퍼스에서 공부했던 오늘의 프로그래밍은 너무 쉬웠다.'
+#
+# n=2
+# def ngram(sen,n):
+#     spl=[]
+#     for i in range(len(sen)-n+1):
+#         spl.append(sen[i:i+n])
+#     return spl
+# # print(ngram('오늘 멀티캠퍼스에서 너무 쉬운 프로그래밍을 공부했다.',2))
+#
+# def getAccuracy(sen1,sen2,n):
+#     spl1=ngram(sen1,n)
+#     spl2=ngram(sen2,n)
+#     res = []
+#     count=0
+#     for i in spl1:
+#         for j in spl2:
+#             if i==j:
+#                 res.append(i)
+#                 count+=1
+#     return count/len(spl1),count/len(spl2)
+#
+# acc1,acc2 = getAccuracy(sen1,sen2,2)
+# print("첫번째 문장 유사도:",acc1)
+# print("두번째 문장 유사도:",acc2)
+#
+# acc1,acc2 = getAccuracy(sen1,sen2,3)
+# print("첫번째 문장 유사도:","%.2f" % acc1)
+# print("두번째 문장 유사도:","%.2f" % acc2)
 
 #n=3
 # for i in range(len(sen1)-2):

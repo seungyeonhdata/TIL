@@ -13,6 +13,11 @@ import re
 # print(re.match("hi", "hello, world"))
 #None (거짓)
 
+print(re.match("[abcdef]","a")) #매치됨
+print(re.match("[abcdef]","g")) #매치 안됨
+print(re.match("[abcdef]","abc")) #매치됨
+print(re.match("[abcdef]","c")) #매치됨
+
 # print(re.match("hello", "hello, world")) #매치는 일치하지 않는 부분 나오면 바로 끝남
 #<re.Match object; span=(0,5), match='hello'>
 

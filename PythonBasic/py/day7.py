@@ -195,3 +195,51 @@
 # print(selfpalindrome("sos"))
 # print(selfpalindrome("nurses run"))
 # print(selfpalindrome("hello")
+
+#강사 풀이
+
+#1.
+# number_list = [1, 3, 4, 8, 13, 17, 20]
+# def find_shortest(number_list):
+#     result = 0
+#     min_val = max(number_list)-min(number_list) #20-1=19
+#     for i in range(len(number_list)-1): #0~5
+#         val = number_list[i+1] - number_list[i]
+#         if min_val > val:
+#             min_val = val
+#             result = i
+#     return print(number_list[result], number_list[result+1])
+# find_shortest(number_list)
+
+#2.
+# w=input("단어 입력 : ")
+# isPalindrome=True #회문 여부, 초기값은  true
+#
+# #중간 공백 제거
+# w=w.replace(" ","")
+#
+# for i in range(len(w)//2):
+#     if w[i] != w[-1-i]: #왼쪽문자와 오른쪽문자가 다른 경우
+#         isPalindrome=False
+#         break
+# print(isPalindrome)
+
+#nurses run => nursesrun
+#공백문자 -> 전처리(제거)
+
+#
+# w=input("단어 입력 : ")
+# #공백제거 전처리
+# # print(w==w[::-1])
+# # print(w)
+# # print(w[::-1])
+#
+# print(list(w)==list(reversed(w)))
+# #level=> [l,e,v,e,l]
+#문자열을 리스트에 저장하면 문자 하나 하나가 리스트 요소
+
+# w='level'
+# print(w)
+# print(''.join(reversed(w)))
+#
+# print(w==''.join(reversed(w)))
