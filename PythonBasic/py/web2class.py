@@ -349,12 +349,71 @@
 # 1.
 # 입력 예시: 0123456789 01234 01234567890 6789012345 012322456789
 # 출력 예시: True False False True False
-print(re.match("\d","01234"))
+
+# nums=list(input("번호 10개 입력 : "))
+# print(len(nums)==10 and len(nums)==len(set(nums)))
+
+# if len(nums)==10 and len(nums)==len(set(nums)):
+#     print("True")
+# else:
+#     print("False")
+
+
+
+# stnum=list(range(10))
+# def oncenum(num):
+#     num=str(num)
+#     for i in num:
+#         if int(i) in stnum:
+#             stnum.remove(int(i))
+#         else: break
+#     if len(stnum) == 0:
+#         return True
+#     else:return False
+# print(oncenum(6789012345))
 
 #2.
+emails =[
+'python@mail.example.com',
+'python+kr@example.com',
+'python-dojang@example.co.kr',
+'python_10@example.info',
+'python.dojang@e-xample.com',
+'@example.com', 'python@example', 'python@example-com'] # 잘못된 형식
 
+
+# import re
+# right=re.compile('\S+@\S+[.]\w+')#검사 대상이 리스트일때는 compile하고 요소 조사
+# for i in emails:
+#     if right.findall(i):
+#         print(right.findall(i))
+#     else: print("잘못된 형식")
+
+
+# for i in emails:
+#     if right.findall(i):
+#         print(right.findall(i))
+#     else: print("잘못된 형식")
+
+
+
+# print(emails)
+
+# p=re.compile('(.+)[@](\w.+[.]\w+)')
+# print(p.match("python@example-com"))
+# for i in emails:
+#     if p.match(i):
+#         print("올바른 형식",p.findall(i))
+#     else:
+#         print("잘못된 형식")
 
 #3.
+# 1)[캐스터]가 캐스팅한 내용만 추출하시오
+# 2)달린 댓글의 개수를 출력하시오
+# 3)대전의 온도를 출력하시오
+# 4)가장 많이 등장한 단어가 무엇인가요?
+# 5)가장 많이 등장한 글자는 무엇이며, 총 몇 번 등장했나요? (형태소분석기)
+
 news="""
 
 연합뉴스TV
@@ -414,17 +473,67 @@ news="""
 날씨 전해 드렸습니다.
 """
 
+# 1)
+# cast=re.compile('\[캐스터.*',re.DOTALL)
+# caster=print(cast.findall(news)[0][len("[캐스터]"):])
+# 2)
+# comment=re.findall('댓글\d+',news)
+# print("댓글 수 :",comment[0][2:])
+# 3)
+# print("대전 기온 :",re.findall('대전\s\d+',news)[0][2:],"도")
+# 4)
+
+words=news.split()
+counts={}
+for word in words:
+    counts[word]=counts.get(word,0)+1
+counts_max=max(counts.keys(),key=lambda k:counts[k])
+print(counts_max,"(이)라는 단어가",counts[counts_max],"번으로 가장 많이 나왔습니다.")
 
 
 
 
 
 
+#import re
+#
+# p=re.compile('\\[캐스터.+',re.DOTALL)
+# print(p.findall(news))
+# print("댓글수:",re.findall("댓글\d",new)[0][2])
+# print("대전의 온도:",re.findall("대전.{,10}",new)[0][3])
 
+# p=re.compile('\w+')
+# res=p.findall(new)
+# print(p.findall(new))
+# print(type(res))
+# print(res[0])
+# l = []
+# excount = 0
+# for i in res:
+# newcount = 0
+# for j in res:
+# if i==j:
+# newcount+=1
+# l.append((newcount,i))
+# max1=max(l)[0]
+# print(l)
+# print(set([l[i][1] for i in range(len(l)) if l[i][0] >= max1]),":",max1)
 
-
-
-
+# import re
+# p=re.compile("[가-힣]+")
+# print(p.findall(new))
+# l=p.findall(new)
+# word=dict()
+# for j in l:
+# for i in j:
+# if i in word.keys():
+# word[i]+=1
+# else:word[i]=0
+# print(word)
+# maxnum=max(word.values())
+# for i in range(len(word.keys())):
+# if list(word.values())[i]==maxnum:
+# print(list(word.keys())[i],":",maxnum)
 
 
 
