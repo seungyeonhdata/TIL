@@ -8,8 +8,9 @@ import re
 # \w [a-zA-Z0-9_]
 # \W [^a-zA-Z0-9_]
 #
-#{a,b} a번 이상 b번 이하 반복
 
+#grouping
+#{a,b} a번 이상 b번 이하 반복
 # 핸드폰번호
 # 3자리-4자리-4자리
 # print(re.match("\d{3}-\d{4}-\d{4}","010-1111-4545"))
@@ -68,6 +69,29 @@ news="""
 # print(re.search("\*","3*5"))
 
 
-print(re.search("\$\([a-z]+\)","$(document)"))
-print(re.search("[$()a-z]+","$(document)"))
+# print(re.search("\$\([a-z]+\)","$(document)"))
+# print(re.search("[$()a-z]+","$(document)"))
+
+#abc 문자열 조사 ()
+# print(re.search("(abc)+","abcabcabc ok"))
+
+#이름만 뽑아내기
+# print(re.search("\w+\s+\d+-\d+-\d+","kim 010-1111-2424"))
+# res=re.search("\w+\s+\d+-\d+-\d+","kim 010-1111-2424")
+# print(res.group()) #매칭된 결과를 조작하기 위해 그룹화. str임
+# print(res.group().split()[0]) #split() default가 공백문자임
+
+# res2=re.search("(\w+)\s+(\d+-\d+-\d+)","kim 010-1111-2424")
+# print(res2.group(1)) #0은 그룹 전체
+
+#헷갈리므로 그룹 이름 부여
+#(?P<'그룹명'>)
+# res3=re.search("(?P<name>\w+)\s+(?P<num>\d+-\d+-\d+)","kim 010-1111-2424")
+# print(res3.group('name'))
+# print(res3.group('num'))
+#
+# print(re.findall("hello|hi","hello how are you bye hi"))
+
+
+
 
