@@ -546,8 +546,26 @@ print("'{0}'(이)라는 단어가 {1}번으로 가장 많이 나왔습니다".fo
 # if list(word.values())[i]==maxnum:
 # print(list(word.keys())[i],":",maxnum)
 
-
-
-
+# 이소연님 풀이
+# import re
+# sliced=news.split()
+# sliced_s=set(sliced)
+# word_cnt={}
+# for i in sliced_s:
+#     word_cnt[i]=sliced.count(i)
+#     cnt_m=max(word_cnt.values())
+# for key, value in word_cnt.items():
+#     if value == cnt_m:
+#         print("가장 많이 등장한 단어는?", key)
+#
+#
+# res=re.findall("[ㄱ-ㅎ가-힣a-zA-Z]", news)
+# from collections import Counter
+# letters=Counter(res)
+# max_let=max(letters.values())
+# for key, value in letters.items():
+#     if value == max_let:
+#         print("가장 많이 등장한 글자는?", key)
+#
 
 
