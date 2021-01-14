@@ -98,32 +98,32 @@ from bs4 import BeautifulSoup
 
 #chromedriver는 크롬 웹브라우저를 제어하는 프로그램
 
-# from selenium import webdriver
-# driver=webdriver.Chrome("c:/scrap/chromedriver.exe")
+from selenium import webdriver
+driver=webdriver.Chrome("c:/scrap/chromedriver.exe")
 # # url="https://www.naver.com"
 # # driver.get(url)
 # # html=driver.page_source
 # # print(html)
 #
 # #멜론 실시간 인기 차트 곡 수집
-# url="https://www.melon.com/chart/index.htm"
-# driver.get(url)
-# html=driver.page_source
-# #print(html)
-# soup=BeautifulSoup(html, "html.parser")
-# #print(soup)
-# songs=soup.select("tr")[1:]
-# #print(len(songs))
-# song=songs[2]
-#
-# title=song.select("a")
-# print(title)
-#
-# print("="*50)
-# for song in songs:
-#     print("곡 명 :",song.select("div.ellipsis.rank01 > span > a")[0].string)
-#     print("가수명 : ",song.select("div.ellipsis.rank02 > span > a")[0].string)
-#     print("="*50)
+url="https://www.melon.com/chart/index.htm"
+driver.get(url)
+html=driver.page_source
+#print(html)
+soup=BeautifulSoup(html, "html.parser")
+#print(soup)
+songs=soup.select("tr")[1:]
+#print(len(songs))
+song=songs[2]
+
+title=song.select("a")
+print(title)
+
+print("="*50)
+for song in songs:
+    print("곡 명 :",song.select("div.ellipsis.rank01 > span > a")[0].string)
+    print("가수명 : ",song.select("div.ellipsis.rank02 > span > a")[0].string)
+    print("="*50)
 
 
 #내일 : 인스타그램 크롤링(제주도 맛집)
