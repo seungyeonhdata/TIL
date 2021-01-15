@@ -100,7 +100,7 @@ from bs4 import BeautifulSoup
 # first=songs[0] #첫번째 노래
 # title=first.select("a")
 # print(title)
-# print(song.select("span > a")) #노래 제목이 있는 부분
+# print(first.select("span > a")) #노래 제목이 있는 부분
 
 # 3위 BTS-다이너마이트
 # bts=songs[2]
@@ -130,25 +130,38 @@ from bs4 import BeautifulSoup
 # img=soup.find_all(class_="_img")
 # print(len(img))
 
-# from selenium import webdriver
-# driver=webdriver.Chrome("c:/scrap/chromedriver.exe")
-#
-# source=driver.page_source
-# driver.get(url)
-# print(source)
-#
-#다나와에서 노트북 검색 #동적인 페이지를 읽으려면 selenium 써야한다!
-from bs4 import BeautifulSoup
-import urllib.request as req
-import re
-# from selenium import webdriver
-# driver=webdriver.Chrome("c:/scrap/chromedriver.exe")
+from selenium import webdriver
+driver=webdriver.Chrome("c:/scrap/chromedriver.exe")
+url="http://search.danawa.com/dsearch.php?query=무선청소기&tab=main"
 
+driver.get(url) #해당 url을 브라우저에 띄움
+#print(driver.current_url)
+#driver.implicitly_wait(3) #웹페이지의 모든 데이터를 읽을때까지 3초간 대기
+source=driver.page_source
+#print(source)
+soup=BeautifulSoup(source,"html.parser")
+prod_items=soup.select("li.prod_item")
+for item in prod_items:
+    print("모델명 :",item.select("p.prod_name>a")[0].string)
+    print("상세정보 :",item.select('div.spec_list')[0].text.strip())
+    print("가격 :",item.select('li.rank_one > p.price_sect > a > strong')[0].string)
+    print("-"*100)
+
+#productInfoDetail_12583850 > p.price_sect > a > strong
+#연습문제
+#다나와에서 노트북 검색 #동적인 페이지를 읽으려면 selenium 써야한다!
+# from bs4 import BeautifulSoup
+# import urllib.request as req
+#
+# from selenium import webdriver
+# driver=webdriver.Chrome("c:/scrap/chromedriver.exe")
 # url="https://search.danawa.com/dsearch.php?query=%EB%85%B8%ED%8A%B8%EB%B6%81"
 # driver.get(url)
 # res=driver.page_source
 # soup=BeautifulSoup(res,"html.parser")
-# print(soup)
+# prods=soup.search("ul.product_list")
+# print(prods)
+
 # names=soup.find_all("div.product_main_info")
 # print(names)
 # from bs4 import BeautifulSoup
@@ -168,19 +181,37 @@ import re
 # 3페이지="http://search.danawa.com/dsearch.php?query=%EB%85%B8%ED%8A%B8%EB%B6%81&originalQuery=%EB%85%B8%ED%8A%B8%EB%B6%81&previousKeyword=%EB%85%B8%ED%8A%B8%EB%B6%81&volumeType=allvs&page=3&limit=40&sort=saveDESC&list=list&boost=true&addDelivery=N&recommendedSort=Y&defaultUICategoryCode=112758&defaultPhysicsCategoryCode=860%7C869%7C10586%7C0&defaultVmTab=77818&defaultVaTab=9995917&tab=goods"
 # urlopen(1페이지)
 
+
+
+
+
+
+
+
+
+
+
+
+
 #보배드림-차량정보 추출
-url="https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K"
-res=req.urlopen(url)
-soup=BeautifulSoup(res,"html.parser")
+# url="https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K"
+# res=req.urlopen(url)
+# soup=BeautifulSoup(res,"html.parser")
 
-cars=soup.select("ul.clearfix>li")
-print(cars)
-for car in cars:
-    car_names=car.select("p.tit")
-print(car_names)
+# cars=soup.select("ul.clearfix>li.product-item")
 # for car in cars:
-#     print(cars[].string)
+#     print("차종 :",car.select("div.mode-cell.title>p>a")[0].string)
+#     print("연식 :",''.join((car.select("div.mode-cell.year>span")[0]).strings))
+#     print("연료 :",car.select("div.mode-cell.fuel>span")[0].string)
+#     print("가격 :",car.select("div.mode-cell.price>b>em")[0].string,"만원")
+#     print("-"*50)
 
+# --------------------------------------------------
+# 차종 : 기아 K5 2세대 2.0 가솔린 SX 디럭스
+# 연식 : 15/11(16년형)
+# 연료 : 가솔린
+# 가격 : 1,090 만원
+# --------------------------------------------------
 
 #연도를 나열식으로 하나의 문자열로 만들때
 # for car in cars:
@@ -188,20 +219,25 @@ print(car_names)
 #     car=re.sub('<.+?>','',car,0).strip()
 #     print(car)
 
-#연식
-#연료
-#가격
 
-
-# url="https://www.bobaedream.co.kr/mycar/mycar_list.php?gubun=K"
 
 #로튼토마토 popular streaming movies
 #순위와 함께 영화 제목 추출
 
+# url="https://www.rottentomatoes.com/"
+# res=req.urlopen(url)
+# soup=BeautifulSoup(res,"html.parser")
+# titles=soup.select("div.js-scores-lists-wrapper>div:nth-child(1)>section>text-list > ul>li")
+# index=1
+# for title in titles:
+#     print("%d위 :"%index,title.select("a:nth-child(1) > span")[0].string)
+#     index+=1
 
 
 
-# # 1. 다나와 -> 무선청소기 검색 결과
+
+# 류경희님 풀이
+# 1. 다나와 -> 무선청소기 검색 결과
 
 from urllib.request import urlopen
 import re
