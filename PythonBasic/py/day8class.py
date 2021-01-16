@@ -79,8 +79,8 @@
 # # filter:특정 조건으로 걸러진 요소들을 묶어서 리턴, map과의 차이점이라면, 함수의 결과가 참/거짓인지에
 # # 따라 요소를 포함할지를 결정
 #
-t=list(range(1,11))
-print(t)
+# t=list(range(1,11))
+# print(t)
 #짝수 리스트를 출력
 # #1. for
 # def isEven(n):
@@ -98,27 +98,54 @@ print(t)
 # print(list(filter(lambda x: x%2==0, t)))
 
 #os 모듈:디렉토리, 파일의 경로 등 확인/제어
-import os
-print(os.environ)
-
-print(os.getcwd()) # 현재 작업 경로
-#os.mkdir("sample") #현재 작업 위치에 폴더 생성
-#os.rmdir("sample")
-#os.rename("sample", "test") #폴더명 변경
-#os.renames("hello.txt", "hi.txt")
-
-import shutil
-shutil.copy("hi.txt", "hicopy.txt") #파일 복사
-
-#특정 폴더 내에 있는 폴더 또는 파일 목록 등을 조사
-import glob
-#모든 파일 목록 출력
-#print(glob.glob("C:/Users/i/PycharmProjects/pythonBasic/*"))
-
-#파일 확장자가  py인 파일들을 출력
-print(glob.glob("C:/Users/i/PycharmProjects/pythonBasic/*.py"))
-
+# import os
+# print(os.environ)
 #
+# print(os.getcwd()) # 현재 작업 경로
+# #os.mkdir("sample") #현재 작업 위치에 폴더 생성
+# #os.rmdir("sample")
+# #os.rename("sample", "test") #폴더명 변경
+# #os.renames("hello.txt", "hi.txt")
+#
+# import shutil
+# shutil.copy("hi.txt", "hicopy.txt") #파일 복사
+#
+# #특정 폴더 내에 있는 폴더 또는 파일 목록 등을 조사
+# import glob
+# #모든 파일 목록 출력
+# #print(glob.glob("C:/Users/i/PycharmProjects/pythonBasic/*"))
+#
+# #파일 확장자가  py인 파일들을 출력
+# print(glob.glob("C:/Users/i/PycharmProjects/pythonBasic/*.py"))
+# import time
+#
+# t=time.time()
+# print(t)
+# print(time.ctime(t))
+# print(time.localtime(t))
+# now=time.localtime()
+# print("%d년 %d월 %d일" % (now.tm_year,now.tm_mon,now.tm_mday))
+#
+# import datetime
+#
+# now=datetime.datetime.now()
+# print("%d년 %d월 %d일" % (now.year, now.month, now.day))
+
+# import calendar
+
+# yoil=['월','화','수','목','금','토','일']
+# day=calendar.weekday(2021,8,15)
+# print("2021년 광복절은",yoil[day]+"요일이다.")
+# print(calendar.calendar(2021))
+# calendar.prmonth(2021,2)
+
+# import sys
+#
+# print(sys.platform)
+# print(sys.getwindowsversion())
+# print(sys.byteorder)
+# print(sys.path)
+# print(sys.exit(0))
 # 1.문자열 바꾸기
 # a='a:b:c:d'
 # print('#'.join(a.split(':')))
