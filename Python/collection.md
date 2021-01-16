@@ -482,9 +482,10 @@ x={}
 x['a']=10
 x['b']=20
 x.update(c=300,s=50)
-x.update(c=30,d=40)
+x.update({'a':10, 'd':30})
 x.update(zip(['f','g'],[60,70]))
 x.pop('s',0) #키가 없을때는 0을 리턴
+x.setdefault('e') #키 e가 추가, 값이 None저장
 print(x)
 
 ```
@@ -538,7 +539,11 @@ s3.remove(2)
 #{1,3,4,5,7}
 ```
 
+
+
 # 컬렉션 관리 함수
+
+
 
 ## enumerate
 
@@ -551,6 +556,10 @@ for idx,i in enumerate(['aaa','bbb','ccc']):
 #0 aaa
 #1 bbb
 #2 ccc
+
+color=['red','blue','green']
+list(enumerate(color))
+#[(0,'red'),(1,'blue'),(2,'green')]
 ```
 
 
@@ -563,21 +572,39 @@ print(eval("10+20")) #30
 
 for i in range(10,14):
     print(i+int((str(i))))
-
 ```
 
 
 
 ## zip
 
+```python
+여러개의 컬렉션을 합쳐 하나로 만든다. 
+두 리스트의 대응되는 요소끼리 짝을 지어 튜플의 리스트 생성.
+두 개의 리스트를 병렬로 순회할 때 편리하다.
+두 리스트 길이 달라도 짧은 쪽에 맞춰진다.
+
+days=['월','화','수','목','금','토','일']
+food=['banana','apple','orange','tomato']
+menu=zip(days,food) #프린트하면 zip object
+for d,f in menu:
+    print("%s요일 메뉴: %s" % (d,f))
+#menu 출력하고 싶으면 list나 dict으로 출력
+
+print(list(zip([1,2],['one','two'])))
+#[(1, 'one'), (2, 'two')]
+```
+
+
+
 ## filter
 
 ```python
-#filter():원하는 데이터를 걸러내는 함수
-#filter(함수이름, 1번째 인수에 있는 함수에 입력될 반복 가능한 자료형)
+filter(함수, 자료):원하는 데이터를 걸러내는 함수
 #리턴값이 True/False로 나와야함. True인 값들만 묶어서 돌려준다
 
-ex1)
+
+ex1) 음수 걸러내기
 #1.사용 안함
 def pos(li):
     res=[]
@@ -591,15 +618,17 @@ print(pos([1,3,-5,-7,9]))
 def pos2(li):
     return li>0
 print(filter(pos2,[1,3,-5,-7,9])) #필터 객체 나옴. 꺼내려면 리스트로 바꾸기
-print(list(filter(pos2,[1,3,-5,-7,9])))
+list=[1,3,-5,-7,9]
+for li in filter(pos2,list):
+    print(li)
 
 #3. filter + lambda
 print(list(filter(lambda li:li>0,[1,3,-5,-7,9])))
 
 map과의 차이점이라면, 함수의 결과가 참/거짓인지에따라 요소를 포함할지를 결정
-ex2)
+ex2) 짝수 리스트 출력
 t=list(range(1,11))
-#짝수 리스트 출력
+
 #1. 사용 안함
 def isEven(n):
     return True if n % 2==0 else False   #return True or False
@@ -621,11 +650,37 @@ print(list(filter(lambda x: x%2==0, t)))
 
 ## map
 
+```python
+map(함수, 자료): 모든 요소에 대해 변환 함수를 호출하여 새 요소값으로 구성된 리스트 생성
+
+def half(s):
+    return s/2
+
+list=[24,35,46,22]
+for li in map(half,list):
+    print(li,end=' ')
+#12.0 17.5 23.0 11.0 #float으로 출력
+```
+
+
+
 ## is 연산자
 
-## ord
+```python
+두 변수가 같은 객체를 가리키고 있는지 조사
+list1=[1,2,3]
+list2=list1
+list3=list1.copy()
 
-## all
+print(list1 is list2)
+print(list1 is list3)
+print(list2 is list3)
+#True
+#False
+#False
+```
+
+
 
 ## copy
 
@@ -655,3 +710,38 @@ print("="*50)
 print(x)
 ```
 
+
+
+## any/all
+
+```python
+any:하나라도 참이면 참
+all:모두 참이어야 참
+
+adult=[True,False,True,True]
+print(any(adult))
+print(all(adult))
+#True
+#False
+
+adult=[]
+print(any(adult)) #참이 하나도 없다고 판단
+print(all(adult)) #거짓이 하나도 없다고 판단
+#False
+#True
+```
+
+
+
+## ord/chr
+
+```python
+문자 -> 아스키코드 : chr()
+아스키코드 -> 문자 : ord()
+print ord('A')
+#65
+print chr(65)
+#'A'
+```
+
+<img src="collection.assets/화면 캡처 2021-01-16 235350.png" alt="화면 캡처 2021-01-16 235350" style="zoom:60%;" />
