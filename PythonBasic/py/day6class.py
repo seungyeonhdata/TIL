@@ -87,16 +87,23 @@
 
 # with open("hello.txt", "r") as f:
 #     line=None
-#     while line !="":
+#     while True:
+#         line=f.readline() #readline함수는 1줄씩 읽어들임(for 또는 while 문과 함께 사용)
+#         print(line) #2줄이 바뀜
+# print(line) #\n을 삭제
+
+# with open("hello.txt", "r") as f:
+#     line=None
+#     while line !="": #while True:
 #         line=f.readline() #readline함수는 1줄씩 읽어들임(for 또는 while 문과 함께 사용)
 #         #print(line) #2줄이 바뀜
 #         print(line.strip("\n")) #\n을 삭제
 
-# with open("hello.txt", "r") as f:
-#     line=f.readlines()
-# #    for i in range(len(line)):
-#     for i in line:
-#         print(i.strip("\n"))
+with open("hello.txt", "r") as f:
+    line=f.readlines()
+#    for i in range(len(line)):
+    for i in line:
+        print(i.strip("\n"))
 
 
 #인코딩 에러 발생시
@@ -122,48 +129,48 @@
 #국어, 높이(12)
 
 
-#객체를 파일로 저장
-import pickle
-내용물="단팥"
-색상="파랑"
-너비="20센티"
-높이="10센티"
-가족명단={"잉어":30, "꽃게":10, "상어":40}
-#객체 저장할때는 wb 모드로 파일 열기
-with open("myfish.p", "wb") as f:
-    pickle.dump(내용물, f)
-    pickle.dump(색상, f)
-    pickle.dump(너비, f)
-    pickle.dump(높이, f)
-    pickle.dump(가족명단, f)
+# #객체를 파일로 저장
+# import pickle
+# 내용물="단팥"
+# 색상="파랑"
+# 너비="20센티"
+# 높이="10센티"
+# 가족명단={"잉어":30, "꽃게":10, "상어":40}
+# #객체 저장할때는 wb 모드로 파일 열기
+# with open("myfish.p", "wb") as f:
+#     pickle.dump(내용물, f)
+#     pickle.dump(색상, f)
+#     pickle.dump(너비, f)
+#     pickle.dump(높이, f)
+#     pickle.dump(가족명단, f)
+#
+# import pickle
+# with open("myfish.p", "rb") as f:
+#     내용물=pickle.load(f)
+#     색상=pickle.load(f)
+#     너비=pickle.load(f)
+#     높이=pickle.load(f)
+#     가족명단=pickle.load(f)
+#
+#     print(내용물)
+#     print(색상)
+#     print(너비)
+#     print(높이)
+#     print(가족명단)
+#
+# f=open("hello.txt", "a")
+# for i in range(3):
+#     f.write("%d번째 줄 추가\n" % (i+1))
+# f.close()
+#
 
-import pickle
-with open("myfish.p", "rb") as f:
-    내용물=pickle.load(f)
-    색상=pickle.load(f)
-    너비=pickle.load(f)
-    높이=pickle.load(f)
-    가족명단=pickle.load(f)
 
-    print(내용물)
-    print(색상)
-    print(너비)
-    print(높이)
-    print(가족명단)
-
-f=open("hello.txt", "a")
-for i in range(3):
-    f.write("%d번째 줄 추가\n" % (i+1))
-f.close()
-
-
-
-
+#
 # 클래스?붕어빵기계
 # 객체?붕어빵
 # 메서드(동작)?굽는다,...뒤집는다, ...
 # attribute(속성)?내용물, 크기, 모양,...너비, 높이
-
+#
 # res=0
 # def add(n):
 #     global res
@@ -174,72 +181,72 @@ f.close()
 # print(res)
 # add(4)
 # print(res)
-
-
-res1=0 #전역변수
-res2=0
-#편의점->계산대->계산기 2대->
-
-#1번째 계산대
-def add1(n): #지역변수
-    global res1
-    #n에 전달된 값을 res에 저장
-    res1+=n
-    #res=res*0.9
-    return res1
-print(add1(3000))
-print(add1(5000))
-
-#2번째 계산대
-def add2(n): #지역변수
-    global res2
-    #n에 전달된 값을 res에 저장
-    res2+=n
-    return res2
-print(add2(1500)) #막걸리
-print(add2(2000)) #두부
-
-#클래스 : 각각의 계산대를 객체로 간주하고, 계산대의 특성 또는 동작등을 일반화시켜 놓은 틀
+#
+#
+# res1=0 #전역변수
+# res2=0
+# #편의점->계산대->계산기 2대->
+#
+# #1번째 계산대
+# def add1(n): #지역변수
+#     global res1
+#     #n에 전달된 값을 res에 저장
+#     res1+=n
+#     #res=res*0.9
+#     return res1
+# print(add1(3000))
+# print(add1(5000))
+#
+# #2번째 계산대
+# def add2(n): #지역변수
+#     global res2
+#     #n에 전달된 값을 res에 저장
+#     res2+=n
+#     return res2
+# print(add2(1500)) #막걸리
+# print(add2(2000)) #두부
+#
+# 클래스 : 각각의 계산대를 객체로 간주하고, 계산대의 특성 또는 동작등을 일반화시켜 놓은 틀
 # 정/부정관사
 # the car(객체)
 # a car(클래스)
-
+#
 # 사람(클래스): 실체가 없음
 # 사람홍길동(객체), 사람임꺽정(객체) : 실체가 있음
 #
 # 자동차(클래스) : 실체가 없음
 # 내자동차(객체), 네자동차(객체)
-
-class Calculator: #클래스명은 대문자로 시작, 붕어빵기계
-    def __init__(self): #현재 객체를 self라고 함
-        self.res=0
-        print("init함수가 호출됐네?")
-    def add(self, n):
-        self.res+=n
-        #10%할인 코드를 여기에 작성-> 모든 계산대에 공통적으로 적용
-        return self.res
-
-#Calculator():붕어빵기계에서 붕어빵을 제작 -> __init__자동호출 ->res(내용물)=msg
-cal1=Calculator() #클래스로부터 객체를 생성(init 함수 자동 호출, res=0으로 초기화). 계산대(클래스)로부터 계산대1(객체==cal1)을 생성
-#Calculator():붕어빵기계에서 붕어빵을 제작 -> __init__자동호출 ->res(내용물)=msg
-cal2=Calculator()#클래스로부터 객체를 생성(init 함수 자동 호출). 계산대(클래스)로부터 계산대2(객체==cal2)을 생성
-
-print(cal1.add(3000)) #붕어빵.크기(20)    크기를 20으로...
-print(cal1.add(5000)) #붕어빵.너비(10)   너비를 10으로
-
-print(cal2.add(1500))
-print(cal2.add(2000))
-
-#객체지향프로그래밍
-
-
-
-
-
-#모듈?변수, 함수, 클래스 등을 모아 놓은 파이썬 파일. 다른 프로그램에서 모듈을 불러올 수 있음
-
-
-
+#
+# class Calculator: #클래스명은 대문자로 시작, 붕어빵기계
+#     def __init__(self): #현재 객체를 self라고 함
+#         self.res=0
+#         print("init함수가 호출됐네?")
+#     def add(self, n):
+#         self.res+=n
+#         #10%할인 코드를 여기에 작성-> 모든 계산대에 공통적으로 적용
+#         return self.res
+#
+# Calculator():붕어빵기계에서 붕어빵을 제작 -> __init__자동호출 ->res(내용물)=msg
+# cal1=Calculator() #클래스로부터 객체를 생성(init 함수 자동 호출, res=0으로 초기화). 계산대(클래스)로부터 계산대1(객체==cal1)을 생성
+# #Calculator():붕어빵기계에서 붕어빵을 제작 -> __init__자동호출 ->res(내용물)=msg
+# cal2=Calculator()#클래스로부터 객체를 생성(init 함수 자동 호출). 계산대(클래스)로부터 계산대2(객체==cal2)을 생성
+#
+# print(cal1.add(3000)) #붕어빵.크기(20)    크기를 20으로...
+# print(cal1.add(5000)) #붕어빵.너비(10)   너비를 10으로
+#
+# print(cal2.add(1500))
+# print(cal2.add(2000))
+#
+# 객체지향프로그래밍
+#
+#
+#
+#
+#
+# 모듈?변수, 함수, 클래스 등을 모아 놓은 파이썬 파일. 다른 프로그램에서 모듈을 불러올 수 있음
+#
+#
+#
 
 
 

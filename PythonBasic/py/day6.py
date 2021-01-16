@@ -115,7 +115,7 @@
 
 # 연습문제
 
-
+#1.
 # def is_odd():
 #     num=int(input("input number:"))
 #     if num%2==0:
@@ -124,11 +124,17 @@
 #         print("holsu")
 # is_odd()
 
-# fhand=open("test.txt","wt")
+#2.
+# fhand=open("test.txt","a")
 # fhand.write("Life is too short\n")
 # text=input("파일에 입력할 내용 : ")
 # fhand.write(text)
 # fhand.close()
+
+# with open("test.txt","a") as f:
+#     f.write("Life is too short\n")
+#     text=input("파일에 입력할 내용:")
+#     f.write({0}".format("))
 
 # # 1. 주어진 자연수가 홀수인지 짝수인지 판별해 주는 함수(is_odd)를 작성해 보자.
 # def is_odd (n):
