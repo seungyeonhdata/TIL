@@ -540,20 +540,22 @@ s3.remove(2)
 
 # 컬렉션 관리 함수
 
-enumerate
+## enumerate
 
 ```python
-
 enumerate : 열거형 데이터를 표현하는 함수, for 문과 함께 사용
 리스트, 튜플, 문자열 데이터(시퀀스 데이터)에 인덱스 부과할때
 
 for idx,i in enumerate(['aaa','bbb','ccc']):
     print(idx,i)
+#0 aaa
+#1 bbb
+#2 ccc
 ```
 
 
 
-eval
+## eval
 
 ```python
 eval():문자열로 구성된 수식을 입력받아서 문자열을 실행한 결과를 리턴
@@ -566,15 +568,17 @@ for i in range(10,14):
 
 
 
-zip
+## zip
 
-filter
+## filter
 
 ```python
-#filter():월하는 데이터를 걸러내는 함수
+#filter():원하는 데이터를 걸러내는 함수
 #filter(함수이름, 1번째 인수에 있는 함수에 입력될 반복 가능한 자료형)
 #리턴값이 True/False로 나와야함. True인 값들만 묶어서 돌려준다
-#1.사용안함
+
+ex1)
+#1.사용 안함
 def pos(li):
     res=[]
     for i in li:
@@ -583,28 +587,71 @@ def pos(li):
     return res
 print(pos([1,3,-5,-7,9]))
 
-#2.filter 사용
+#2.filter
 def pos2(li):
     return li>0
-print(filter(pos2,[1,3,-5,-7,9])) #필터 객체 나옴 꺼내려면 리스트로 바꾸기
+print(filter(pos2,[1,3,-5,-7,9])) #필터 객체 나옴. 꺼내려면 리스트로 바꾸기
 print(list(filter(pos2,[1,3,-5,-7,9])))
 
-#3. filter + 람다 함수
+#3. filter + lambda
 print(list(filter(lambda li:li>0,[1,3,-5,-7,9])))
+
+map과의 차이점이라면, 함수의 결과가 참/거짓인지에따라 요소를 포함할지를 결정
+ex2)
+t=list(range(1,11))
+#짝수 리스트 출력
+#1. 사용 안함
+def isEven(n):
+    return True if n % 2==0 else False   #return True or False
+res=[]
+for v in t:
+    if isEven(v):
+        res.append(v)
+print(res)
+
+#2. filter 
+print(list(filter(isEven, t)))
+
+#3. filter + lambda
+print(list(filter(lambda x: x%2==0, t)))
 
 ```
 
 
 
-map
+## map
 
-lambda
+## is 연산자
 
-copy
+## ord
 
-is 연산자
+## all
 
-ord
+## copy
 
-all
+```python
+x={'a':0,'b':1}
+y=x #실제로는 딕셔너리가 1개 만들어짐
+print(x is y) #변수 이름만 다를 뿐 x, y는 같은 객체
+#True
+x['a']=100
+print(y)
+#{'a': 100, 'b': 1}
+y=x.copy() #완전히 다른 2개의 딕셔너리가 만들어짐
+print(x is y) #False
+print(x==y) #True
+x['a']=111
+print(x)
+print(y)
+#{'a': 111, 'b': 1}
+#{'a': 100, 'b': 1}
+
+x={'a':{'python':'3.8'}, 'b':{'python':'2.7'}}
+import copy
+y=copy.deepcopy(x) #깊은 복사
+y['a']['python']="2.77777"
+print(y)
+print("="*50)
+print(x)
+```
 
