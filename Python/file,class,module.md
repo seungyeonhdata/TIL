@@ -77,9 +77,11 @@ f.close()
 
 
 
+
+
 # 모듈
 
-모듈은 코드를 작성해 놓은 스크립트 파일로 함수, 변수, 클래스 등이 정의되어 있다. 
+: 코드를 작성해 놓은 스크립트 파일로 함수, 변수, 클래스 등이 정의되어 있다. 
 
 ```python
 import #모듈 전체를 불러냄
@@ -90,14 +92,12 @@ from 모듈 import 함수명 #모듈 함수를 지정해 같은 함수가 다른
 
 
 
-## 표준 모듈
-
-표준 모듈은 파이썬의 일부는 아니지만 같이 설치되어 표준 라이브러리에서 자유롭게 사용 가능하다.
+## 파일 관리 모듈
 
 ```python
-
-#os 모듈:디렉토리, 파일의 경로 등 확인/제어
+os 모듈 : 디렉토리, 파일의 경로 등 확인/제어
 import os
+
 print(os.environ)
 
 print(os.getcwd()) # 현재 작업 경로
@@ -107,7 +107,7 @@ print(os.getcwd()) # 현재 작업 경로
 #os.renames("hello.txt", "hi.txt")
 
 import shutil
-shutil.copy("hi.txt", "hicopy.txt") #파일 복사
+shutil.copy("hi.txt", "hicopy.txt") #hi.txt를 복사하여 hicopy.txt 만든다.
 
 #특정 폴더 내에 있는 폴더 또는 파일 목록 등을 조사
 import glob
@@ -116,17 +116,55 @@ import glob
 
 #파일 확장자가  py인 파일들을 출력
 print(glob.glob("C:/Users/i/PycharmProjects/pythonBasic/*.py"))
-
 ```
 
+### 파일 관리 
+
+| 함수                 | 설명                             |
+| -------------------- | -------------------------------- |
+| shutil.copy(a,b)     | 파일 복사                        |
+| shutil.copytree(a,b) | 디렉토리 복사(서브 디렉토리까지) |
+| shutil.move(a,b)     | 파일 이동                        |
+| shutil.rmtree(path)  | 디렉토리 삭제                    |
+| os.rename(a,b)       | 파일 이름 변경                   |
+| os.remove(f)         | 파일 삭제                        |
+| os.chmod(f,m)        | 파일 퍼미션 변경                 |
+| shutil.chown(f,u,g)  | 파일 소유권 변경                 |
+| os.link(a,b)         | 하드 링크 생성                   |
+| os.symlink(a,b)      | 심볼릭 링크 생성                 |
+
+### 디렉토리 관리 
+
+| 함수          | 설명                             |
+| ------------- | -------------------------------- |
+| os.chdir(d)   | 현재 디렉토리 변경               |
+| os.mkdir(d)   | 디렉토리 생성                    |
+| os.rmdir(d)   | 디렉토리 제거                    |
+| os.getcwd()   | 현재 디렉터리 조사               |
+| os.listdir(d) | 디렉토리의 내용 나열             |
+| glob.glob(p)  | 패턴과 일치하는 파일의 목록 나열 |
+|               |                                  |
+
+### os.path 모듈
+
+: 디렉토리의 경로를 조사하고 조작
+
+| 함수                | 설명                    |
+| ------------------- | ----------------------- |
+| os.path.isabs(f)    | 절대 경로인지 조사      |
+| os.path.abspath(f)  | 파일의 절대 경로 구하기 |
+| os.path.realpath(f) | 원본 파일의 경로 구함   |
+| os.path.exists(f)   | 파일의 존재 여부 조사   |
+| os.path.isfile(f)   | 파일인지 조사           |
+| os.path.isdir(f)    | 디렉토리인지 조사       |
 
 
-### 피클(pickle) 
+
+## 피클(pickle) 
 
  : 파이썬 객체를 파일로 저장하고자 할때 사용하는 모듈
 
 ```python
-
 피클링 : 객체 -> 파일
 언피클링 : 파일 -> 객체
     
@@ -155,6 +193,196 @@ with open ("myfish.p","rb") as f:
     print(가족명단)
 
 ```
+
+
+
+## 표준 모듈
+
+: 표준 모듈은 파이썬의 일부는 아니지만 같이 설치되어 표준 라이브러리에서 자유롭게 사용 가능하다.
+
+
+
+### math
+
+: C 표준 라이브러리를 랩핑한 것으로 C만큼 속도 빠름. 대부분 float 리턴
+
+| 상수 | 설명                                           |
+| ---- | ---------------------------------------------- |
+| pi   | 원주율 상수. 지름과 원둘레의 비율              |
+| tau  | 원주율의 2배 되는 상수. 반지름과 원둘레의 비율 |
+| e    | 자연 대수 상수                                 |
+| inf  | 무한대                                         |
+| nan  | 숫자가 아닌 값                                 |
+
+
+
+| 함수                                  | 설명                                                         |
+| ------------------------------------- | ------------------------------------------------------------ |
+| sqrt(x)                               | x의 제곱근. 세제곱근은 1/3승                                 |
+| pow(x,y)                              | x의 y승. **연산자와 같지만 인수를 모두 실수로 바꾸고 연산함. |
+| hypot(x,y)                            | 피타고르사의 정리. x^2+y^2의 제곱근                          |
+| factorial(x)                          | x의 계승. 인수 x는 양의 정수만 가능                          |
+| sin(x), cos(x), tan(x)                | 삼각함수. x는 라디안 값                                      |
+| asin(x), acos(x), atan(x), atan2(y,x) | 역삼각함수                                                   |
+| sinh(x), cosh(x), tanh(x)             | 쌍곡선 삼각함수                                              |
+| asinh(x), acosh(x), atanh(x)          | 쌍곡선 역삼각함수                                            |
+| degrees(x)                            | 라디안 값을 각도로 바꾼다                                    |
+| radians(x)                            | 각도를 라디안 값으로 바꾼다.                                 |
+| ceil(x)                               | 수직선 오른쪽의 올림값                                       |
+| floor(x)                              | 수직선 왼쪽의 내림값                                         |
+| fabs(x)                               | x의 절대값                                                   |
+| trunc(x)                              | x의 소수점 이하 버리기                                       |
+| log(x,base)                           | base에 대한 x의 로그. 생략하면 자연 로그                     |
+| log10(x)                              | 10의 로그. log(x,10)과 같음                                  |
+| gcd(a,b)                              | a,b의 최대공약수                                             |
+
+
+
+### statistics
+
+| 함수           | 설명                           |
+| -------------- | ------------------------------ |
+| mean           | 평균                           |
+| harmonic_mean  | 조화평균                       |
+| median         | 중앙값. 짝수면 보간 값         |
+| median_low     | 중앙값. 집합 내의 낮은 값 선택 |
+| median_high    | 중앙값. 집합 내의 높은 값 선택 |
+| median_grouped | 그룹 연속 중앙값               |
+| mode           | 최빈값                         |
+| pstdev         | 모표준편차                     |
+| stdev          | 표준편차                       |
+| variance       | 분산                           |
+
+
+
+### time
+
+:1970년 1월 1일 자정을 기준으로 경과한 시간(에폭 시간/유닉스 시간)을 초 단위로 표현
+
+```python
+import time
+
+t=time.time()
+print(t) #1610812581.4471073
+print(time.ctime(t)) #Sun Jan 17 00:56:21 2021
+
+print(time.localtime(t)) #세계표준시간인 UTC로 구하려면 gmtime()
+#time.struct_time(tm_year=2021, tm_mon=1, tm_mday=17, tm_hour=0, tm_min=57, tm_sec=34, tm_wday=6, tm_yday=17, tm_isdst=0)
+#에폭시간을 인수로 주면 시간 요소를 멤버로 가지는 struct_time형의 객체 리턴
+
+우리나라 말로 쓰기
+now=time.localtime()
+print("%d년 %d월 %d일" % now.tm_year, now.tm_mon, now.tm_mday)
+#2021년 1월 17일
+
+#멤버 이름이 더 짧고 직관적인 datetime 모듈
+import datetime
+
+now=datetime.datetime.now()
+print("%d년 %d월 %d일" % (now.year, now.month, now.day))
+```
+
+* 실행시간 측정
+
+  ```python
+  import time
+  
+  start=time.time()
+  for a in range(1000):
+      print(a)
+  end=time.time()
+  print(end-start)
+  ```
+
+* sleep :실행속도 늦춤
+
+  ```python
+  import time
+  
+  print("안녕")
+  time.sleep(1)
+  print("좀 기다려")
+  time.sleep(5)
+  print("잘했어")
+  ```
+
+* calendar
+
+  ```python
+  import calendar
+  
+  calendar.prcal(2021) #무조건 출력해야하므로 pr이 아예 합쳐져있음
+  calendar.prmonth(2021,2)
+  
+  #default는 월요일이 첫번째
+  calendar.setfirstweekday(6) #일요일이 첫번째
+  
+  #2021년 광복절 요일 알아내기
+  import calendar
+  
+  yoil=['월','화','수','목','금','토','일']
+  day=calendar.weekday(2021,8,15)
+  print("2021년 광복절은",yoil[day]+"요일이다.")
+  ```
+
+
+
+### random
+
+: 0-1 미만의 실수 무작위로 생성
+
+```python
+import random
+
+정수 난수
+randint(begin,end) #end도 범위에 포함
+randrange(begin,end) #end-1까지
+
+실수 난수
+random.uniform(begin,end)
+
+리스트에서 랜덤으로 뽑기
+food=['아이스크림','초코','식빵','바나나']
+print(random.choice(food))
+> choice함수 구현
+> i=random.randrange(len(food))
+> return food[i]
+
+리스트 요소 섞기
+print(random.shuffle(food))
+
+리스트 항목 n개 무작위로 뽑아 새로운 리스트 만들기
+print(random.sample(food,n))
+
+로또 번호 생성기. (중복 없이 골라주기)
+nums=random.sample(range(46),6)
+nums.sort()
+print(nums)
+```
+
+
+
+### sys
+
+:파이썬 해석기가 실행되는 환경과 기능을 조회하고 관리
+
+```python
+import sys
+
+sys.version #파이썬 버전
+sys.platform #win32
+sys.getwindeowsversion() #sys.getwindowsversion(major=10, minor=0, build=18363, platform=2, service_pack='')
+sys.byteorder
+sys.path
+sys.exit(0) #프로그램 종료
+
+```
+
+
+
+
+
+
 
 
 
