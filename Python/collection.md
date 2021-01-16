@@ -482,9 +482,10 @@ x={}
 x['a']=10
 x['b']=20
 x.update(c=300,s=50)
-x.update(c=30,d=40)
+x.update({'a':10, 'd':30})
 x.update(zip(['f','g'],[60,70]))
 x.pop('s',0) #키가 없을때는 0을 리턴
+x.setdefault('e') #키 e가 추가, 값이 None저장
 print(x)
 
 ```
@@ -538,22 +539,32 @@ s3.remove(2)
 #{1,3,4,5,7}
 ```
 
+
+
 # 컬렉션 관리 함수
 
-enumerate
+
+
+## enumerate
 
 ```python
-
 enumerate : 열거형 데이터를 표현하는 함수, for 문과 함께 사용
 리스트, 튜플, 문자열 데이터(시퀀스 데이터)에 인덱스 부과할때
 
 for idx,i in enumerate(['aaa','bbb','ccc']):
     print(idx,i)
+#0 aaa
+#1 bbb
+#2 ccc
+
+color=['red','blue','green']
+list(enumerate(color))
+#[(0,'red'),(1,'blue'),(2,'green')]
 ```
 
 
 
-eval
+## eval
 
 ```python
 eval():문자열로 구성된 수식을 입력받아서 문자열을 실행한 결과를 리턴
@@ -561,20 +572,40 @@ print(eval("10+20")) #30
 
 for i in range(10,14):
     print(i+int((str(i))))
-
 ```
 
 
 
-zip
-
-filter
+## zip
 
 ```python
-#filter():월하는 데이터를 걸러내는 함수
-#filter(함수이름, 1번째 인수에 있는 함수에 입력될 반복 가능한 자료형)
+여러개의 컬렉션을 합쳐 하나로 만든다. 
+두 리스트의 대응되는 요소끼리 짝을 지어 튜플의 리스트 생성.
+두 개의 리스트를 병렬로 순회할 때 편리하다.
+두 리스트 길이 달라도 짧은 쪽에 맞춰진다.
+
+days=['월','화','수','목','금','토','일']
+food=['banana','apple','orange','tomato']
+menu=zip(days,food) #프린트하면 zip object
+for d,f in menu:
+    print("%s요일 메뉴: %s" % (d,f))
+#menu 출력하고 싶으면 list나 dict으로 출력
+
+print(list(zip([1,2],['one','two'])))
+#[(1, 'one'), (2, 'two')]
+```
+
+
+
+## filter
+
+```python
+filter(함수, 자료):원하는 데이터를 걸러내는 함수
 #리턴값이 True/False로 나와야함. True인 값들만 묶어서 돌려준다
-#1.사용안함
+
+
+ex1) 음수 걸러내기
+#1.사용 안함
 def pos(li):
     res=[]
     for i in li:
@@ -583,28 +614,168 @@ def pos(li):
     return res
 print(pos([1,3,-5,-7,9]))
 
-#2.filter 사용
+#2.filter
 def pos2(li):
     return li>0
-print(filter(pos2,[1,3,-5,-7,9])) #필터 객체 나옴 꺼내려면 리스트로 바꾸기
-print(list(filter(pos2,[1,3,-5,-7,9])))
+print(filter(pos2,[1,3,-5,-7,9])) #필터 객체 나옴. 꺼내려면 리스트로 바꾸기
+list=[1,3,-5,-7,9]
+for li in filter(pos2,list):
+    print(li)
 
-#3. filter + 람다 함수
+#3. filter + lambda
 print(list(filter(lambda li:li>0,[1,3,-5,-7,9])))
+
+map과의 차이점이라면, 함수의 결과가 참/거짓인지에따라 요소를 포함할지를 결정
+ex2) 짝수 리스트 출력
+t=list(range(1,11))
+
+#1. 사용 안함
+def isEven(n):
+    return True if n % 2==0 else False   #return True or False
+res=[]
+for v in t:
+    if isEven(v):
+        res.append(v)
+print(res)
+
+#2. filter 
+print(list(filter(isEven, t)))
+
+#3. filter + lambda
+print(list(filter(lambda x: x%2==0, t)))
 
 ```
 
 
 
-map
+## map
 
-lambda
+```python
+map(함수, 자료): 모든 요소에 대해 변환 함수를 호출하여 새 요소값으로 구성된 리스트 생성
 
-copy
+def half(s):
+    return s/2
 
-is 연산자
+list=[24,35,46,22]
+for li in map(half,list):
+    print(li,end=' ')
+#12.0 17.5 23.0 11.0 #float으로 출력
+```
 
-ord
 
-all
 
+## is 연산자
+
+```python
+두 변수가 같은 객체를 가리키고 있는지 조사
+list1=[1,2,3]
+list2=list1
+list3=list1.copy()
+
+print(list1 is list2)
+print(list1 is list3)
+print(list2 is list3)
+#True
+#False
+#False
+
+x={'a':0,'b':1}
+y=x #실제로는 딕셔너리가 1개 만들어짐
+print(x is y)
+#True
+```
+
+
+
+## copy
+
+```python
+a=3
+b=a
+a=5
+#기본형 변수는 서로 독립적. 대입해도 일시적으로 값이 같아질 뿐 a값이 바뀌어도 b는 영향을 받지 않는다.
+
+하지만 컬렉션의 경우,
+list1=[1,2,3]
+list2=list1
+#list2의 요소를 변경하면 list1의 요소도 같이 변경된다.
+#두 리스트를 독립적인 사본으로 만들기 위해 copy메서드 사용
+list3=list1.copy()
+list4=list1[:] #copy메서드 대신 [:]도 독립적인 사본 만듦
+list3[2]=300
+print(list1)
+#[1,2,3]
+print(list3)
+#[1,2,300]
+
+#딕셔너리로 복습
+x={'a':0,'b':1}
+y=x
+x['a']=100
+print(y)
+#{'a': 100, 'b': 1}
+
+y=x.copy() #완전히 다른 2개의 딕셔너리가 만들어짐
+print(x is y) #False
+print(x==y) #True
+x['a']=111
+print(x)
+print(y)
+#{'a': 111, 'b': 1}
+#{'a': 100, 'b': 1}
+
+중첩컬렉션은 copy로는 독립안됨. deepcopy해야 독립
+list0=['a','b']
+list1=[list0,1,2]
+list2=list1.copy()
+
+list2[0][1]='c'
+print(list1)
+#[['a','c'],1,2]
+#list0은 여전히 공유
+
+x={'a':{'python':'3.8'}, 'b':{'python':'2.7'}}
+import copy
+y=copy.deepcopy(x) #깊은 복사
+y['a']['python']="2.7777"
+print(x)
+print(y)
+#{'a':{'python':'3.8'}, 'b':{'python':'2.7'}}
+#{'a':{'python':'2.7777'}, 'b':{'python':'2.7'}}
+```
+
+
+
+## any/all
+
+```python
+any:하나라도 참이면 참
+all:모두 참이어야 참
+
+adult=[True,False,True,True]
+print(any(adult))
+print(all(adult))
+#True
+#False
+
+adult=[]
+print(any(adult)) #참이 하나도 없다고 판단
+print(all(adult)) #거짓이 하나도 없다고 판단
+#False
+#True
+```
+
+
+
+## ord/chr
+
+```python
+문자 -> 아스키코드 : chr()
+아스키코드 -> 문자 : ord()
+print ord('A')
+#65
+print chr(65)
+#'A'
+```
+
+<img src="collection.assets/화면 캡처 2021-01-16 235350.png" alt="화면 캡처 2021-01-16 235350" style="zoom:60%;" />
