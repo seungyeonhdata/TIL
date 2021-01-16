@@ -88,12 +88,23 @@ a,b,c = 1,2,3 #변수와 값의 개수가 같아야 한다
 * `a=''` : 변수 값이 공백
 
 - `del a` : 변수 a 삭제
+- 변수 교환, 전역변수
 
 ```python
 x,y=1,2
 x,y=y,x   #x,y 값 바꾸기
 print(x,y)   
 #2 1
+
+res=3
+def add(n):
+    global res
+    #n에 전달된 값을 res에 저장
+    res+=n
+
+add(3)
+print(res)
+#6
 ```
 
 

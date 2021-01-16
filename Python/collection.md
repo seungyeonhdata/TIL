@@ -572,6 +572,9 @@ print(eval("10+20")) #30
 
 for i in range(10,14):
     print(i+int((str(i))))
+
+print(eval("divmod(5,3)"))
+#(1,2)
 ```
 
 
