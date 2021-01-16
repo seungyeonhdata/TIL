@@ -1,10 +1,13 @@
 #정규표현식 :복잡한 문자열 처리(퇴근시간을 대폭 단축)
 
-jumin="""
-park 850b01-12a4567
-kim 950202-2345678
-"""
-#print(jumin)
+# jumin="""
+# park 850b01-12a4567
+# kim 950202-2345678
+# """
+# #print(jumin)
+# import re
+# p=re.compile("(\d{6})[-]\d{7}")
+# print(p.sub("\g<1>-*******",jumin))
 
 # jumin 데이터의 뒷 부분을 모두 *로 변환하여 출력
 # park 850101-*******

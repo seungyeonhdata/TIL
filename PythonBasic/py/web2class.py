@@ -388,8 +388,8 @@ emails =[
 #     if right.findall(i):
 #         print(right.findall(i))
 #     else: print("잘못된 형식")
-
-
+#
+#
 # for i in emails:
 #     if right.findall(i):
 #         print(right.findall(i))
@@ -483,19 +483,19 @@ news="""
 # print("대전 기온 :",re.findall('대전\s\d+',news)[0][2:],"도")
 # 4)
 
-words=news.split()
-counts={}
-for word in words:
-    counts[word]=counts.get(word,0)+1
-counts_max=max(counts.keys(),key=lambda k:counts[k])
-print("'{0}'(이)라는 단어가 {1}번으로 가장 많이 나왔습니다".format(counts_max,counts[counts_max]))
-
-
-
+# words=news.split()
+# counts={}
+# for word in words:
+#     counts[word]=counts.get(word,0)+1
+# counts_max=max(counts.keys(),key=lambda k:counts[k])
+# print("'{0}'(이)라는 단어가 {1}번으로 가장 많이 나왔습니다".format(counts_max,counts[counts_max]))
+#
+#
+#
 # 혜지님 풀이
 # splits=news.replace('\n',' ').replace('-',' ').split(' ')
 # lst = [word for word in splits if word!= '']
-# 
+#
 # words_count={}
 # for word in lst:
 #     if word in words_count:
@@ -504,15 +504,15 @@ print("'{0}'(이)라는 단어가 {1}번으로 가장 많이 나왔습니다".fo
 #         words_count[word] = 1
 # sorted_words=sorted(words_count.items(), key=lambda x: x[1], reverse=True)
 # print('가장 많이 등장한 단어는 "{0}" 입니다. {1}회 등장했습니다.'.format(sorted_words[0][0],sorted_words[0][1]))
-
-
-#import re
+#
+#
+# import re
 #
 # p=re.compile('\\[캐스터.+',re.DOTALL)
 # print(p.findall(news))
 # print("댓글수:",re.findall("댓글\d",new)[0][2])
 # print("대전의 온도:",re.findall("대전.{,10}",new)[0][3])
-
+#
 # p=re.compile('\w+')
 # res=p.findall(new)
 # print(p.findall(new))
@@ -529,7 +529,7 @@ print("'{0}'(이)라는 단어가 {1}번으로 가장 많이 나왔습니다".fo
 # max1=max(l)[0]
 # print(l)
 # print(set([l[i][1] for i in range(len(l)) if l[i][0] >= max1]),":",max1)
-
+#
 # import re
 # p=re.compile("[가-힣]+")
 # print(p.findall(new))
@@ -545,7 +545,7 @@ print("'{0}'(이)라는 단어가 {1}번으로 가장 많이 나왔습니다".fo
 # for i in range(len(word.keys())):
 # if list(word.values())[i]==maxnum:
 # print(list(word.keys())[i],":",maxnum)
-
+#
 # 이소연님 풀이
 # import re
 # sliced=news.split()
@@ -567,5 +567,5 @@ print("'{0}'(이)라는 단어가 {1}번으로 가장 많이 나왔습니다".fo
 #     if value == max_let:
 #         print("가장 많이 등장한 글자는?", key)
 #
-
+#
 
