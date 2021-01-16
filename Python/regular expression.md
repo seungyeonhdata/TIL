@@ -7,12 +7,22 @@ import re
 ```
 
 ```python
+# jumin 데이터의 뒷 부분을 모두 *로 변환하여 출력
+
 jumin="""
 park 850201-1264597
 kim 95d544-1523654
 """
+
 p=re.compile("(\d{6})[-]\d{7}")
 print(p.sub("\g<1>-*******",jumin))
+
+#주민번호 입력 받아서 뒷자리 *처리하기
+for line in jumin.split("\n"):
+    for word in line.split(" "):
+        if len(word)==14 and word[:6].isdigit() and word[7:].isdigit():
+            word=word[:6]+"-"+"*******"
+            print(word)
 ```
 
 
@@ -52,6 +62,8 @@ print(p.sub("\g<1>-*******",jumin))
 > 명령어 그 자체를 검색하고 싶으면 `\`붙이거나 `[]`안에 넣음
 
 * `compile()` : 패턴 객체
+
+
 
 ## 컴파일 옵션
 
@@ -339,16 +351,33 @@ finditer는 findall과 동일하지만 그 결과로 반복 가능한 객체(ite
 
 ## 연습
 
-1.0~9의 문자로 된 숫자를 입력받았을 때, 이 입력값이 0~9의 모든 숫자를 각각 한 번씩만 사용한 것인지 확인하는 함수를 작성하시오.
+1.
+
+0~9의 문자로 된 숫자를 입력받았을 때, 이 입력값이 0~9의 모든 숫자를 각각 한 번씩만 사용한 것인지 확인하는 함수를 작성하시오.
 
 입력 예시: 0123456789 01234 01234567890 6789012345 012322456789
 출력 예시: True False False True False
 
-```
+```python
+nums=list(input("번호 10개 입력 : "))
+print(len(nums)==10 and len(nums)==len(set(nums)))
+
++다른 풀이
+stnum=list(range(10))
+def oncenum(num):
+    num=str(num)
+    for i in num:
+        if int(i) in stnum:
+            stnum.remove(int(i))
+        else: break
+    if len(stnum) == 0:
+        return True
+    else:return False
+print(oncenum(6789012345))
 
 ```
 
-
+2.
 
 emails = [
 
@@ -357,18 +386,28 @@ emails = [
     'python.dojang@e-xample.com',                                    # 올바른 형식
     '@example.com', 'python@example', 'python@example-com']          # 잘못된 형식
 
-```
+```python
+import re
 
+right=re.compile('\S+@\S+[.]\w+')#대상이 리스트일때는 compile하고 요소 조사
+for i in emails:
+    if right.findall(i):
+        print(right.findall(i))
+    else: print("잘못된 형식")
+        
++다른 풀이        
+p=re.compile('(.+)[@](\w.+[.]\w+)')
+#print(p.match("python@example-com"))
+for i in emails:
+    if p.match(i):
+        print("올바른 형식",p.findall(i))
+    else:
+        print("잘못된 형식")
 ```
 
 3.
-1)[캐스터]가 캐스팅한 내용만 추출하시오
-2)달린 댓글의 개수를 출력하시오
-3)대전의 온도를 출력하시오
-4)가장 많이 등장한 단어가 무엇인가요?
-5)가장 많이 등장한 글자는 무엇이며, 총 몇 번 등장했나요? (형태소분석기)
 
-new="""
+news="""
 
 연합뉴스TV
 [날씨] 추위 대신 미세먼지 말썽…밤까지 중부 중심 눈
@@ -427,8 +466,113 @@ new="""
 날씨 전해 드렸습니다.
 """
 
-```
+1)[캐스터]가 캐스팅한 내용만 추출하시오
+2)달린 댓글의 개수를 출력하시오
+3)대전의 온도를 출력하시오
+4)가장 많이 등장한 단어가 무엇인가요?
+5)가장 많이 등장한 글자는 무엇이며, 총 몇 번 등장했나요? (형태소분석기)
 
+```python
+import re
+
+3-1)
+cast=re.compile('\[캐스터.*',re.DOTALL)
+print(cast.findall(news)[0][len("[캐스터]"):])
+
+3-2)
+comment=re.findall('댓글\d+',news)
+print("댓글 수 :",comment[0][2:])
+
+3-3)
+print("대전 기온 :",re.findall('대전\s\d+',news)[0][2:],"도")
+
+3-4)
+words=news.split()
+counts={}
+for word in words:
+    counts[word]=counts.get(word,0)+1
+counts_max=max(counts.keys(),key=lambda k:counts[k])
+print(counts_max,"(이)라는 단어가",counts[counts_max],"번으로 가장 많이 나왔습니다.")
+
+
+
++다른 풀이
+3-1)
+splits=news.replace('\n',' ').replace('-',' ').split(' ')
+lst = [word for word in splits if word!= '']
+
+words_count={}
+for word in lst:
+    if word in words_count:
+        words_count[word] += 1
+    else:
+        words_count[word] = 1
+sorted_words=sorted(words_count.items(), key=lambda x: x[1], reverse=True)
+print('가장 많이 등장한 단어는 "{0}" 입니다. {1}회 등장했습니다.'.format(sorted_words[0][0],sorted_words[0][1]))
+
+
+import re
+3-2), 3-3)
+p=re.compile('\\[캐스터.+',re.DOTALL)
+#print(p.findall(news))
+print("댓글수:",re.findall("댓글\d",new)[0][2])
+print("대전의 온도:",re.findall("대전.{,10}",new)[0][3])
+
+3-4)
+p=re.compile('\w+')
+res=p.findall(new)
+#print(p.findall(new))
+#print(type(res))
+#print(res[0])
+l = []
+excount = 0
+for i in res:
+	newcount = 0
+	for j in res:
+		if i==j:
+			newcount+=1
+			l.append((newcount,i))
+max1=max(l)[0]
+print(l)
+print(set([l[i][1] for i in range(len(l)) if l[i][0] >= max1]),":",max1)
+
+3-5)
+p=re.compile("[가-힣]+")
+print(p.findall(new))
+l=p.findall(new)
+word=dict()
+for j in l:
+	for i in j:
+		if i in word.keys():
+			word[i]+=1
+		else:word[i]=0
+print(word)
+maxnum=max(word.values())
+for i in range(len(word.keys())):
+	if list(word.values())[i]==maxnum:
+		print(list(word.keys())[i],":",maxnum)
+        
+
+++다른 풀이
+import re
+sliced=news.split()
+sliced_s=set(sliced)
+word_cnt={}
+for i in sliced_s:
+    word_cnt[i]=sliced.count(i)
+    cnt_m=max(word_cnt.values())
+for key, value in word_cnt.items():
+    if value == cnt_m:
+        print("가장 많이 등장한 단어는?", key)
+
+
+res=re.findall("[ㄱ-ㅎ가-힣a-zA-Z]", news)
+from collections import Counter
+letters=Counter(res)
+max_let=max(letters.values())
+for key, value in letters.items():
+    if value == max_let:
+        print("가장 많이 등장한 글자는?", key)
 ```
 
 
