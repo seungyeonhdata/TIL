@@ -678,6 +678,11 @@ print(list2 is list3)
 #True
 #False
 #False
+
+x={'a':0,'b':1}
+y=x #실제로는 딕셔너리가 1개 만들어짐
+print(x is y)
+#True
 ```
 
 
@@ -685,13 +690,31 @@ print(list2 is list3)
 ## copy
 
 ```python
+a=3
+b=a
+a=5
+#기본형 변수는 서로 독립적. 대입해도 일시적으로 값이 같아질 뿐 a값이 바뀌어도 b는 영향을 받지 않는다.
+
+하지만 컬렉션의 경우,
+list1=[1,2,3]
+list2=list1
+#list2의 요소를 변경하면 list1의 요소도 같이 변경된다.
+#두 리스트를 독립적인 사본으로 만들기 위해 copy메서드 사용
+list3=list1.copy()
+list4=list1[:] #copy메서드 대신 [:]도 독립적인 사본 만듦
+list3[2]=300
+print(list1)
+#[1,2,3]
+print(list3)
+#[1,2,300]
+
+#딕셔너리로 복습
 x={'a':0,'b':1}
-y=x #실제로는 딕셔너리가 1개 만들어짐
-print(x is y) #변수 이름만 다를 뿐 x, y는 같은 객체
-#True
+y=x
 x['a']=100
 print(y)
 #{'a': 100, 'b': 1}
+
 y=x.copy() #완전히 다른 2개의 딕셔너리가 만들어짐
 print(x is y) #False
 print(x==y) #True
@@ -701,13 +724,24 @@ print(y)
 #{'a': 111, 'b': 1}
 #{'a': 100, 'b': 1}
 
+중첩컬렉션은 copy로는 독립안됨. deepcopy해야 독립
+list0=['a','b']
+list1=[list0,1,2]
+list2=list1.copy()
+
+list2[0][1]='c'
+print(list1)
+#[['a','c'],1,2]
+#list0은 여전히 공유
+
 x={'a':{'python':'3.8'}, 'b':{'python':'2.7'}}
 import copy
 y=copy.deepcopy(x) #깊은 복사
-y['a']['python']="2.77777"
-print(y)
-print("="*50)
+y['a']['python']="2.7777"
 print(x)
+print(y)
+#{'a':{'python':'3.8'}, 'b':{'python':'2.7'}}
+#{'a':{'python':'2.7777'}, 'b':{'python':'2.7'}}
 ```
 
 
