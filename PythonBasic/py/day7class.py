@@ -76,7 +76,7 @@
 #
 # for idx, i in enumerate(['aaa','bbb','ccc']):
 #     print(idx, i)
-#
+
 # #인덱스 : 자료의 위치(순서)번호, 0번 부터 사용
 # #a=[10,20,30]
 #
@@ -227,11 +227,11 @@
 #
 #
 # #딕셔너리 응용
-# x={'a':10,'b':20,'c':30}
+x={'a':10,'b':20,'c':30}
 # print(x)
 # x['aa']=40
 # print(x)
-# x.setdefault('d') #키 d가 추가, 값이 None저장
+x.setdefault('d') #키 d가 추가, 값이 None저장
 # print(x)
 #
 # x['a']=100
@@ -248,7 +248,8 @@
 # x.update({'a':10, 'd':30})
 # print(x)
 #
-# #print(list(zip([1,2],['one','two'])))
+# print(list(zip([1,2],['one','two'])))
+#
 # x.update(zip(['aa','c'],[999,777]) )
 # print(x)
 
@@ -266,7 +267,6 @@
 #
 # else:
 
-
 # x={'a':10, 'b':20, 'c':30, 'd':40}
 # del x['b']
 # print(x)
@@ -274,6 +274,33 @@
 # x.clear()
 # print(x)
 #
+#
+# days=['월','화','수','목','금','토','일']
+# food=['banana','apple','orange','tomato']
+# menu=zip(days,food)
+# print(dict(menu))
+# print(menu)
+# for d,f in menu:
+#     print("%s요일 메뉴: %s" % (d,f))
+
+adult=[]
+print(any(adult))
+print(all(adult))
+
+def half(s):
+    return s/2
+
+list=[24,35,46,22]
+for li in map(half,list):
+    print(li,end=' ')
+
+list1=[1,2,3]
+list2=list1
+list3=list1.copy()
+
+print(list1 is list2)
+print(list1 is list3)
+print(list2 is list3)
 # #리스트(튜플) -> 딕셔너리 생성
 # li=['a','b','c'] #키리스트
 # d=dict.fromkeys(li)
@@ -283,10 +310,10 @@
 # print(d2)
 #
 #
-# from collections import defaultdict #collections 모듈에서 defaultdict함수를 가져옴
-# #print(d2['z']) 키가 없으므로 에러
-# d2=defaultdict(int)
-# print(d2['z'])
+from collections import defaultdict #collections 모듈에서 defaultdict함수를 가져옴
+#print(d2['z']) 키가 없으므로 에러
+d2=defaultdict(int)
+print(d2['z'])
 
 # d3={'a':10, 'b':20}
 #키만 출력
@@ -331,27 +358,27 @@
 # 영화평점['BTS']['매트릭스']=5
 # print(영화평점['BTS']['매트릭스'])
 
-x={'a':0,'b':1}
-y=x #실제로는 딕셔너리가 1개 만들어짐
-print(x is y) #변수 이름만 다를 뿐 x, y는 같은 객체
-
-x['a']=100
-print(y)
-
-y=x.copy() #완전히 다른 2개의 딕셔너리가 만들어짐
-print(x is y)
-print(x==y)
-x['a']=111
-print(x)
-print(y)
-
-x={'a':{'python':'3.8'}, 'b':{'python':'2.7'}}
-y=x.copy()
-
-y['a']['python']="2.77777"
-print(y)
-
-print(x)
+# x={'a':0,'b':1}
+# y=x #실제로는 딕셔너리가 1개 만들어짐
+# print(x is y) #변수 이름만 다를 뿐 x, y는 같은 객체
+#
+# x['a']=100
+# print(y)
+#
+# y=x.copy() #완전히 다른 2개의 딕셔너리가 만들어짐
+# print(x is y)
+# print(x==y)
+# x['a']=111
+# print(x)
+# print(y)
+#
+# x={'a':{'python':'3.8'}, 'b':{'python':'2.7'}}
+# y=x.copy()
+#
+# y['a']['python']="2.77777"
+# print(y)
+#
+# print(x)
 
 #중첩 딕셔너리에서는 copy메서드 대신 copy모듈의 deepcopy함수를 사용
 # x={'a':{'python':'3.8'}, 'b':{'python':'2.7'}}
