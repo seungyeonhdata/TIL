@@ -235,7 +235,7 @@ print(re.search("world$", "hello, world"))
 
 ```
 
-## match 객체의 메서드
+### match 객체의 메서드
 
 자, 이제 match 메서드와 search 메서드를 수행한 결과로 돌려준 match 객체에 대해 알아보자. 앞에서 정규식을 사용한 문자열 검색을 수행하면서 아마도 다음과 같은 궁금증이 생겼을 것이다.
 
@@ -317,9 +317,19 @@ finditer 메서드를 수행
 
 finditer는 findall과 동일하지만 그 결과로 반복 가능한 객체(iterator object)를 돌려준다. 반복 가능한 객체가 포함하는 각각의 요소는 match 객체이다.
 
-* 
+### sub
 
 ```python
+
+대한민국, 한국, 코리아 모두 같은 것을 가리키지만 컴퓨터는 다르게 인식한다.
+re.sub("패턴","바꿀문자열","문자열",바꿀횟수)
+print(re.sub("apple|orange","fruit","apple tree banana orange"))
+두줄로 표현
+pat=re.compile("apple|orange")
+pat.sub("fruit","apple tree banana orange")
+
+"1 2 apple 3 banana 4 7 9 30 tree"
+print(re.sub("\d+","num","1 2 apple 3 banana 4 7 9 30 tree"))
 
 ```
 
