@@ -82,22 +82,22 @@
 # largest_combi([3,30,34,5,9])
 
 
-chart=[[0 for x in range(8)] for y in range(8)]
-print(chart)
-
-ans=0
-for n in range(4):
-    l_x,l_y,r_x,r_y=map(int,input("왼쪽 아래x,y좌표, 오른쪽 위 x,y좌표 순서대로 입력 :").split())
-
-    for i in range(l_x,r_x):
-        for j in range(l_y,r_y):
-            chart[j][i]=1
-
-print(chart)
-for one in chart:
-    ans+=sum(one)
-
-print("겹쳐진 직사각형들이 차지하는 면적:",ans)
+# chart=[[0 for x in range(8)] for y in range(8)]
+# print(chart)
+#
+# ans=0
+# for n in range(4):
+#     l_x,l_y,r_x,r_y=map(int,input("왼쪽 아래x,y좌표, 오른쪽 위 x,y좌표 순서대로 입력 :").split())
+#
+#     for i in range(l_x,r_x):
+#         for j in range(l_y,r_y):
+#             chart[j][i]=1
+#
+# print(chart)
+# for one in chart:
+#     ans+=sum(one)
+#
+# print("겹쳐진 직사각형들이 차지하는 면적:",ans)
 
 
 # whole=[[0 for i in range(1001)] for i in range(1001)]
@@ -155,3 +155,17 @@ print("겹쳐진 직사각형들이 차지하는 면적:",ans)
 #
 #
 # squareArea(1 2 4 4 2 3 5 7 3 1 6 5 7 3 8 6)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
