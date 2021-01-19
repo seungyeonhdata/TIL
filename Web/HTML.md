@@ -14,93 +14,122 @@ Markup Language는 마크로 둘러싸인 언어라는 뜻이다. 문서의 골�
 
 ## 자주 쓰이는 태그
 
-1. `<html>`
+#### `<html>`
 
-   :웹페이지의 시작과 끝
+:웹페이지의 시작과 끝
 
-   
+```html
+<!DOCTYPE>은 문서 유형을 지정한다.
 
-2. `<head>`
+<!DOCTYPE html> : 이 페이지는 html로 해석할 것.
+<html lang="en">
+    
+</html>
+```
 
-   :웹 페이지의 정보, 문서에서 사용할 외부 파일들을 링크할 때 사용한다.
 
-   ```
-   <title>, <meta>가 들어감
-   ```
 
-   
+#### `<head>`
+
+:웹 페이지의 정보, 문서에서 사용할 외부 파일들을 링크할 때 사용한다.
+
+```html
+    <head>
+        <meta charset="UTF-8">
+        <title>Homepage</title>
+        <link type="text/css" href="my_style.css">
+    </head>
+    </body>
+```
 
 3. `<title>`
 
-   :문서 제목
+   :웹 브라우저 제목 표시줄에 표시되는 문서 제목
+
+   페이지를 방문하는 방문자나 검색엔진은 제목 표시줄의 제목을 보고 내용을 예측하기 때문에 잘 써야한다.
+
+2. `<meta>`
+
+   :문자 인코딩 및 문서 키워드, 요약 정보, 크롤링 정책 등 페이지 정보가 나와 있다.
+
+   ```html
+   <meta charset="utf-8"> 
+   <meta name="keywords" content="노트북, 컴퓨터, 주변기기">
+   <meta name="description" content="컴퓨터 판매 페이지입니다">
+   <meta name="robots" content="all">
+   ```
+
+   * 한국어 인코딩 방식 : euc-kr, utf-8
+     * euc-kr : ascii(1byte)+한글만 확장 사용=2byte
+     * utf-8 : 보편화된 인코딩
+
+#### `<body>`
+
+:브라우저에 실제 표시되는 내용
+
+1. `<div>` 
+
+   :기능 없음. 레이아웃 설계하는 용이며 CSS와 연동하여 사용
+
+   줄바꿈
 
    
 
-   
+2. `<a>`
 
-4. `<meta>`
+3. `<script>`
 
-   :문자 인코딩 및 문서 키워드, 요약 정보
+4. `<link>`
 
-   
+5. `<img>`
 
-5. `<body>`
-
-   :브라우저에 실제 표시되는 내용
+6. `<span>`:줄바꿈 안함 
 
    
 
-6. `<div>`
+7. `<p>`
 
-7. `<a>`
+8. `<li>`
 
-8. `<script>`
+9. `<ul>`
 
-9. `<link>`
+10. `<style>`
 
-10. `<img>`
+11. `<br>`
 
-11. `<span>`
+12. `<h2>`
 
-12. `<p>`
+13. `<input>`
 
-13. `<li>`
+14. `<h1>`
 
-14. `<ul>`
+15. `<form>`
 
-15. `<style>`
+16. `<h3>`
 
-16. `<br>`
+17. `<nav>`
 
-17. `<h2>`
+18. `<footer>`
 
-18. `<input>`
+19. `<header>`
 
-19. `<h1>`
+20. `<iframe>`
 
-20. `<form>`
+21. `<button>`
 
-21. `<h3>`
+22. `<strong>`
 
-22. `<nav>`
-
-23. `<footer>`
-
-24. `<header>`
-
-25. `<iframe>`
-
-26. `<button>`
-
-27. `<strong>`
-
-28. `<i>`
+23. `<i>`
 
 
 
-html 주석 : ctrl+shirt+/
+html 주석 : ctrl+shift+/
 
 대소문자 구분 안함
+
+`<table>`
+
+
 
 ### 엔티티 테이블(entity table)
 

@@ -34,8 +34,114 @@
         <a href="http://www.naver.com" target="_blank">네이버가 새 페이지로</a>
         <a href="http://www.google.com" target="_self">현재 페이지가 구글로</a>
         <a href="http://www.google.com" target="_blank"><img src="googlelogo.png" width="200" height="100"></a>
+        <p>
+        <table>테이블1 <!--표는 tr,td 함께 사용-->
+<!--             <style>-->
+<!--            table{-->
+<!--                border:1px solid #ff4444;-->
+<!--                border-collapse:collapse;-->
+<!--                }-->
+<!--                th,td{-->
+<!--                    border:1px solid #0000ff;-->
+<!--                    }-->
+<!--            </style>-->
+        <!--색상값 범위:0~F(000000검정,FFFFFF하양)-->
+            <tr>
+                <td>섹션1</td>
+                <td>섹션2</td>
+            </tr>
+            <thead>표의제목 <!--써봤는데 다 위로 올라가네-->
+                <tr>
+                    <th>이름</th>
+                    <th>나이</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>홍길동</td>
+                    <td>21</td>
+                </tr>
+                <tr>
+                    <td>백장미</td>
+                    <td>25</td>
+                </tr>
+            </tbody>
+        </table> <!--화면 구성할 때 테이블태그보다 div태그(css) 많이 사용-->
+        </p>
+        <p>
+            <table border="2" bordercolor="blue" width="50%">
+            <th>테이블</th>
+            <th>만들기</th>
+            <tr align="center"><!-- 첫번째 줄 시작 -->
+                <!--<td colspan="2">첫번째 칸</td> 좌우 두칸 합치기-->
+                <!--<td rowspan="2">첫번째 칸</td> 위아래 두칸 합치기-->
+                <td>첫번째 칸</td>
+                <td>두번째 칸</td>
+
+            </tr><!-- 첫번째 줄 끝 -->
+            <tr bgcolor="skyblue"><!-- 두번째 줄 시작 -->
+                <td>첫번째 칸</td>
+                <td>두번째 칸</td>
+            </tr><!-- 두번째 줄 끝 -->
+            </table>
+        </p>
+        <p>
+            <div style="width:100px;height:100px;background-color:#CF0" align="center">div 태그</div>
+            <div style="background-color:blue">줄바꿈</div>
+            <span style="background-color:#CFA">span 태그</span>
+            <span style="background-color:#051">줄 안바꿈</span>
+        </p>
+        <p>
+        <ul>
+            <li>오늘 할 일</li>
+            <ol>
+                <li>html 자주쓰이는 태그 20개</li>
+                <li>애니팡</li>
+            </ol>
+            <li>내일 할 일</li>
+            <ol>
+                <li>생활코딩</li>
+                <li>그 외 태그들</li>
+            </ol>
+        </ul>
+        </p>
+
+
+<!--form은 클라이언트가 입력한 값을 서버가 받도록-->
+        <form>
+            <p>
+                <strong>아이디</strong>
+                <input type="text" name="name" value="아이디 입력">
+            </p>
+            <p>
+                <strong>비밀번호</strong>
+                <input type="password" name="password" value="비밀번호 입력">
+            </p>
+            <p>
+                <strong>성별</strong>
+                <!--radio는 택일-->
+                <input type="radio" name="gender" value="M">남자
+                <input type="radio" name="gender" value="F">여자
+            </p>
+            <p>
+                <strong>응시분야</strong>
+                <!--checkbox는 다수 가능-->
+                <input type="checkbox" name="part" value="eng">영어
+                <input type="checkbox" name="part" value="math">수학
+            </p>
+            <p>
+                <input type="submit" value="제출">
+            </p>
+        </form>
+
     </body>
 </html>
+
+
+
+
+
+
 
 <!--a태그:하이퍼링크 설정-->
 <!-- -href:이동할 링크-->
