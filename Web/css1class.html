@@ -74,56 +74,56 @@ css 선택자 종류(3가지) : 태그 선택자, id 선택자, class 선택자
 <!--선택자1 선택자2{속성1:속성값; 속성2:속성값;}-->
 <!--부모 태그 하위에 있는 자식 태그에 스타일을 적용-->
 
-<!--<html>-->
-<!--<head>-->
-<!--    <style>-->
-<!--        div.yello_box{background-color:yellow;}-->
-<!--        div.sb_box span{background-color:skyblue;}-->
-<!--        div#c_box span{text-align:center;padding:10px;color:green;}-->
-<!--        div span.blue_span{background-color:blue}-->
+<html>
+<head>
+    <style>
+        div.yello_box{background-color:yellow;}
+        div.sb_box span{background-color:skyblue;}
+        div#c_box span{text-align:center;padding:10px;color:green;}
+        div span.blue_span{background-color:blue}
 
-<!--        .aa > .cc{background-color:yellow}-->
-<!--        .xx .yy{background-color:skyblue}-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="xx">-->
-<!-- <div class="kk">-->
-<!-- <div class="yy">-->
-<!--     xx와 yy클래스는 부모 자식간에 직접적인 관계-->
-<!-- </div>-->
-<!-- </div>-->
-<!--</div>-->
+        .aa > .cc{background-color:yellow}
+        .xx .yy{background-color:skyblue}
+    </style>
+</head>
+<body>
+<div class="xx">
+ <div class="kk">
+ <div class="yy">
+     xx와 yy클래스는 부모 자식간에 직접적인 관계
+ </div>
+ </div>
+</div>
 
-<!--<div class="aa">-->
-<!-- <div class="cc">-->
-<!--     aa와 cc클래스에서 꺽쇠는 부모 자식간에 직접적인 관계-->
-<!-- </div>-->
-<!--</div>-->
+<div class="aa">
+ <div class="cc">
+     aa와 cc클래스에서 꺽쇠는 부모 자식간에 직접적인 관계
+ </div>
+</div>
 
-<!--<div class="aa">-->
-<!--    <div class="bb">-->
-<!--        <div class="cc">-->
-<!--     aa와 cc클래스 사이에 bb클래스가 있음(부모 자식 사이에 다른 클래스가 존재)-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="aa">
+    <div class="bb">
+        <div class="cc">
+     aa와 cc클래스 사이에 bb클래스가 있음(부모 자식 사이에 다른 클래스가 존재)
+        </div>
+    </div>
+</div>
 
-<!--&lt;!&ndash;div태그 하위에 span태그의 클래스명이 blue_span으로 정의된 영역에&ndash;&gt;-->
-<!--&lt;!&ndash;대해 배경색을 파랑색으로 설정&ndash;&gt;-->
-<!--<div><span class="blue_span">이 영역은 퀴즈에 해당됩니다</span></div>-->
+<!--div태그 하위에 span태그의 클래스명이 blue_span으로 정의된 영역에-->
+<!--대해 배경색을 파랑색으로 설정-->
+<div><span class="blue_span">이 영역은 퀴즈에 해당됩니다</span></div>
 
-<!--<div id="c_box"> <span>cbox 부분입니다 </span></div>-->
-<!--<div> div태그 부분입니다</div>-->
-<!--<div class="yello_box"> div태그 yello_box부분입니다</div>-->
-<!--<div class="sb_box">-->
-<!--    <span>-->
-<!--    div태그 sb_box span부분입니다-->
-<!--    </span>-->
-<!--</div>-->
+<div id="c_box"> <span>cbox 부분입니다 </span></div>
+<div> div태그 부분입니다</div>
+<div class="yello_box"> div태그 yello_box부분입니다</div>
+<div class="sb_box">
+    <span>
+    div태그 sb_box span부분입니다
+    </span>
+</div>
 
-<!--</body>-->
-<!--</html>-->
+</body>
+</html>
 
 
 <!--다중 조건 선택자: AND, OR-->
