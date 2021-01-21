@@ -1,10 +1,448 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--    <style>-->
+<!--        .box{-->
+<!--        background-color:#09c;-->
+<!--        }-->
+<!--        .hover-box:hover{color:orange;}-->
+<!--        .focus-input:focus{background-color:yellow;}-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="box hover-box">마우스를 올려주세요</div>-->
+<!--    <div class="hover-box">마우스를 올려야 보이는 글</div>-->
+<!--    <input tyle="text" value="click me" class="focus-input">-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--    <style>-->
+<!--        #box1{margin:20px;}-->
+<!--        #box2{margin:20px;padding:0;}-->
+<!--        .box{background-color:orange;margin:5px 20px;}-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div id="box1" class="box">마진 20px</div>-->
+<!--    <div id="box1" class="box">마진 20px</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--마진:바깥쪽(상하좌우) 여백-->
+<!--패딩:안쪽 여백-->
+
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <style>-->
+<!--	.box-container{-->
+<!--		background-color:skyblue;-->
+<!--		border: 2px solid #00f;-->
+<!--		margin: 5px 15px;-->
+<!--	}-->
+<!--	.box-container div{-->
+<!--		width: 120px;-->
+<!--		height: 80px;-->
+<!--		background-color: #fde6ff;-->
+<!--		border: 2px solid #90C;-->
+<!--		font-size: 15px;-->
+<!--	}-->
+<!--	#box1{ margin: 10px;  padding: 0; }-->
+<!--	#box2{ margin: 5px 10px 5px 15px; padding: 0; }-->
+<!--	#box3{ margin: 0;  padding: 10px 30px 5px; }-->
+<!--	#box4{ margin: 10px; padding: 10px 20px; }-->
+<!--	#box5{ margin: 10px 50px 0 30px; padding: 13px 20px }    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--	<div class="box-container">-->
+<!--		<div id="box1">m: 10<br>p: 0</div>-->
+<!--	</div>-->
+<!--	<div class="box-container">-->
+<!--		<div id="box2">m: 5 25<br>p: 0</div>-->
+<!--	</div>-->
+<!--	<div class="box-container">-->
+<!--		<div id="box3">m: 0<br>p: 10 30 5</div>-->
+<!--	</div>-->
+<!--	<div class="box-container">-->
+<!--		<div id="box4">m: 10<br>p: 10 20</div>-->
+<!--	</div>-->
+<!--	<div class="box-container">-->
+<!--		<div id="box5">m: 10 30 0 50<br>p: 30 0</div>-->
+<!--	</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<html>-->
+<!--<head>-->
+<!--	<meta charset="utf-8">-->
+<!--	<style>-->
+<!--		#text1{font-size:20px}-->
+<!--		#text2{font-size:40px}-->
+<!--		#text3{font-size:60px}-->
+<!--		.bold{font-weight:bold}-->
+<!--		.italic{font-style:italic}-->
+<!--		.jinji{font-family:"궁서"}-->
+<!--		#text4{font:italic bold 50px serif;}-->
+
+<!--	</style>-->
+<!--</head>-->
+<!--<body>-->
+<!--	<div id="text1">20픽셀</div>-->
+<!--	<div id="text2">40픽셀</div>-->
+<!--	<div id="text3">60픽셀</div>-->
+<!--	<div class="bold">굵은</div>-->
+<!--	<div class="italic">이탤릭</div>-->
+<!--	<div class="jinji">궁서</div>-->
+<!--	<div id="text4">altogether possible</div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--	<title>Quiz</title>-->
+<!--    <style>-->
+<!--        .border-styles>p{-->
+<!--        border:6px outset #0f0;-->
+<!--        }-->
+<!--        .box{-->
+<!--        width:100px;-->
+<!--        height:100px;-->
+<!--        background-color:skyblue;-->
+<!--        }-->
+<!--        #boxh{visibility:hidden;}-->
+<!--        #boxv{visibility:visible;}-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--	<div class="border-styles">-->
+<!--		<p>test</p>-->
+<!--	<div class="box" id="boxh">숨겨진 박스</div>-->
+<!--	<div class="box" id="boxv">보이는 박스</div>-->
+<!--	</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--quiz-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--	<title>Quiz</title>-->
+<!--    <style>-->
+<!--        .box{-->
+<!--        width:300px;-->
+<!--        height:300px;-->
+<!--        }-->
+<!--        #box1{-->
+<!--        width:300px;-->
+<!--        height:60px;-->
+<!--        border:2px solid skyblue;-->
+<!--        background-color:#cff;-->
+<!--        }-->
+<!--        #box2{-->
+<!--        width:60px;-->
+<!--        height:240px;-->
+<!--        border:2px solid red;-->
+<!--        background-color:#fdc;-->
+<!--        float:left;-->
+<!--        }-->
+<!--        #box3{-->
+<!--        width:236px;-->
+<!--        height:180px;-->
+<!--        border:2px solid blue;-->
+<!--        margin-left:64px;-->
+<!--        background-color:#ddf-->
+<!--        }-->
+<!--        #box4{-->
+<!--        width:236px;-->
+<!--        height:56px;-->
+<!--        margin-left:64px;-->
+<!--        border:2px solid purple;-->
+<!--        background-color:#fdf;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--	<div class="box">-->
+<!--        <div id="box1">global menu</div>-->
+<!--	    <div id="box2">left menu</div>-->
+<!--	    <div id="box3">article</div>-->
+<!--	    <div id="box4">comment</div>-->
+<!--    </div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+	<title>연습문제</title>
+    <style>
+        .box{
+        font-family:"함초롬바탕";
+        border:1px solid red;
+        padding:15px;
+        width:650px;
+        height:420px;
+        }
+        .headbox{
+        border:1px solid green;
+        background-color:#80DC7E;
+        height:60px;
+        padding:20px
+        }
+            .headbox>#heading{
+            margin-top:5px;
+            font-weight:bold;
+            font-size:20px;}
+            span{margin:10px 5px;
+            font-size:10px;
+            margin-left:20px;}
+        .art{
+        border:1px solid;
+        background-color;
+        width:440px;
+        height:280px;
+        margin-top:15px;
+        float:left;
+        padding:10px;
+        }
+            #yellowbox{
+            background-color:yellow;
+            margin:5px 20px;
+            font-size:10px;
+            }
+            thead{color:white;}
+            tbody tr:nth-child(2n){
+            background-color:#99BBF1;
+            }
+            tbody tr:nth-child(2n+1){
+            background-color:#DDECF7;
+            }
+        .sidebar{
+        border:1px solid;
+        background-color:#BDBDBD;
+        width:140px;
+        height:70px;
+        margin:15px 0 0 489px;
+        padding:20px 10px;
+        font-weight:bold;
+        }
+        .sidebar #text{
+        font-size:10px;
+        }
+    </style>
 </head>
 <body>
-$END$
+	<div class="box">
+        <div class="headbox">
+            <div id="heading">4차산업 빅데이터분석 과정</div>
+                <span id="menu1">메뉴1</span>
+                <span id="menu2">메뉴2</span>
+                <span id="menu3">메뉴3</span>
+                <span id="menu4">메뉴4</span>
+        </div>
+        <div class="art">
+            <h5 id="art1" style="margin:10px">기사 1</h5>
+                <div id="yellowbox">1월 20일 현재 4차산업 빅데이터 과정을 이수하고 있습니다
+                    <br><br>모든 교육생들이 즐겁고 재미나게 코딩하고 있습니다.</div>
+            <h5 id="art2" style="margin:10px">기사 2</h5>
+            <table align="center" width="410px" height="150px" style="font-size:10px">
+                    <thead bgcolor="blue">
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                    </tr>
+                    </thead>
+                    <tbody align="center">
+                    <tr>
+                        <td>1</td>
+                        <td>파이썬 코딩 너무 쉬운거 아니야?ㅠㅠ...</td>
+                        <td>강감찬</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>스크래핑은 너무 즐거워^^...</td>
+                        <td>장영실</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>데이터 분석을 빨리 배우고 싶어~!!...</td>
+                        <td>안중근</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>알고리즘이 궁금하다~...</td>
+                        <td>김두한</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>텍스트마이닝은 어떻게 할까?...</td>
+                        <td>계백</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>딥러닝도 하고 싶은데...</td>
+                        <td>최무선</td>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+        <div class="sidebar">
+            SIDEBAR
+            <div id="text"><br>모든 교육생은 취업에 성공해야 합니다</div>
+        </div>
+    </div>
+
 </body>
 </html>
+
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <style>-->
+<!--        .box1{-->
+<!--        background-color: rgb(140,217,140);-->
+<!--        border: 1px solid rgb(0,128,0);-->
+<!--        width:500px;-->
+<!--        height:60px;-->
+<!--        font-family:"굴림";-->
+<!--        font-weight:bold;-->
+<!--        font-size:20px;-->
+<!--        padding: 10px;-->
+<!--        }-->
+<!--        .box1>p>span{-->
+<!--        font-size:10px;-->
+<!--        color:rgb(32,96,63);-->
+<!--        margin:3px;-->
+<!--        }-->
+<!--        .box2{-->
+<!--        font-size:10;-->
+<!--        font-family:"굴림";-->
+<!--        border: 1px solid black;-->
+<!--        width:320px;-->
+<!--        height:250px;-->
+<!--        float:left;-->
+<!--        margin:10px 0 0 0;-->
+<!--        }-->
+<!--        .box2>p{-->
+<!--        background-color:yellow;-->
+<!--        margin:15px;-->
+<!--        }-->
+<!--        .box2>table{-->
+<!--        font-size:10;-->
+<!--        margin:15px;-->
+<!--        }-->
+<!--        #bright{-->
+<!--        background-color:rgb(230,240,255)-->
+<!--        }-->
+<!--        #dark{-->
+<!--        background-color:rgb(153,194,255);-->
+<!--        }-->
+<!--        .box3{-->
+<!--        background-color: rgb(217,217,217);-->
+<!--        border: 1px solid black;-->
+<!--        width:170px;-->
+<!--        height:80px;-->
+<!--        margin:10px 0 0 340px;-->
+<!--        padding:5px;-->
+<!--        font-weight:bold;-->
+<!--        font-size:20;-->
+<!--        }-->
+<!--        .box3>p{-->
+<!--        font-size:4px;-->
+<!--        margin:5px;-->
+<!--        padding:2px;-->
+<!--        font-weight:normal;-->
+<!--        }-->
+<!--        .box4{-->
+<!--        border: 1px solid black;-->
+<!--        width:500px;-->
+<!--        height:60px;-->
+<!--        font-family:"굴림";-->
+<!--        font-weight:bold;-->
+<!--        margin:170px 0 0 0;-->
+<!--        padding: 10px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="box1">-->
+<!--        4차산업 빅데이터 분석과정-->
+<!--        <p style=margin:10px>-->
+<!--            <span>메뉴 1</span>-->
+<!--            <span>메뉴 2</span>-->
+<!--            <span>메뉴 3</span>-->
+<!--            <span>메뉴 4</span>-->
+<!--        </p>-->
+<!--    </div>-->
+<!--    <div class="box2">-->
+<!--        <h3>기사1</h3>-->
+<!--        <p>1월 20일 현재 4차산업 빅데이터 과정을 이수하고 있습니다<br>-->
+<!--        모든 교육생들이 즐겁고 재미나게 코딩하고 있습니다.</p>-->
+<!--        <h3>기사2</h3>-->
+<!--        <table align="center" width="290px">-->
+<!--            <tr style=background-color:blue>-->
+<!--                <th>번호</th>-->
+<!--                <th>제목</th>-->
+<!--                <th>작성자</th>-->
+<!--            </tr>-->
+<!--            <tr id="bright">-->
+<!--                <td align="center">1</td>-->
+<!--                <td>강사님 빅데이터 짱 재밌어요</td>-->
+<!--                <td>강감찬</td>-->
+<!--            </tr>-->
+<!--            <tr id="dark">-->
+<!--                <td align="center">2</td>-->
+<!--                <td>근데 너무 어려워요 ㅋㅋㅋ</td>-->
+<!--                <td>장영실</td>-->
+<!--            </tr>-->
+<!--            <tr id="bright">-->
+<!--                <td align="center">3</td>-->
+<!--                <td>흠....</td>-->
+<!--                <td>안중근</td>-->
+<!--            </tr>-->
+<!--            <tr id="dark">-->
+<!--                <td align="center">4</td>-->
+<!--                <td>다들 화이팅</td>-->
+<!--                <td>김두한</td>-->
+<!--            </tr>-->
+<!--            <tr id="bright">-->
+<!--                <td align="center">5</td>-->
+<!--                <td>할말이없네</td>-->
+<!--                <td>계백</td>-->
+<!--            </tr>-->
+<!--            <tr id="dark">-->
+<!--                <td align="center">6</td>-->
+<!--                <td>아.....................</td>-->
+<!--                <td>최무선</td>-->
+<!--            </tr>-->
+<!--        </table>-->
+
+<!--    </div>-->
+<!--    <div class="box3">-->
+<!--        SIDEBAR-->
+<!--        <p>내 거친 생각과 불안한 눈빛과 그걸 지켜보는 너~ 그건 아마도 전쟁 같은 사랑</p>-->
+<!--    </div>-->
+<!--    <div class="box4">-->
+<!--        Ah kkeutnadda...-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
+
+

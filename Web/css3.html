@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box-container{
+        width:200px;border:2px solid #eee;
+        }
+        .box-container div{
+        width:200px;border:2px solid green;
+        background-color:yellow;
+        padding:10px;
+        }
+        #box1{position:static; top:20px;left:30px;}
+        #box2{position:relative; top:30px;left:50px;}
+        #box3{position:absolute; top:30px;left:30px;}
+    </style>
 </head>
 <body>
-$END$
+
+    <div class="box-container">
+        <div id="box1">static박스</div>
+        <div id="box2">relative박스</div>
+        <div id="box3">absolute박스</div>
+    </div>
 </body>
 </html>
