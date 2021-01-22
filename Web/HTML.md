@@ -117,6 +117,8 @@ Markup Language는 마크로 둘러싸인 언어라는 뜻이다. 문서의 골�
 
 
 
+<font></font>
+
 % 블락태그: div, li, p, h 줄 전체를 사용해서 다음꺼는 다음줄에
 
 inline 태그: a, i ,b, span 등 줄 안바꿈 너비,높이 설정 불가능

@@ -1,10 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Day17 javascript</title>
+    <script type="text/javascript">
+/*
+var hgd={};
+hgd['name']='honggildong';
+hgd['age']=28;
+hgd['gender']='m';
+document.write(hgd['name']);
+
+객체지향설계
+클래스 설계
+상속:부모클래스가 가지고 있는 동작, 속성 등을 자식클래스에 물려주는것
+자식클래스에서 동작, 속성 추가 가능
+자식클래스에서 동작, 속성 변경 : 오버라이딩(재정의)
+
+임꺽정객체=new 사람();
+사람 클래스가 가진 동작, 속성을 임꺽정이 가진다.
+클래스 객체가 높아질수록 동작이 추상적이다.
+
+var hgd=new Object();
+hgd['name']='honggildong';
+hgd['age']=28;
+hgd['gender']='m';
+document.write(hgd['name']+"<br/>");
+
+for(k in hgd){
+document.write(k+"<br/>"); //속성 출력
+}
+for(k in hgd){
+document.write(hgd[k]+"<br/>"); //속성값 출력
+}
+
+var hgd={
+'list':{
+'name':'honggildong',
+'age':28,
+'gender':'m'},
+
+'show':function(){
+    for(var n in this.list){
+        document.write(n+":"+this.list[n]+"<br/>");
+        }
+    }
+};
+hgd.show();
+
+
+
+
+//연습문제
+
+var arr=[52,273,103,32,57,103,31,2];
+function Max(){
+    var max=arr[0];
+    for(var a=1;a<arr.length;a++){
+        if(max<arr[a]){
+            max=arr[a];
+            }
+        }
+    return max;
+}
+document.write(Max()+"<br/>");
+
+function Min(){
+    return Math.min.apply(null,arr);
+    }
+document.write(Min()+"<br/>");
+
+
+for문 구구단
+function gugu(){
+    for(var i=1;i<10;i++){
+        for(var j=1;j<10;j++){
+        document.write(i*j+'\n');
+        }
+    document.write("<br/>");
+    }
+}
+gugu();
+
+
+while문
+function gugu(){
+    var i=1;
+    while(i<10){
+        var j=1;
+        while(j<10){
+        document.write(i*j+'\n');
+        j++;
+        }
+    i++;
+    document.write("<br/>");
+    }
+}
+gugu();
+
+
+function dice(){
+    for(i=1;i<7;i++){
+        for(j=1;j<7;j++){
+            if(i+j==6){
+                document.write(i,j+'<br/>');
+                }
+            }
+        }
+    }
+dice()
+*/
+
+for(var i=1;i<=5;i++){
+    for(var j=5;j>i;j--){
+        document.write('&nbsp;');
+    }
+    for(var k=0;k<i*2-1;k++){
+        document.write('*');
+    }
+    document.write('<br>');
+}
+
+for(var i=4;i>0;i--){
+    for(var j=4;j>=i;j--){
+        document.write('&nbsp;');
+    }
+    for(var k=0;k<i*2-1;k++){
+        document.write('*');
+    }
+    document.write('<br>');
+}
+
+
+
+    </script>
 </head>
 <body>
-$END$
 </body>
 </html>
