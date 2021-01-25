@@ -1,10 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Day 18</title>
+    <script type="text/javascript">
+/*
+    document.write(2+3+'<br>');
+    document.write("hello world".index0f("o")); 안나옴..
+    document.write("   hi   "+'<br>'); //공백문자는 많이 줘도 한개만 나온다
+    document.write("&nbsp&nbsp&nbsp&nbsp hi  &nbsp&nbsp&nbsp"+'<br>');
+    document.write("     hi   ".trim()+'<br>'); //공백 지우기
+alert("hello world".length);
+alert("hello world".toUpperCase());
+
+document.write(1==1);
+document.write(1&gt;0);
+*/
+    </script>
+    <style>
+        .js{
+        font-weight:bold;
+        }
+    </style>
 </head>
 <body>
-$END$
+
+<!--<input type="button" value="click me" onclick="alert('why click me?')"><br>-->
+<!--ID: <input type="text" onchange="alert('changed')"><br>-->
+<!--PW: <input type="text" onkeyup="alert('key')">-->
+<!--<input type="text" onkeypress="alert('key')">-->
+<h1><a href="index.html">WEB</a></h1>
+<h2 style="background-color:coral; color:skyblue; width=300;">JavaScript</h2>
+그냥 글자<br>
+<input type="button" value="black" onclick="
+document.querySelector('body').style.backgroundColor='black';
+document.querySelector('body').style.color='white';
+">
+<input type="button" value="white" onclick="
+document.querySelector('body').style.backgroundColor='white';
+document.querySelector('body').style.color='black';
+">
+
+<!--toggle 눌렀을 때, 화이트면 블랙으로, 블랙이면 그대로-->
+<input id="mywhite" type="button" value="toggle" onclick="
+if(document.querySelector('#mywhite').value=='white'){
+document.querySelector('#myblack').value='black';
+document.querySelector('body').style.backgroundColor='white';
+document.querySelector('body').style.color='white';
+}else{
+document.querySelector('body').style.backgroundColor='black';
+document.querySelector('body').style.color='white';}
+">
+<!--버튼 눌렀을 때 블랙이면 화이트로, 화이트면 블랙으로-->
+<input type="button" value="black" onclick="
+var target=document.querySelector('body');
+if(this.value=='black'){
+target.style.backgroundColor='black';
+target.style.color='white';
+this.value='white';
+}else{
+target.style.backgroundColor='white';
+target.style.color='black';
+this.value='black';
+}
+">
+<br>
+<input type="button" value="warning" onclick="
+alert('화면을 변경하지 마세요');
+">
 </body>
 </html>

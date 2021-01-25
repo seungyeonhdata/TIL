@@ -373,7 +373,7 @@ alert('Hello World');
 alert(2*4);
 alert("안녕\n하세요"); //줄바꿈
 alert("안녕".length); //문자열 길이
-alert("1"==1); //내부적으로 여산을 하기 전에 자동 형 변환 True
+alert("1"==1); //내부적으로 연산을 하기 전에 자동 형 변환 True
 alert("1"===1); //형 변환 안됨 False
 ```
 
@@ -405,6 +405,54 @@ document.write(new Date()); //데이트 클래스에서 새 객체를 만든다
 ```javascript
 
 ```
+
+#### 버튼
+
+:`<body>` 내용 버튼으로 조작하기
+
+```html
+<body>
+
+<h1><a href="index.html">WEB</a></h1>
+<h2 style="background-color:coral; color:skyblue; width=300;">JavaScript</h2>
+그냥 글자<br>
+<input type="button" value="black" onclick="
+document.querySelector('body').style.backgroundColor='black';
+document.querySelector('body').style.color='white';
+">
+<input type="button" value="white" onclick="
+document.querySelector('body').style.backgroundColor='white';
+document.querySelector('body').style.color='black';
+">
+
+<!--toggle 눌렀을 때, 화이트면 블랙으로, 블랙이면 그대로-->
+<input id="mywhite" type="button" value="toggle" onclick="
+if(document.querySelector('#mywhite').value=='white'){
+document.querySelector('#myblack').value='black';
+document.querySelector('body').style.backgroundColor='white';
+document.querySelector('body').style.color='white';
+}else{
+document.querySelector('body').style.backgroundColor='black';
+document.querySelector('body').style.color='white';}
+">
+<!--버튼 눌렀을 때 블랙이면 화이트로, 화이트면 블랙으로-->
+<input type="button" value="black" onclick="
+var target=document.querySelector('body');
+if(this.value=='black'){
+target.style.backgroundColor='black';
+target.style.color='white';
+this.value='white';
+}else{
+target.style.backgroundColor='white';
+target.style.color='black';
+this.value='black';
+}
+">
+</body>
+
+```
+
+
 
 ## 배열
 
@@ -458,6 +506,8 @@ fruits.reverse(); //반대로 정렬(sort 먼저 해주면 내림차순)
 ```javascript
 
 ```
+
+
 
 ### 객체
 
