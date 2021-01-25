@@ -104,7 +104,15 @@
 
    
 
-9. 
+9. on 이벤트 속성명
+
+   : 이벤트가 발생하게 하는 속성명은 on으로 시작하는 함수
+
+   ```html
+   <input type="button" value="click me" onclick="alert('why click me?')">
+   ```
+
+   <img src="Javascript.assets/image-20210125112754046.png" alt="image-20210125112754046" style="zoom: 67%;" />
 
 
 
@@ -222,6 +230,100 @@ for(var i=0;i<5;i++){
 numbering();
 ```
 
+* 연습
+
+```html
+구구단
+function gugu(){
+    for(var i=1;i<10;i++){
+        for(var j=1;j<10;j++){
+        document.write(i*j+'\n');
+        }
+    document.write("<br/>");
+    }
+}
+gugu();
+
+function gugu(){
+    var i=1;
+    while(i<10){
+        var j=1;
+        while(j<10){
+        document.write(i*j+'\n');
+        j++;
+        }
+    i++;
+    document.write("<br/>");
+    }
+}
+gugu();
+
+최대최소 구하기
+var arr=[52,273,103,32,57,103,31,2];
+function Max(){
+    var max=arr[0];
+    for(var a=1;a<arr.length;a++){
+        if(max<arr[a]){
+            max=arr[a];
+            }
+        }
+    return max;
+}
+document.write(Max()+"<br/>");
+
+function Min(){
+    return Math.min.apply(null,arr);
+    }
+document.write(Min());
+
+다이아몬드 그리기
+for(var i=1;i<=5;i++){
+    for(var j=5;j>i;j--){
+        document.write('&nbsp;');
+    }
+    for(var k=0;k<i*2-1;k++){
+        document.write('*');
+    }
+    document.write('<br>');
+}
+for(var i=4;i>0;i--){
+    for(var j=4;j>=i;j--){
+        document.write('&nbsp;');
+    }
+    for(var k=0;k<i*2-1;k++){
+        document.write('*');
+    }
+    document.write('<br>');
+}
+
+                              
+2)
+for(var i=1;i<11;i++){
+    for(var k=1; k<(11-i)/2;k++){  //공백 4,3,2,1
+        document.write('&nbsp');
+        }
+    for(var j=1;j<i+1;j++){    // * 1,3,5,7
+        document.write("*");
+        }
+    document.write("<br/>")
+    i++;
+}
+
+    for(var i=1;i<9;i++){
+   	 for(var k=1;k<=(i+1)/2;k++){   //공백 1,2,3,4
+     document.write('&nbsp');
+       }
+     for (var j=1;j<9-i;j++){  // * 7,5,3,1
+        document.write("*");
+        }
+      document.write("<br/>")
+      i++;
+ }
+
+```
+
+
+
 
 
 
@@ -290,8 +392,6 @@ Math.random() 난수
 
 ```javascript
 document.write(new Date()); //데이트 클래스에서 새 객체를 만든다
-
-
 ```
 
 * `Date 클래스`
@@ -328,7 +428,7 @@ document.write(m[0]);
 
 
 배열 정보
-document.write(arr.index0f(3)); //3이라는 자료의 인덱스 출력(0부터 시작)
+document.write(arr.index0f(3)); //3이라는 자료의 인덱스 출력(0부터 시작) 없으면 -1
 
 ```
 
