@@ -452,6 +452,62 @@ this.value='black';
 
 ```
 
+```html
+전달할때는 this, 받을 때는 self
+
+<html>
+    <head>
+        <title>WEB1 - JavaScript</title>
+        <meta charset="utf-8">
+        <script>
+
+            function nightDayHandler(self){
+
+            var target = document.querySelector('body');
+            if(self.value === 'night') {
+                target.style.backgroundColor = 'black';
+                target.style.color = 'white';
+                self.value = 'day';
+
+                var alist = document.querySelectorAll('a');
+                var i = 0;
+                while(i < alist.length) {
+                    alist[i].style.color = 'powderblue';
+                    i = i + 1;
+                }
+            } else {
+                target.style.backgroundColor = 'white';
+                target.style.color = 'black';
+                self.value = 'night';
+
+                var alist = document.querySelectorAll('a');
+                var i = 0;
+                while(i < alist.length) {
+                    alist[i].style.color = 'blue';
+                    i = i + 1;
+                }
+            }
+            }
+        </script>
+    </head>
+<body>
+        <h1><a href="index.html">WEB</a></h1>
+
+        <input type="button" value="night" onclick="nightDayHandler(this);">
+
+        <ol>
+            <li><a href="1.html">HTML</a></li>
+            <li><a href="2.html">CSS</a></li>
+            <li><a href="3.html">JavaScript</a></li>
+        </ol>
+        <h2>JavaScript란 무엇인가?</h2>
+        <p>JavaScript (/ˈdʒɑːvəˌskrɪpt/),[6] often abbreviated as JS, is a high-level, interpreted programming language. It is a language which is also characterized as dynamic, weakly typed, prototype-based and multi-paradigm. Alongside HTML and CSS, JavaScript is one of the three core technologies of the World Wide Web.[7] JavaScript enables interactive web pages and thus is an essential part of web applications. The vast majority of websites use it,[8] and all major web browsers have a dedicated JavaScript engine to execute it.</p>
+
+        <input type="button" value="day" onclick="nightDayHandler(this);">
+    </body>
+</html>
+```
+
 
 
 ## 배열
@@ -509,9 +565,17 @@ fruits.reverse(); //반대로 정렬(sort 먼저 해주면 내림차순)
 
 
 
-### 객체
 
-#### 속성
+
+## 객체
+
+<i>클래스(도면)는 실(객)체(건물)가 없다. 클래스 안에 객체들=속성+메서드 가짐</i> 
+
+순서 없다
+
+
+
+### 속성
 
 : {속성:속성값, 속성:속성값,...} (파이썬의 딕셔너리{키:값, 키:값, ...}와 비슷)
 
@@ -539,7 +603,7 @@ hgd['name']='honggildong';
 hgd['age']=28;
 hgd['gender']='m';
 document.write(hgd['name']+"<br/>");
-
+document.write(hgd.name+"<br/>");
 
 for(k in hgd){
 document.write(k+"<br/>"); //속성 출력
@@ -547,20 +611,27 @@ document.write(k+"<br/>"); //속성 출력
 for(k in hgd){
 document.write(hgd[k]+"<br/>"); //속성값 출력
 }
+for(var k in coworkers){
+    document.write(k+":"+coworkers[k]+"<br>");
+}
 ```
 
 * 편집
 
-```
+```html
+추가
 hgd.birth=1994; //접근할 때 . 사용
 document.write(hgd['birth']);
+속성에 공백있으면 []
+hgd.['data science']='taeho';
 
 ```
 
-#### 동작
+### 동작
 
-```javascript
-메서드. 속성값이 함수
+```html
+객체에 소속된 함수는 "메서드"
+객체에 소속된 변수는 "프로퍼티"
 ```
 
 * 작성
@@ -572,6 +643,7 @@ var hgd={
 'age':28,
 'gender':'m'},    //속성 정의
 
+1)
 'show':function(){  //this:현재의 객체(hgd),파이썬 self
     for(var n in this.list){
         document.write(n+":"+this.list[n]+"<br/>");
@@ -580,12 +652,84 @@ var hgd={
 };
 hgd.show();
 
+2)
+hgd.showAll=function(){
+    for(var k in this){ //k가 키값
+        document.write(k+':'+this[k]+'<br>')
+    }
+}
+hgd.showAll();
 /*
 name:honggildong
 age:28
 gender:m
 */
+
 ```
+
+```javascript
+
+```
+
+
+
+#### 정규식
+
+```javascript
+var re=/ab+c/; //슬래시로 감싸기
+var re=RegExp("ab+c"); //RegExp 객체 생성 방법
+```
+
+* 메소드
+
+| 속성    | 설명                                                         |
+| ------- | ------------------------------------------------------------ |
+| exec    | 대응되는 문자열을 찾는 메소드. 정보를 가지고 있는 배열을 반환하고 못찾으면 null |
+| test    | 대응되는 문자열이 있는지 검사하는 메소드.  true/false 반환   |
+| match   | 대응되는 문자열을 찾는 메소드. 정보를 가지고 있는 배열을 반환하고 못찾으면 null |
+| search  | 대응되는 문자열이 있는지 검사하는 string메소드. 대응된 부분의 인덱스를 반환하고 못찾으면 -1 |
+| replace | 대응되는 문자열을 다른 문자열로 치환하는 string 메소드       |
+| split   | 정규식 혹은 문자열로 대상 문자열을 나누어 배열로 반환        |
+
+```javascript
+var myRe=/d(b+)d/g;
+var myArray=myRe.exec('cdbbdvsvz');
+
+var myArray=/d(b+)d/g.exec('cdbbdvsvz');
+
+var myRe=new RegExp("d(b+)d", "g");
+var myArray=myRe.exec("cdbbdbsbz");
+```
+
+**다 같은 결과**지만 정규식 객체를 변수에 대입해야 정규식의 속성에 접근할 수 있다. 
+
+```javascript
+var myRe = /d(b+)d/g;
+var myArray = myRe.exec("cdbbdbsbz");
+console.log("The value of lastIndex is " + myRe.lastIndex);
+
+// "The value of lastIndex is 5"
+```
+
+
+
+* 괄호로 둘러싼 패턴 사용하기
+
+```javascript
+document.write(/(zoo) (bar)/.exec("zoo bar test")+'<br>');
+document.write(/(zoo) (bar)/.exec("zoo test bar")+'<br>'); //매치 후 ()부분 대부적으로 기억
+```
+
+```javascript
+var re = /(\w+)\s(\w+)/;
+var str = "John Smith";
+var newstr = str.replace(re, "$2, $1");
+console.log(newstr);
+
+// "Smith, John"
+```
+
+* 플래그를 사용한 고급검색
 
 ```javascript
 
