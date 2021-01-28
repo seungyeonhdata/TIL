@@ -350,6 +350,29 @@ myf(10,20)
 안되는데? */
 ```
 
+* 함수 호출하는 다양한 방법
+
+```javascript
+1)body에서 호출
+<head>
+<script> 
+function mycalc(){
+alert("호출");
+}
+</script>
+</head>
+<body onload="mycalc()">
+//body가 load될때 mycalc함수 호출됨
+    
+2)
+<script>
+window.onload=function(){
+alert("윈도우 객체의 onload 함수에 대해 정의 on함수는 콜백함수. 윈도우가 load되면 함수호출");
+}
+</script>
+//윈도우 load될때 자동으로 함수 호출
+```
+
 
 
 * `parseInt()`
@@ -394,17 +417,7 @@ Math.random() 난수
 document.write(new Date()); //데이트 클래스에서 새 객체를 만든다
 ```
 
-* `Date 클래스`
 
-```javascript
-
-```
-
-* `Date 클래스`
-
-```javascript
-
-```
 
 #### 버튼
 

@@ -313,24 +313,30 @@ Markup Language는 마크로 둘러싸인 언어라는 뜻이다. 문서의 골�
 
 :form 생성. 요소가 어러 개일 경우 `<ul>`로 묶어줄 수 있다.
 
-`<fieldset>`을 사용하여 form 요소를 보기 쉽게 그룹으로 묶는다.
+`<fieldset>`을 사용하여 form 요소를 보기 쉽게 그룹으로 묶는다. (테두리)
 
 `<legend>`는 `<fieldset>`으로 나누어진 구역에 제목을 붙일 때 사용
 
-| 속성   | 설명                                                         |
-| ------ | ------------------------------------------------------------ |
-| method | 전송 방식 선택                                               |
-| name   | form을 식별하는 이름                                         |
-| action | form을 전송할 서버 쪽의 script 파일 지정                     |
-| target | action에서 지정한 script 파일이 현재 창이 아닌 다른 위치에 열리도록 지정 |
+`<label>`레이블:분류결과(데이터 모델->예측 결과(P/F))
+
+| 속성    | 설명                                                         |
+| ------- | ------------------------------------------------------------ |
+| method  | 전송 방식 선택 <br>1) get : 암호화를 하지 않고 보내는 빠른 전송방식. <br>주소에 정보가 담긴다. (ww.aaa.com?id=87456&addr=%F346155 이런식) 256~4096 byte까지만 가능 <br>정보를 식별하는 고유한 식별자(퍼머링크)로 사용가능<br><br>2) post :  header의 body에 담겨서 전송된다.<br>주소에 정보가 표시되지 않는다.(192.145.0.24/html_tutorials/1.php) 입력 길이 제한 없음<br>서버 쪽에 어떤 작업을 명령할 때 사용(데이터의 기록, 삭제, 수정) |
+| name    | form을 식별하는 이름                                         |
+| action  | form을 전송할 서버 쪽의 script 파일 지정<br>(action 속성말고 onsubmit 이벤트를 이용해 script로 처리할 수도 있다) |
+| target  | action에서 지정한 script 파일이 현재 창이 아닌 다른 위치에 열리도록 지정 |
+| enctype | 서버로 보내기전에 문자 인코딩. ""는 첫번째 값                |
 
 ```html
+<fieldset>
+<legend>로그인창</legend>
 <form name="profile" action="/action_page.php" method="get" 	autocomplete="on">
     <input type="text" name="id">
     <select>
         <option value="blue"></option>
     </select>
 </form>
+</fieldset>
 ```
 
 
@@ -353,6 +359,30 @@ Markup Language는 마크로 둘러싸인 언어라는 뜻이다. 문서의 골�
    | manLength    | 최대로 입력할 수 있는 문자 개수 지정                         |
    | step         | 숫자의 간격 설정(input이 date, datetime, datetime-local, month, week, time, number, range일 경우) |
    | required     | 필수 입력 필드 지정(빈칸이면 안 넘어감)                      |
+   
+   ```html
+   <form>
+   <input type="text" value="1234" disabled="disabled"><br>
+   <input type="text" value="1234" readonly="readonly"><br>
+   <input type="text" size="10"><br>
+   <input type="text" pattern="[A-Z]+" placeholder="영문 대문자만 입력"><br>
+   </form>
+   
+   글상자 rows,cols=상자크기 mxlngth=글자수제한
+   <textarea rows="10" cols="40" maxlength="200"></textarea>
+   
+   <!--콤보상자-->
+   <select multiple size="3">
+   <option value="c">c언어</option>
+   <option value="py" selected>파이썬</option>
+   <option value="js">자바스크립트</option>
+   <option value="css">css</option>
+   </select>  
+   ```
+   
+   <img src="HTML.assets/image-20210128115101801.png" alt="image-20210128115101801" style="zoom:67%;" />
+   
+   
    
    | 속성        | 키워드         | 설명                                                         |
    | ----------- | -------------- | ------------------------------------------------------------ |
@@ -382,7 +412,64 @@ Markup Language는 마크로 둘러싸인 언어라는 뜻이다. 문서의 골�
    
    ※참고 정리 : https://velog.io/@choiiis/HTMLCSS-form-%ED%83%9C%EA%B7%B8-%EC%A0%95%EB%A6%AC
    
-   
+
+
+
+```html
+<form action="http://www.abc.com/login" method="get" name="회원가입">
+
+<!--입력상자와 레이블을 암묵적(implicit)으로 연결. 라벨 클릭하면 입력상자로 연결됨-->
+        <label>이름 : <input type="text"></label><br>
+        <label>주소 : <input type="text"></label>
+
+<!--입력상자와 레이블을 연결하지 않음-->
+        <label>나이 :</label>
+        <input type="text"><br>
+
+<!--입력상자와 레이블을 for을 이용해 명시적(explicit)으로 연결(id 필수!)-->
+        <input type="radio" name="color-select" id="abc" value="blue"
+        <label for="abc">파랑</label>
+        <input type="radio" name="color-select" id="def" value="yellow"
+        <label for="def">노랑</label> <!--name은 이 중 하나만 선택 가능하도록 그룹으로 묶는것-->
+
+        <br><input type="button" value="버튼">
+        <br><input type="submit">
+        <input type="reset"><br>
+        <label>비밀번호 : <input type="password"></label><br>
+        <input type="file" accept="image/jpeg"><br> <!--accept로 파일 형식 지정-->
+
+<!--체크박스로 중복선택. checked로 미리선택-->
+        <label>국적 :
+        <input type="checkbox" name="nation" value="kor" checked="checked">한국
+        <input type="checkbox" name="nation" value="usa">미국
+        <input type="checkbox" name="nation" value="eng">영국</label><br>
+
+        <input type="number"><br>
+        <input type="range" min="5" max="10"><br>
+        <input type="date"><br>
+        <input type="email"> <!--유효한지 알려줌-->
+        <input type="color"><br>
+        <input type="image" src="flower.jpg" width="300px"><br>
+
+
+</form>  
+
+
+```
+
+<img src="HTML.assets/image-20210128112124818.png" alt="image-20210128112124818" style="zoom:67%;" />
+
+```html
+<input type="button" value="전송">
+	<button type="button" onclick="검증함수">클릭</button>
+    <button type="submit">전송</button>
+    <button type="reset">리셋</button>
+<!--submit과 button의 차이
+submit: 곧바로 서버에 폼 내용을 전송
+button: 자바스크립트 함수 호출 -> 함수 내 유효성 검증 -> 검증 후 전송-->
+```
+
+
 
 ----
 
