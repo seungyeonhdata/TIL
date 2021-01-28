@@ -1,10 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Day21 계산기</title>
+    <script>
+    /*window.onload=function(){
+    document.getElementById("btnCalc").onclick=mycalc;
+    }*/
+
+function mycalc(){
+    if(frm.num1.value===""){
+        alert("숫자 1에 값을 입력하세요");
+        frm.num1.focus();
+        return;
+        }
+        //숫자, 음수기호, 소수점만 입력 가능하도록 정규식 정의
+        var regEx1=/^-?\d*\.?\d*$/;
+        if(!frm.num1.value.match(regEx1)){
+            alert("숫자만 입력하세요");
+            frm.num1.value="";
+            frm.num1.focus();
+            return;
+            }
+        else if(frm.num1.value==="0"){
+            alert("숫자1에 0값이 있습니다");
+            frm.num1.value="";
+            frm.num1.focus();
+            return;
+            }
+
+    if(frm.num2.value===""){
+        alert("숫자 2에 값을 입력하세요");
+        frm.num2.focus();
+        return;
+        }
+        var regEx2=/^-?\d*\.?\d*$/;
+        if(!frm.num2.value.match(regEx2)){
+            alert("숫자만 입력하세요");
+            frm.num2.value="";
+            frm.num2.focus();
+            return;
+            }
+        else if(frm.num2.value==="0"){
+            alert("0은 입력 불가");
+            frm.num2.value="";
+            frm.num2.focus();
+            return;
+            }
+
+        //선택된 라디오 버튼 가져와서 연산. 안됐으면 선택해라 alert
+        isCalcChecked=false;
+        for(var i=0;i<frm.calc.length;i++){
+            if(frm.calc[i].checked){
+                oper=frm.calc[i].id;
+                isCalcChecked=true;
+                }
+            }
+        if(!isCalcChecked){
+            alert("연산자를 선택하세요");
+            return;
+            }
+
+        //연산
+        var su1=frm.num1.value;
+        var su2=frm.num2.value;
+        if(oper==="add"){
+            document.getElementById("res").value=eval(su1+"+"+su2);
+            }
+        else if(oper==="sub"){
+            if(frm.num2.value[0]=="-"){
+                document.getElementById("res").value=eval(su1+"+"+(-su2));
+                }
+            else{document.getElementById("res").value=eval(su1+"-"+su2);
+                }
+            }
+        else if(oper==="mul"){
+            document.getElementById("res").value=eval(su1+"*"+su2);
+            }
+        else{
+            document.getElementById("res").value=eval(su1+"/"+su2);
+            }
+
+
+}
+
+    </script>
 </head>
 <body>
-$END$
+<form name="frm">
+
+<label>숫자 1 : <input type="text" id="num1"></label><br>
+<label>숫자 2 : <input type="text" id="num2"></label><br>
+
+<label>연산 :
+<label for="add">+<input type="radio" name="calc" id="add"></label>
+<label for="sub">-<input type="radio" name="calc" id="sub"></label>
+<label for="mul">*<input type="radio" name="calc" id="mul"></label>
+<label for="div">/<input type="radio" name="calc" id="div"></label></label><br>
+
+<label>결과 : <input type="text" id="res" readonly="readonly"></label><br>
+<input type="button" value="계산" id="btnCalc" onclick="mycalc()">
+<input type="reset" value="지우개">
+
+</form>
 </body>
 </html>
+
+
+
+    <!--action="http://register.naver.com/registerProc.jsp"-->
+
+<!--    <fieldset>-->
+<!--        <legend>로그인창</legend>-->
+<!--        <form action="http://www.abc.com/login" method="get" name="회원가입">-->
+
+<!--입력상자와 레이블을 암묵적(implicit)으로 연결. 라벨 클릭하면 입력상자로 연결됨-->
+<!--        <label>이름 : <input type="text"></label><br>-->
+<!--        <label>주소 : <input type="text"></label>-->
+
+<!--입력상자와 레이블을 연결하지 않음-->
+<!--        <label>나이 :</label>-->
+<!--        <input type="text"><br>-->
+
+<!--입력상자와 레이블을 for을 이용해 명시적(explicit)으로 연결(id 필수!)-->
+<!--        <input type="radio" name="color-select" id="abc" value="blue">-->
+<!--        <label for="abc">파랑</label>-->
+<!--        <input type="radio" name="color-select" id="def" value="yellow">-->
+<!--        <label for="def">노랑</label> &lt;!&ndash;name은 이 중 하나만 선택 가능하도록 그룹으로 묶는것&ndash;&gt;-->
+
+<!--        <br><input type="button" value="버튼">-->
+<!--        <br><input type="submit">-->
+<!--        <input type="reset"><br>-->
+<!--        <label>비밀번호 : <input type="password"></label><br>-->
+<!--        <input type="file" accept="image/jpeg"><br> &lt;!&ndash;accept로 파일 형식 지정&ndash;&gt;-->
+
+<!--체크박스로 중복선택. checked로 미리선택-->
+<!--        <label>국적 :-->
+<!--        <input type="checkbox" name="nation" value="kor" checked="checked">한국-->
+<!--        <input type="checkbox" name="nation" value="usa">미국-->
+<!--        <input type="checkbox" name="nation" value="eng">영국</label><br>-->
+
+<!--        <input type="number"><br>-->
+<!--        <input type="range" min="5" max="10"><br>-->
+<!--        <input type="date"><br>-->
+<!--        <input type="email"> &lt;!&ndash;유효한지 알려줌&ndash;&gt;-->
+<!--        <input type="color"><br>-->
+<!--        <input type="image" src="flower.jpg" width="300px"><br>-->
+
+<!--        <input type="text" value="1234" disabled="disabled"><br>-->
+<!--        <input type="text" value="1234" readonly="readonly"><br>-->
+<!--        <input type="text" size="10"><br>-->
+<!--        <input type="text" pattern="[A-Z]+" placeholder="영문 대문자만 입력"><br>-->
+
+
+
+<!--        <textarea rows="10" cols="40" maxlength="200"></textarea><br>-->
+
+<!--        <select multiple size="3">-->
+<!--            <option value="c">c언어</option>-->
+<!--            <option value="py" selected>파이썬</option>-->
+<!--            <option value="js">자바스크립트</option>-->
+<!--            <option value="css">css</option>-->
+<!--        </select>-->
+
+<!--        <input type="button" value="전송">-->
+<!--            <button type="button" onclick="검증함수">클릭</button>-->
+<!--            <button type="submit">전송</button>-->
+<!--            <button type="reset">리셋</button>-->
+<!--        submit과 button의 차이-->
+<!--        submit: 곧바로 서버에 폼 내용을 전송-->
+<!--        button: 자바스크립트 함수 호출 -> 함수 내 유효성 검증 -> 검증 후 전송-->
+
+
+<!--     </form>-->
+<!--    </fieldset>-->
