@@ -188,6 +188,9 @@ print(type("hi")) #str
 str(a[0]) # 숫자 1 -> 문자열 "1"
 print(str(a[0])+"hi")  => 1hi 출력
 #str 함수: 정수나 실수를 문자열로 변환해주는 함수
+
+두 리스트의 요소 각각 더해서 새로운 리스트
+new=[a+b for a,b in zip(li_a,li_b)]
 ```
 
 
@@ -417,11 +420,6 @@ for k,v in d2.items():
 #a 10
 #b 20
 
-from collections import defaultdict
-print(d['z']) #키 없어서 에러
-d=defaultdict(int)
-print(d['z']) #0
-
 ```
 
 * comprehension
@@ -490,6 +488,33 @@ print(x)
 
 ```
 
+### collections 모듈
+
+```python
+counter는 사전의 하위클래스로 리스트나 튜플에서 각 데이터가 등장한 횟수를 사전형식으로 돌려준다
+from collections import Counter
+colors = ['red', 'blue', 'red', 'green', 'blue', 'blue']
+cnt = Counter(colors)
+print(cnt)
+#Counter({'blue': 3, 'red': 2, 'green': 1})
+
+most_common()은 등장한 횟수를 내림차순으로 정리하여 보여준다.
+numbers = [1, 2, 3, 3, 4, 4, 4, 5, 5]
+from collections import Counter
+cnt = Counter(numbers) 
+cnt.most_common() 
+#[(4, 3), (3, 2), (5, 2), (1, 1), (2, 1)]
+상위 2개는 cmt.most_common(2)
+최빈값 mode=cnt.most_common(1)
+
+
+defaultdict는 키 없을때 0값을 돌려준다.
+from collections import defaultdict
+print(d['z']) #키 없어서 에러
+d=defaultdict(int)
+print(d['z']) #0
+```
+
 
 
 ## 집합: Set{}
@@ -513,6 +538,8 @@ s1.intersection(s2)
 #합집합
 s1|s2
 s1.union(s2)
+이진수도 가능
+print(bin(2|1)[2:].zfill(5))
 
 #차집합
 s1-s2
@@ -596,6 +623,9 @@ for d,f in menu:
 
 print(list(zip([1,2],['one','two'])))
 #[(1, 'one'), (2, 'two')]
+
+두 리스트의 요소 각각 더해서 새로운 리스트
+new=[a+b for a,b in zip(li_a,li_b)]
 ```
 
 
