@@ -415,6 +415,23 @@ Math.random() 난수
 
 ```javascript
 document.write(new Date()); //데이트 클래스에서 새 객체를 만든다
+
+date에서 원하는 정보만 가져오기
+var date1=new Date();
+alert(date1.getFullYear()); //연도 추출
+date1.getMonth()+1; //0부터 시작
+date1.getDate();
+date1.getDay(); //요일(0:일,...6:토)
+```
+
+* 문자열 추출
+
+```javascript
+var s="hello world";
+document.write(s.charAt(1)+"<br>"); //인덱스는 0부터
+document.write(s.substring(1,5)); //1~4 인덱스 참조
+
+
 ```
 
 
@@ -747,4 +764,403 @@ console.log(newstr);
 ```javascript
 
 ```
+
+### 연습
+
+#### 계산기
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day21 계산기</title>
+    <script>
+    /*window.onload=function(){
+    document.getElementById("btnCalc").onclick=mycalc;
+    }*/
+
+function mycalc(){
+    if(frm.num1.value===""){
+        alert("숫자 1에 값을 입력하세요");
+        frm.num1.focus();
+        return;
+        }
+        //숫자, 음수기호, 소수점만 입력 가능하도록 정규식 정의
+        var regEx1=/^-?\d*\.?\d*$/;
+        if(!frm.num1.value.match(regEx1)){
+            alert("숫자만 입력하세요");
+            frm.num1.value="";
+            frm.num1.focus();
+            return;
+            }
+        else if(frm.num1.value==="0"){
+            alert("숫자1에 0값이 있습니다");
+            frm.num1.value="";
+            frm.num1.focus();
+            return;
+            }
+
+    if(frm.num2.value===""){
+        alert("숫자 2에 값을 입력하세요");
+        frm.num2.focus();
+        return;
+        }
+        var regEx2=/^-?\d*\.?\d*$/;
+        if(!frm.num2.value.match(regEx2)){
+            alert("숫자만 입력하세요");
+            frm.num2.value="";
+            frm.num2.focus();
+            return;
+            }
+        else if(frm.num2.value==="0"){
+            alert("0은 입력 불가");
+            frm.num2.value="";
+            frm.num2.focus();
+            return;
+            }
+
+        //선택된 라디오 버튼 가져와서 연산. 안됐으면 선택해라 alert
+        isCalcChecked=false;
+        for(var i=0;i<frm.calc.length;i++){
+            if(frm.calc[i].checked){
+                oper=frm.calc[i].id;
+                isCalcChecked=true;
+                }
+            }
+        if(!isCalcChecked){
+            alert("연산자를 선택하세요");
+            return;
+            }
+
+        //연산
+        var su1=frm.num1.value;
+        var su2=frm.num2.value;
+        if(oper==="add"){
+            document.getElementById("res").value=eval(su1+"+"+su2);
+            }
+        else if(oper==="sub"){
+            if(frm.num2.value[0]=="-"){
+                document.getElementById("res").value=eval(su1+"+"+(-su2));
+                }
+            else{document.getElementById("res").value=eval(su1+"-"+su2);
+                }
+            }
+        else if(oper==="mul"){
+            document.getElementById("res").value=eval(su1+"*"+su2);
+            }
+        else{
+            document.getElementById("res").value=eval(su1+"/"+su2);
+            }
+
+
+}
+
+    </script>
+</head>
+<body>
+<form name="frm">
+
+<label>숫자 1 : <input type="text" id="num1"></label><br>
+<label>숫자 2 : <input type="text" id="num2"></label><br>
+
+<label>연산 :
+<label for="add">+<input type="radio" name="calc" id="add"></label>
+<label for="sub">-<input type="radio" name="calc" id="sub"></label>
+<label for="mul">*<input type="radio" name="calc" id="mul"></label>
+<label for="div">/<input type="radio" name="calc" id="div"></label></label><br>
+
+<label>결과 : <input type="text" id="res" readonly="readonly"></label><br>
+<input type="button" value="계산" id="btnCalc" onclick="mycalc()">
+<input type="reset" value="지우개">
+
+</form>
+</body>
+</html>
+```
+
+<img src="Javascript.assets/image-20210129115826942.png" alt="image-20210129115826942" style="zoom:67%;" />
+
+
+
+#### 마우스 이벤트 정보 출력
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>day22</title>
+
+    <!--녹색 박스 안에서 발생하는 마우스 이벤트 정보 출력하기-->
+    <style>
+            body{
+                background-color: black;
+                color:white;
+            }
+            #target{
+                width:200px;
+                height:200px;
+                background-color: green;
+                margin:10px;
+            }
+            table{
+                border-collapse: collapse;
+                margin:10px;
+                float: left;
+                width:200px;
+            }
+            td, th{
+                padding:10px;
+                border:1px solid gray;
+            }
+        </style>
+
+</head>
+
+
+<body>
+
+<div id="target"></div>
+<table>
+    <tr>
+        <th>event type</th>
+        <th>info</th>
+    </tr>
+    <tr>
+        <td>click</td>
+        <td id="elmclick"></td>
+    </tr>
+    <tr>
+        <td>dblclick</td>
+        <td id="elmdblclick"></td>
+    </tr>
+    <tr>
+        <td>mousedown</td>
+        <td id="elmmousedown"></td>
+    </tr>
+    <tr>
+        <td>mouseup</td>
+        <td id="elmmouseup"></td>
+    </tr>
+    <tr>
+        <td>mousemove</td>
+        <td id="emlmousemove"></td>
+    </tr>
+    <tr>
+        <td>mouseover</td>
+        <td id="elmmouseover"></td>
+    </tr>
+    <tr>
+        <td>mouseout</td>
+        <td id="elmmouseout"></td>
+    </tr>
+    <tr>
+        <td>contextmenu</td>
+        <td id="elmcontextmenu"></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>key</th>
+        <th>info</th>
+    </tr>
+    <tr>
+        <td>event.altKey</td>
+        <td id="elmaltkey"></td>
+    </tr>
+    <tr>
+        <td>event.ctrlKey</td>
+        <td id="elmctrlkey"></td>
+    </tr>
+    <tr>
+        <td>event.shiftKey</td>
+        <td id="elmshiftkey"></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>position</th>
+        <th>info</th>
+    </tr>
+    <tr>
+        <td>event.clientX</td>
+        <td id="elmclientx"></td>
+    </tr>
+    <tr>
+        <td>event.clientY</td>
+        <td id="elmclienty"></td>
+    </tr>
+</table>
+<script>
+var t=document.getElementById('target');
+
+function handler(event){
+//alert(event.type);
+var time=new Date(); //date객체 생성
+var timestr=time.getMilliseconds();
+var info=document.getElementById("elm"+event.type);
+info.innerHTML=timestr; //html내에 info 아이디에 직접 쓰기
+
+if(event.altKey){
+document.getElementById("elmaltkey").innerHTML=timestr}
+if(event.ctrlKey){
+document.getElementById("elmctrlkey").innerHTML=timestr}
+if(event.shiftKey){
+document.getElementById("elmshiftkey").innerHTML=timestr}
+
+//가로세로 좌표
+//브라우저 전체 기준
+document.getElementById("elmclientx").innerHTML=event.clientX;
+document.getElementById("elmclienty").innerHTML=event.clientY;
+
+//그린박스 영역 기준
+//document.getElementById("elmclientx").innerHTML=event.offsetX;
+//document.getElementById("elmclienty").innerHTML=event.offsetY;
+}
+
+t.addEventListener("click",handler);
+t.addEventListener("dblclick",handler);
+t.addEventListener("mousedown",handler);
+t.addEventListener("mouseup",handler);
+//t.addEventListener("mousemove",handler)
+t.addEventListener("mouseover",handler);
+t.addEventListener("mouseout",handler);
+t.addEventListener("contextmenu",handler);
+
+//add로 눈코귀달아주고 event는 외부입력 Listener:입력을 인식하는("이벤트종류",반응)
+//event 변수 안에는 type(종류), 위치 등 모든 정보 다들어있음
+</script>
+
+</body>
+</html>
+```
+
+<img src="Javascript.assets/image-20210129115545478.png" alt="image-20210129115545478" style="zoom: 67%;" />
+
+#### 회원가입창
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <script>
+window.onload=function(){
+frm.id.focus();
+return;
+}
+
+function myvalid(){
+    var regExid=/^[a-z][a-z0-9]{5,11}$/;
+    if(!frm.id.value.match(regExid)){
+        alert("id는 6글자 이상 12글자 이하의 숫자와 소문자 조합, 반드시 문자로 시작");
+        frm.id.focus();
+        return;
+        }
+    if(frm.pw1.value!=frm.pw2.value){
+        alert("비밀번호가 일치하지 않습니다");
+        return;
+        }
+    var selectedHobby=document.querySelectorAll('input[name="hobby"]:checked');
+    var hobbyCnt=selectedHobby.length;
+    if(hobbyCnt==4){
+        alert("취미는 3개 이하로 선택하세요");
+        selectedHobby.forEach(function(v,i){v.checked=false;});
+        return;
+        }
+    var regExemail=/^[a-zA-Z0-9]{1,12}$/;
+    if(!frm.email.value.match(regExemail)){
+        alert("이메일 아이디는 특수문자 없이 12글자 이내로 작성하세요");
+        frm.email.focus();
+        return;
+        }
+    if(document.getElementById('memo').value.length<10){
+        alert("자기소개는 10글자 이상 입력하세요");
+        return;
+        }
+}
+
+function myage(){
+    var today=new Date();
+    var yearNow=today.getFullYear();
+    var birth=new Date(document.getElementById('birth').value);
+    var birthYear=birth.getFullYear();
+    document.getElementById('age').value=yearNow-birthYear;
+    return;
+    }
+
+    </script>
+</head>
+<body>
+<form name="frm">
+    <fieldset>
+        <legend>회원가입</legend>
+        <table>
+            <tr>
+                <td>아이디</td>
+                <td><input type="text" id="id" name="id"></td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td><input type="password" id="pw1" name="pw1">
+                비밀번호 확인
+                <input type="password" id="pw2" name="pw2">
+                </td>
+            </tr>
+            <tr>
+                <td>성별</td>
+                <td><input type="radio" name="gender" id="male">남
+                    <input type="radio" name="gender" id="female">여
+                </td>
+            </tr>
+            <tr>
+                <td>취미</td>
+                <td><input type="checkbox" name="hobby" value="tennis">테니스
+                    <input type="checkbox" name="hobby" value="golf">골프
+                    <input type="checkbox" name="hobby" value="swim">수영
+                    <input type="checkbox" name="hobby" value="bad">배드민턴
+                </td>
+            </tr>
+            <tr>
+                <td>생년월일</td>
+                <td><input type="date" name="birth" id="birth">
+                    현재 나이(만)
+                    <input type="text" name="age" id="age" onfocus="myage()" readonly="readonly">세</td>
+                </td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td><input type="text" name="email" id=email">
+                    @
+                    <select id="url">
+                        <option value="naver" selected>naver.com</option>
+                        <option value="gmail">gmail.com</option>
+                        <option value="daum">daum.net</option>
+                        <option value="hotmail">hotmail.com</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>자기소개</td>
+                <td><textarea id="memo" rows="5" cols="50"></textarea></td>
+            </tr>
+            <tr>
+                <td>
+                <input type="button" value="회원가입" id="signup" onclick="myvalid()"></td>
+                <td>
+                <input type="reset" value="초기화" id="reset"></td>
+
+            </tr>
+        </table>
+
+    </fieldset>
+
+</form>
+</body>
+</html>
+```
+
+<img src="Javascript.assets/image-20210131160148258.png" alt="image-20210131160148258" style="zoom:67%;" />
 

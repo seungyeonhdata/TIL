@@ -9,6 +9,45 @@ frm.id.focus();
 return;
 }
 
+function myvalid(){
+    var regExid=/^[a-z][a-z0-9]{5,11}$/;
+    if(!frm.id.value.match(regExid)){
+        alert("id는 6글자 이상 12글자 이하의 숫자와 소문자 조합, 반드시 문자로 시작");
+        frm.id.focus();
+        return;
+        }
+    if(frm.pw1.value!=frm.pw2.value){
+        alert("비밀번호가 일치하지 않습니다");
+        return;
+        }
+    var selectedHobby=document.querySelectorAll('input[name="hobby"]:checked');
+    var hobbyCnt=selectedHobby.length;
+    if(hobbyCnt==4){
+        alert("취미는 3개 이하로 선택하세요");
+        selectedHobby.forEach(function(v,i){v.checked=false;});
+        return;
+        }
+    var regExemail=/^[a-zA-Z0-9]{1,12}$/;
+    if(!frm.email.value.match(regExemail)){
+        alert("이메일 아이디는 특수문자 없이 12글자 이내로 작성하세요");
+        frm.email.focus();
+        return;
+        }
+    if(document.getElementById('memo').value.length<10){
+        alert("자기소개는 10글자 이상 입력하세요");
+        return;
+        }
+}
+
+function myage(){
+    var today=new Date();
+    var yearNow=today.getFullYear();
+    var birth=new Date(document.getElementById('birth').value);
+    var birthYear=birth.getFullYear();
+    document.getElementById('age').value=yearNow-birthYear;
+    return;
+    }
+
     </script>
 </head>
 <body>
@@ -45,7 +84,7 @@ return;
                 <td>생년월일</td>
                 <td><input type="date" name="birth" id="birth">
                     현재 나이(만)
-                    <input type="text" name="age" id="age">세</td>
+                    <input type="text" name="age" id="age" onfocus="myage()" readonly="readonly">세</td>
                 </td>
             </tr>
             <tr>
@@ -66,7 +105,7 @@ return;
             </tr>
             <tr>
                 <td>
-                <input type="button" value="회원가입" id="signup"></td>
+                <input type="button" value="회원가입" id="signup" onclick="myvalid()"></td>
                 <td>
                 <input type="reset" value="초기화" id="reset"></td>
 

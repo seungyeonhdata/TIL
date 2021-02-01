@@ -1,10 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>day22</title>
+
+    <!--녹색 박스 안에서 발생하는 마우스 이벤트 정보 출력하기-->
+    <style>
+            body{
+                background-color: black;
+                color:white;
+            }
+            #target{
+                width:200px;
+                height:200px;
+                background-color: green;
+                margin:10px;
+            }
+            table{
+                border-collapse: collapse;
+                margin:10px;
+                float: left;
+                width:200px;
+            }
+            td, th{
+                padding:10px;
+                border:1px solid gray;
+            }
+        </style>
+
 </head>
+
+
 <body>
-$END$
+
+<div id="target"></div>
+<table>
+    <tr>
+        <th>event type</th>
+        <th>info</th>
+    </tr>
+    <tr>
+        <td>click</td>
+        <td id="elmclick"></td>
+    </tr>
+    <tr>
+        <td>dblclick</td>
+        <td id="elmdblclick"></td>
+    </tr>
+    <tr>
+        <td>mousedown</td>
+        <td id="elmmousedown"></td>
+    </tr>
+    <tr>
+        <td>mouseup</td>
+        <td id="elmmouseup"></td>
+    </tr>
+    <tr>
+        <td>mousemove</td>
+        <td id="emlmousemove"></td>
+    </tr>
+    <tr>
+        <td>mouseover</td>
+        <td id="elmmouseover"></td>
+    </tr>
+    <tr>
+        <td>mouseout</td>
+        <td id="elmmouseout"></td>
+    </tr>
+    <tr>
+        <td>contextmenu</td>
+        <td id="elmcontextmenu"></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>key</th>
+        <th>info</th>
+    </tr>
+    <tr>
+        <td>event.altKey</td>
+        <td id="elmaltkey"></td>
+    </tr>
+    <tr>
+        <td>event.ctrlKey</td>
+        <td id="elmctrlkey"></td>
+    </tr>
+    <tr>
+        <td>event.shiftKey</td>
+        <td id="elmshiftkey"></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>position</th>
+        <th>info</th>
+    </tr>
+    <tr>
+        <td>event.clientX</td>
+        <td id="elmclientx"></td>
+    </tr>
+    <tr>
+        <td>event.clientY</td>
+        <td id="elmclienty"></td>
+    </tr>
+</table>
+<script>
+var t=document.getElementById('target');
+
+function handler(event){
+//alert(event.type);
+var time=new Date(); //date객체 생성
+var timestr=time.getMilliseconds();
+var info=document.getElementById("elm"+event.type);
+info.innerHTML=timestr; //html내에 info 아이디에 직접 쓰기
+
+if(event.altKey){
+document.getElementById("elmaltkey").innerHTML=timestr}
+if(event.ctrlKey){
+document.getElementById("elmctrlkey").innerHTML=timestr}
+if(event.shiftKey){
+document.getElementById("elmshiftkey").innerHTML=timestr}
+
+//가로세로 좌표
+//브라우저 전체 기준
+document.getElementById("elmclientx").innerHTML=event.clientX;
+document.getElementById("elmclienty").innerHTML=event.clientY;
+
+//그린박스 영역 기준
+//document.getElementById("elmclientx").innerHTML=event.offsetX;
+//document.getElementById("elmclienty").innerHTML=event.offsetY;
+}
+
+t.addEventListener("click",handler);
+t.addEventListener("dblclick",handler);
+t.addEventListener("mousedown",handler);
+t.addEventListener("mouseup",handler);
+//t.addEventListener("mousemove",handler)
+t.addEventListener("mouseover",handler);
+t.addEventListener("mouseout",handler);
+t.addEventListener("contextmenu",handler);
+
+//add로 눈코귀달아주고 event는 외부입력 Listener:입력을 인식하는("이벤트종류",반응)
+//event 변수 안에는 type(종류), 위치 등 모든 정보 다들어있음
+</script>
+
 </body>
 </html>
