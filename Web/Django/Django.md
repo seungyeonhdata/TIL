@@ -49,11 +49,30 @@
   <img src="Django.assets/image-20210129161614059.png" alt="image-20210129161614059" style="zoom:67%;" />
 
 - 가상환경 나가려면 `deactivate`
-- 나가지 말고 `python manage.py runserver`
+
+- 웹서버 구동
+
+   `python manage.py runserver`
 
 <img src="Django.assets/image-20210129162414368.png" alt="image-20210129162414368" style="zoom:67%;" />
 
-​	※헷갈려서 mysite->mysites로 바꿈
+​		※헷갈려서 mysite->mysites로 바꿈
+
+- 초기 마이그레이션(데이터베이스 및 User, Group 테이블 생성)
+
+  `python manage.py migrate`
+
+  <img src="Django.assets/image-20210202112150981.png" alt="image-20210202112150981" style="zoom: 67%;" />
+
+- 관리자 계정 생성
+
+  `python manage.py createsuperuser`
+
+  <img src="Django.assets/image-20210202164731191.png" alt="image-20210202164731191" style="zoom:80%;" />
+
+  http://localhost:8000/admin 에 로그인하면 게시판 확인가능
+
+  <img src="Django.assets/image-20210202164838619.png" alt="image-20210202164838619" style="zoom:50%;" />
 
 #### 내가 그린 요약도
 
@@ -88,7 +107,7 @@ c:/venvs/mysite/scripts/activate"
 
 - existing environment에서 경로-> venvs\mysite\Scripts\python.exe
 
-<img src="Django.assets/image-20210201145115587.png" alt="image-20210201145115587" style="zoom:67%;" />
+<img src="Django.assets/image-20210201145115587.png" alt="image-20210201145115587" style="zoom:50%;" />
 
 - settings.py에서 
 
@@ -102,6 +121,20 @@ TIME_ZONE = 'Asia/Seoul'
 
 
 
+#### DB Browser for SQLite
+
+: 데이터베이스 관리 도구. sqlitebrowser.org/dl에서 다운로드
+
+- 데이터베이스 열기 ---> project\mysites\db.sqlite3
+
+
+
+<i>※ sql 몰라도 장고 ORM(Object Relational Mapping)이 파이썬으로 데이터 작업 할 수 있음</i>
+
+
+
+
+
 
 
 ## mysites 프로젝트
@@ -112,11 +145,13 @@ TIME_ZONE = 'Asia/Seoul'
 
 ### 게시판 
 
-- mybo라는 게시판 앱 만들기
+- mybo라는 게시판 앱 설치
 
-`django-admin startapp mybo`
+  `django-admin startapp mybo`
 
 - 게시판 주소는 http://127.0.0.1:8000/mybo 가 된다.
+
+- 동작 과정
 
 ```
 1) http://127.0.0.1:8000/mybo 페이지 요청
@@ -127,27 +162,37 @@ TIME_ZONE = 'Asia/Seoul'
 #### url 매핑
 
 ```python
-주소로 가보면 404오류가 남.
-config/urls.py에서 매핑
+1) 주소로 가보면 404오류가 남.
+2) config/urls.py에서 매핑
 
 from django.contrib import admin
 from django.urls import path
 from mybo import views
 
-urlpatterns = [
+urlpatterns = [  #앞에 호스트 주소는 생략가능
     path('admin/', admin.site.urls),
-    path('mybo/', views.index),    
+    path('mybo/', views.index), #views파일의 index로 직접 매핑  
+	path('mybo/', include('mybo.urls')), #mybo로 시작되는 호출은 모두 mybo/urls.py의 매핑 규칙을 참조
+
 ]
 ```
 
-그리고 실행하면 에러
-
 ```python
-AttributeError: module 'mybo.views' has no attribute 'index'
+mybo/urls.py에 따로 매핑 규칙 적기
+
+from django.urls import path
+from . import views #.은 현재 디렉토리
+
+urlpatterns=[
+    path('',views.index), #mybo 써줄 필요 없어서 ''
+
+]
 ```
 
+- 실행했을 때 에러 : `AttributeError: module 'mybo.views' has no attribute 'index'`
+
 ```python
-mybo/views.py에서 설정
+3) mybo/views.py에서 설정
 
 from django.http import HttpResponse
 
@@ -157,7 +202,138 @@ def index(request):
 
 
 
+장고는 모델로 데이터 관리
+
+데이터 저장, 조회 삭제는 sql 쿼리문 사용
+
+migrate 명령: admin, auth, sessions 등의 앱이 필요로 하는 테이블을 생성
+
+테이블=데이터를 저장하는 집합
+
+데이터베이스=테이블 ...의 모음
 
 
 
 
+
+
+
+#### QnA
+
+:질문하고 답하는 게시판 만들기
+
+
+
+- 장고는 모델을 이용하여 테이블을 생성한다
+
+```python
+mybo/models.py
+
+from django.db import models
+
+# Create your models here.
+class Question(models.Model):
+    subject=models.CharField(max_length=200) #제목속성.글자수제한
+    content=models.TextField() #게시글 본문
+    create_date=models.DateTimeField() #게시일
+
+class Answer(models.Model):
+    question=models.ForeignKey(Question, on_delete=models.CASCADE) #모델간의 연결
+    #답변과 연결된 질문이 삭제되며 답변도 삭제된다
+    content=models.TextField() #답변글 본문
+    create_date=models.DateTimeField() #게시일
+
+```
+
+​	※ model field references : 
+
+[Model field reference | Django documentation | Django (djangoproject.com)](https://docs.djangoproject.com/en/3.0/ref/models/fields/#field-types)
+
+
+
+- 설치된 앱에 추가하여 인식시키기(apps.py에 있는 class명 추가해주기)
+
+```python
+mybo/settings.py 안의 INSTALLED_APPS에
+'mybo.apps.MyboConfig' 추가
+```
+
+<img src="Django.assets/image-20210202134748708.png" alt="image-20210202134748708" style="zoom:80%;" />
+
+
+
+- 새롭게 테이블을 생성/수정하는 경우에는 먼저 테이블 작업에 필요한 파일을 만든다.
+
+  테이블 생성 명령 : `python manage.py makemigrations`
+
+  `mybo\migrations\0001_initial.py` 파일과 모델들 만들어짐
+
+<img src="Django.assets/image-20210202141341048.png" alt="image-20210202141341048" style="zoom:80%;" />
+
+- 만든 모델들이 데이터베이스에 잘 들어가 있다.
+
+<img src="Django.assets/image-20210202141521533.png" alt="image-20210202141521533" style="zoom:57%;" />
+
+##### shell
+
+: 코드로 직접 작성할 때
+
+`python manage.py shell`
+
+- 모델 불러와서 작성
+
+  `from mybo.models import Question, Answer`
+
+- 테이블 내용을 작성하고 저장하면 자동으로 번호가 붙는다.
+
+<img src="Django.assets/image-20210202145430331.png" alt="image-20210202145430331" style="zoom:80%;" />
+
+​	` Question.objects.all()` : Question모델 객체 전체 id 출력
+
+<img src="Django.assets/image-20210202154517283.png" alt="image-20210202154517283" style="zoom:80%;" />
+
+- 내용 변경 (method 추가 등)
+
+  ![image-20210202154006351](Django.assets/image-20210202154006351.png)
+
+  `quit` 후 재시작해야 새로고침 된다. 
+
+  ` Question.objects.all()` : Question모델 객체 전체 subject 출력
+
+<img src="Django.assets/image-20210202154717746.png" alt="image-20210202154717746" style="zoom:80%;" />
+
+###### .objects.+
+
+- `filter` : 
+
+  - <QuerySet 리스트형태 >로 나열. 
+
+  - 여러 건의 데이터를 리턴할때 쓴다. 
+
+  - 없으면 빈 리스트를 리턴한다.
+
+    <img src="Django.assets/image-20210202160228853.png" alt="image-20210202160228853" align="left" style="zoom:80%;" />
+
+- `get` : 
+  - 한 건의 데이터를 리턴할 때 쓴다. 
+  - 없으면 에러
+
+- 데이터 수정(save 해줘야함)
+
+  재정의하면 됨. 검색할때 (속성명__contains='찾는단어')
+
+  <img src="Django.assets/image-20210202155718318.png" alt="image-20210202155718318" align="left" style="zoom: 80%;" />
+
+- 데이터 삭제
+
+  <img src="Django.assets/image-20210202155743977.png" alt="image-20210202155743977" align="left" style="zoom: 80%;" />
+
+
+
+**질문 모델에 연결된 답변 모델 작성하기**
+
+- 질문에 연결된 답변 찾을 때 답변이 여러 개일 수 있기 때문에 `_set.all()`함수 쓴다.
+
+  <img src="Django.assets/image-20210202165114164.png" alt="image-20210202165114164" style="zoom:80%;" />
+
+힘들어서 정리는 여기까지..
