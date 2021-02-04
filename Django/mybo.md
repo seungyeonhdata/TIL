@@ -79,7 +79,7 @@ migrate 명령: admin, auth, sessions 등의 앱이 필요로 하는 테이블�
 
 
 
-## QnA
+## 모델 만들기
 
 :질문하고 답하는 게시판 만들기
 
@@ -103,16 +103,21 @@ class Answer(models.Model):
     #답변과 연결된 질문이 삭제되면 답변도 삭제된다
     content=models.TextField() #답변글 본문
     create_date=models.DateTimeField() #게시일
-
 ```
 
-​	※ model field references : 
+```python
+.CharField() #글자수 제한할때
+.TextField() #글자수 제한없이
+.ForeignKey(연결할 모델) #모델들끼리 값 연결
+```
+
+※ model field references : 
 
 [Model field reference | Django documentation | Django (djangoproject.com)](https://docs.djangoproject.com/en/3.0/ref/models/fields/#field-types)
 
 
 
-- 설치된 앱에 추가하여 인식시키기(apps.py에 있는 class명 추가해주기)
+- 설치된 앱에 추가하여 인식시키기(apps.py에 있는 class명 추가해주기) 그래야 테이블 생성할 수 있다.
 
 ```python
 mybo/settings.py 안의 INSTALLED_APPS에
@@ -127,7 +132,9 @@ mybo/settings.py 안의 INSTALLED_APPS에
 
   테이블 생성 명령 : `python manage.py makemigrations`
 
-  `mybo\migrations\0001_initial.py` 파일과 모델들 만들어짐
+  `mybo\migrations\0001_initial.py` 파일과 모델들이 만들어짐
+  
+  테이블 등록 명령 : `python manage.py migrate`
 
 <img src="Django.assets/image-20210202141341048.png" alt="image-20210202141341048" style="zoom:80%;" />
 
@@ -135,7 +142,7 @@ mybo/settings.py 안의 INSTALLED_APPS에
 
 <img src="Django.assets/image-20210202141521533.png" alt="image-20210202141521533" style="zoom:57%;" />
 
-### shell
+### shell로 작성
 
 : 코드로 직접 작성할 때
 
@@ -159,7 +166,7 @@ mybo/settings.py 안의 INSTALLED_APPS에
 
   `quit` 후 재시작해야 새로고침 된다. 
 
-  ` Question.objects.all()` : Question모델 객체 전체 subject 출력
+  ` Question.objects.all()` : 이제 Question모델 객체 전체 subject 출력
 
 <img src="Django.assets/image-20210202154717746.png" alt="image-20210202154717746" style="zoom:80%;" />
 
@@ -194,19 +201,21 @@ mybo/settings.py 안의 INSTALLED_APPS에
 
 **질문 모델에 연결된 답변 모델 작성하기**
 
-- 질문에 연결된 답변 찾을 때 답변이 여러 개일 수 있기 때문에 `_set.all()`함수 쓴다.
+<img src="Django.assets/image-20210202165114164.png" alt="image-20210202165114164" style="zoom:80%;" />
 
-  <img src="Django.assets/image-20210202165114164.png" alt="image-20210202165114164" style="zoom:80%;" />
+- 질문에 연결된 답변 찾을 때 답변이 여러 개일 수 있기 때문에 
 
-힘들어서 정리는 여기까지..
+  `q.answer_set.all()`함수 쓴다.
+
+  - 연결모델명_set
 
 
 
 
 
-## 질문 출력
+## 질문 구성
 
-- 질문 리스트(index)와 상세페이지(detail) 출력
+- 질문 리스트(index)와 상세페이지(detail) 정의
 
 ```python
 mybo/views.py에서
@@ -230,23 +239,23 @@ def detail(request, question_id):
 #render는 context에 있는 질문데이터를 
 템플릿 (mybo/question_list.html)형식으로 적용하여 
 html코드로 변환하여 출력
-#템플릿 저장하는 디렉토리 생성할것
+#템플릿 따로 저장해놓기
 ```
 
-
-
-- 템플릿 만들어 넣기
+- 템플릿 저장하는 디렉토리 생성/등록하고 그 안에 템플릿 넣기
 
 ```python
-templates 디렉토리 따로 만들어서 mybo 디렉토리 안에 저장
-'mybo/question_list.html'
-'mybo/question_detail.html'
+templates 디렉토리 만들고 mybo 디렉토리 따로 만들어서 안에 'mybo/question_list.html'
+'mybo/question_detail.html' 저장
 
+템플릿 디렉토리 등록
 config/settings.py에서 템플릿에 #BASE_DIR/'templates'추가
-=템플릿들은 템플릿 폴더에 저장한다
+=템플릿들은 템플릿 폴더에 저장되어 있다.
 
 TEMPLATES=[{'DIRS':[BASE_DIR/'templates'],}] 
 ```
+
+
 
 ### 템플릿 태그
 
@@ -279,13 +288,13 @@ TEMPLATES=[{'DIRS':[BASE_DIR/'templates'],}]
 
 ```
 a태그를 만들었으니 urls.py에서 url매핑하여 url을 연결해주어야 한다.
-파이썬 코드 대신 별칭을 이용한 html코드로 작성하여 대규모 데이터 동시 변경에 적합하게 한다. 
+파이썬 코드 대신 별칭을 이용한 html코드로 작성하여 대규모 데이터 자동 변경에 적합하게 한다. 
 ```
 
-※ url 별칭 설정 : name='' 속성 추가, 네임 스페이스 추가
+※ url 별칭 설정 : name="" 속성 추가, 네임 스페이스 추가
 
 ```python
-mybo/urls.py 에서 name='index' 속성 추가
+mybo/urls.py 에서 path 함수에 name='index' 속성 추가
 
 from django.urls import path
 from . import views #.은 현재 디렉토리
@@ -322,14 +331,14 @@ STATICFILES_DIRS = [
 ]
 ```
 
-- html에 적용할 때 헤드 안에
+- 'style.css' html에 적용하기(헤드 안에 명시)
 
 ```html
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 ```
 
-- 질문 페이지 스타일 설정 후
+- 스타일 설정 완료
 
 ```html
 {% load static %}
@@ -367,7 +376,7 @@ STATICFILES_DIRS = [
 </div>
 ```
 
-※ 스타일 무료 공유 - getbootstrap.com/docs/4.5/getting-started/download
+※ 스타일 무료 공유 - <a>getbootstrap.com/docs/4.5/getting-started/download</a>
 
 
 
@@ -391,9 +400,191 @@ def detail(request, question_id):
 
 
 
+### 기본 스타일 설정
+
+```html
+templates에 base.html 만들어서
+
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Hello, mybo!</title>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <a class="navbar-brand" href="{% url 'mybo:index' %}">mybo</a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                <a class="nav-link" href="#">로그인</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+    
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+{% block content %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+</body>
+</html>
+```
+
+- 위 스타일을 적용할 html 문서 작성
+
+```html
+mybo/question_list.html
+
+{% extends 'base.html' %}
+{% block content %}
+
+내용
+
+{% endblock %}
+```
 
 
-## 질문 상세 및 답변 출력
+
+## 버튼으로 질문 등록
+
+1. '질문 등록하기' 버튼 추가
+
+```python
+mybo/question_list.html 밑에
+
+<a href="{% url 'mybo:question_create' %}" class="btn btn-primary">질문 등록하기</a>
+```
+
+2. url에 path추가
+
+```python
+mybo/urls.py 
+
+app_name='mybo'
+
+urlpatterns=[
+path('question/create/',views.question_create, name='question_create'),
+]
+```
+
+3. views에 question_create 정의
+
+```python
+mybo/views.py
+
+from .forms import QuestionForm
+
+def question_create(request):
+    # form=QuestionForm()
+    # return render(request, 'mybo/question_form.html', {'form':form})
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False) #임시저장
+            question.create_date = timezone.now()
+            question.save()
+            return redirect('mybo:index')
+    else: #GET 방식
+        form = QuestionForm()
+    context = {'form': form}
+    return render(request, 'mybo/question_form.html', context)
+```
+
+4. form 형태라서 forms.py에 QuestionForm 정의
+
+```python
+mybo/forms.py
+
+from django import forms
+from mybo.models import Question
+
+class QuestionForm(forms.ModelForm):
+    class Meta: #무조건 써야됨
+        model=Question
+        fields=['subject', 'content']
+        #부트스트랩을 적용하기 위한 코드
+        widgets = {
+            'subject': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
+        }
+        labels={
+            'subject':'제목',
+            'content':'내용',
+        }
+```
+
+```
+# ModelForm:부모클래스(question 모델과 연결되어 있는 폼, 저장하면 연결된 모델의 데이터를 데이터베이스에 저장),
+# QuestionForm:자식클래스
+# QuestionForm클래스는 Question모델과 연결 됨.
+# 필드로는 'subject', 'content'를 사용함
+```
+
+5. question_form.html에 스타일 정의
+
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">질문등록</h5>
+    <form method="post" class="post-form my-3">
+        {% csrf_token %}
+        {{ form.as_p }} #제목과 내용 기본폼
+        <button type="submit" class="btn btn-primary">저장하기</button>
+    </form>
+</div>
+
+{% endblock %}
+```
+
+### 폼 오류시 메세지 출력
+
+```html
+question_form.html에서 
+
+<!--        {{ form.as_p }} 대신 --> 
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+        <div class="form-group">
+            <label for="subject">제목</label>
+            <input type="text" class="form-control" name="subject" id="subject"
+                   value="{{ form.subject.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="content">내용</label>
+            <textarea class="form-control" name="content"
+                      id="content" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+        </div>
+```
+
+
+
+
+
+## 질문 상세 및 답변
 
 ```html
 mybo/question_detail.html
@@ -446,12 +637,12 @@ def answer_create(request, question_id):
     #content 데이터 읽어들이는 부분
 ```
 
-#### 스타일 추가
+### 스타일 추가
 
 ```html
-{% load static %}
+{% extends 'base.html' %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+{% block content %}
 <div class="container my-3">
     <h2 class="border-bottom py-2">{{ question.subject }}</h2>
     <div class="card my-3">
@@ -486,8 +677,24 @@ def answer_create(request, question_id):
         <input type="submit" value="답변등록" class="btn btn-primary">
     </form>
 </div>
+{% endblock %}
+```
+
+답변 내용 오류 메세지
 
 ```
+
+```
+
+
+
+
+
+
+
+## 페이지 삽입
+
+
 
 
 

@@ -1,13 +1,12 @@
-# Django
-
-
-
-## 환경설정
+# 환경설정
 
 - 명령프롬프트에서 python치면 바로 연결되게 고급설정
+
 - C드라이브에 가상환경 폴더 venvs 만들기
 
-### 장고가 설치된 가상환경
+  
+
+## 장고가 설치된 가상환경
 
 - 파이썬 가상환경 만들기(venv모듈 사용해서 mysite이름의 가상환경 생성)
 
@@ -64,11 +63,11 @@
 
   <img src="Django.assets/image-20210202112150981.png" alt="image-20210202112150981" style="zoom: 67%;" />
 
-- 관리자 계정 생성
+### admin
 
-  `python manage.py createsuperuser`
+관리자 계정 생성 :`python manage.py createsuperuser`
 
-  <img src="Django.assets/image-20210202164731191.png" alt="image-20210202164731191" style="zoom:80%;" />
+<img src="Django.assets/image-20210202164731191.png" alt="image-20210202164731191" style="zoom:80%;" />
 
 - admin.py에 Question게시판 추가
 
@@ -87,7 +86,7 @@
 
   <img src="Django.assets/image-20210202164838619.png" alt="image-20210202164838619" style="zoom:50%;" />
 
-#### 내가 그린 요약도
+### 내가 그린 요약도
 
 <img src="Django.assets/KakaoTalk_20210201_150850553.jpg" alt="KakaoTalk_20210201_150850553" style="zoom:15%;" />
 
@@ -114,7 +113,7 @@ c:/venvs/mysite/scripts/activate"
 
 
 
-### 파이참 연결
+## 파이참 연결
 
 : 파이참에 파이썬도 가상환경에 있는 파이썬으로 연결해주어야한다
 
@@ -134,7 +133,7 @@ TIME_ZONE = 'Asia/Seoul'
 
 
 
-### DB Browser for SQLite
+## DB Browser for SQLite
 
 : 데이터베이스 관리 도구. sqlitebrowser.org/dl에서 다운로드
 
