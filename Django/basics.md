@@ -63,28 +63,7 @@
 
   <img src="Django.assets/image-20210202112150981.png" alt="image-20210202112150981" style="zoom: 67%;" />
 
-### admin
 
-관리자 계정 생성 :`python manage.py createsuperuser`
-
-<img src="Django.assets/image-20210202164731191.png" alt="image-20210202164731191" style="zoom:80%;" />
-
-- admin.py에 Question게시판 추가
-
-  ```python
-  from django.contrib import admin
-  from .models import Question
-  
-  admin.site.register(Question)
-  
-  #질문 검색창 추가
-  class QuestionAdmin(admin.ModelAdmin):
-      search_fields=['subject'] 
-  ```
-
-  http://localhost:8000/admin 에 로그인하면 게시판 확인가능
-
-  <img src="Django.assets/image-20210202164838619.png" alt="image-20210202164838619" style="zoom:50%;" />
 
 ### 내가 그린 요약도
 
@@ -135,7 +114,9 @@ TIME_ZONE = 'Asia/Seoul'
 
 ## DB Browser for SQLite
 
-: 데이터베이스 관리 도구. sqlitebrowser.org/dl에서 다운로드
+: 데이터베이스 관리 도구. 테이블 불러내서 수정, 삭제, 추가 등 가능
+
+sqlitebrowser.org/dl에서 다운로드
 
 - 데이터베이스 열기 ---> project\mysites\db.sqlite3
 
@@ -143,7 +124,34 @@ TIME_ZONE = 'Asia/Seoul'
 
 <i>※ sql 몰라도 장고 ORM(Object Relational Mapping)이 파이썬으로 데이터 작업 할 수 있음</i>
 
+## admin
 
+관리자 계정 생성 :`python manage.py createsuperuser`
+
+<img src="Django.assets/image-20210202164731191.png" alt="image-20210202164731191" style="zoom:80%;" />
+
+- config/settings.py에 admin은 자동 등록되어 있음
+
+- config/urls.py에 path도 자동 등록되어 있음
+
+- mybo/admin.py에 Question게시판 추가
+
+  : admin으로 들어가면 mybo의 Question 관리 할 수 있음
+
+  ```python
+  from django.contrib import admin
+  from .models import Question
+  
+  admin.site.register(Question, QuestionAdmin)
+  
+  #질문 검색창 추가
+  class QuestionAdmin(admin.ModelAdmin):
+      search_fields=['subject'] 
+  ```
+
+  http://localhost:8000/admin 에 로그인하면 게시판 확인가능
+
+  <img src="Django.assets/image-20210202164838619.png" alt="image-20210202164838619" style="zoom:50%;" />
 
 
 
