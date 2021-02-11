@@ -10,8 +10,18 @@
 
   `django-admin startapp mybo`
 
-- 게시판 주소는 http://127.0.0.1:8000/mybo 가 된다.
+- 설치된 앱에 추가하여 인식시키기(apps.py에 있는 class명 추가해주기). 그래야 테이블 생성할 수 있다.
 
+```python
+config/settings.py 안의 INSTALLED_APPS에
+'mybo.apps.MyboConfig' 추가
+```
+
+<img src="Django.assets/image-20210202134748708.png" alt="image-20210202134748708" style="zoom:80%;" />
+
+
+
+- 게시판 주소는 http://127.0.0.1:8000/mybo 가 된다.
 - 동작 과정
 
 ```
@@ -19,6 +29,8 @@
 2) 장고가 url 매핑 확인(config/urls.py에서)
 3) 등록되어 있으면 해당 페이지 제공, 안됐으면 404 오류
 ```
+
+
 
 ### url 매핑
 
@@ -77,8 +89,6 @@ migrate 명령: admin, auth, sessions 등의 앱이 필요로 하는 테이블�
 
 
 
-
-
 ## 모델 만들기
 
 :질문하고 답하는 게시판 만들기
@@ -117,23 +127,12 @@ class Answer(models.Model):
 
 
 
-- 설치된 앱에 추가하여 인식시키기(apps.py에 있는 class명 추가해주기) 그래야 테이블 생성할 수 있다.
-
-```python
-mybo/settings.py 안의 INSTALLED_APPS에
-'mybo.apps.MyboConfig' 추가
-```
-
-<img src="Django.assets/image-20210202134748708.png" alt="image-20210202134748708" style="zoom:80%;" />
-
-
-
 - 새롭게 테이블을 생성/수정하는 경우에는 먼저 테이블 작업에 필요한 파일을 만든다.
 
   테이블 생성 명령 : `python manage.py makemigrations`
 
   `mybo\migrations\0001_initial.py` 파일과 모델들이 만들어짐
-  
+
   테이블 등록 명령 : `python manage.py migrate`
 
 <img src="Django.assets/image-20210202141341048.png" alt="image-20210202141341048" style="zoom:80%;" />
@@ -141,6 +140,8 @@ mybo/settings.py 안의 INSTALLED_APPS에
 - 만든 모델들이 데이터베이스에 잘 들어가 있다.
 
 <img src="Django.assets/image-20210202141521533.png" alt="image-20210202141521533" style="zoom:57%;" />
+
+
 
 ### shell로 작성
 
@@ -419,21 +420,8 @@ templates에 base.html 만들어서
     <title>Hello, mybo!</title>
 </head>
 <body>
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <a class="navbar-brand" href="{% url 'mybo:index' %}">mybo</a>
-    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item ">
-                <a class="nav-link" href="#">로그인</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<!-- 네이게이션 바 연결-->
+{% include "navbar.html" %} 
     
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 {% block content %}
@@ -454,6 +442,81 @@ mybo/question_list.html
 내용
 
 {% endblock %}
+```
+
+#### 네비게이션 바 작성
+
+```html
+templates에 navbar.html 추가
+
+ <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <a class="navbar-brand" href="{% url 'mybo:index' %}">mybo</a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                <a class="nav-link" href="#"></a> 
+                <!--지금은 연결된 것 없음-->
+            </li>
+        </ul>
+    </div>
+</nav>
+```
+
+**include 태그 쓰면 좋은 점**
+
+- 보기에 깔끔
+- 독립된 탬플릿으로 나중에 수정하거나 가져다 쓰기 편함
+
+### 글 번호
+
+- 젤 최근 게시물이 제일 마지막 번호 받도록 설정하기
+
+  - 전체게시글 수-시작인덱스-현재인덱스+1
+
+  - -는 정의 없음. 이 부분을 따로 정의해놓기 위해
+    mybo/templatetags 만들고 
+    그 안에 pybo_filter.py 만들어서 정의
+
+```python
+pybo_filter.py
+from django import template
+
+register=template.Library()
+
+@register.filter #필터를 등록하겠다는 annotation
+def sub(value, arg): #템플릿 필터 함수
+    return value-arg
+```
+
+```html
+question_list.html 수정
+
+{% extends 'base.html' %} 밑에
+
+{% load pybo_filter %} 넣어주고
+
+<!--<td>{{ forloop.counter }}</td> 대신--> 
+<td>           {{question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1}}
+</td>
+```
+
+
+
+### 답변 개수 출력
+
+```html
+question_list.html
+
+<td>
+<a href="{% url 'mybo:detail' question.id %}">{{ question.subject }}</a>
+	{% if question.answer_set.count > 0 %}
+	<span class="text-danger small ml-2">[{{question.answer_set.count}}]</span>
+	{% endif %}
+</td>
 ```
 
 
@@ -671,6 +734,15 @@ def answer_create(request, question_id):
     {% endfor %}
     <form action="{% url 'mybo:answer_create' question.id %}" method="post" class="my-3">
         {% csrf_token %}
+         {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+    {% for field in form %}
+        {% if field.errors %}
+        <strong>{{ field.label }}</strong>
+        {{ field.errors }}
+        {% endif %}
+    </div>
+    {% endif %}
         <div class="form-group">
             <textarea name="content" id="content" class="form-control" rows="10"></textarea>
         </div>
@@ -680,11 +752,7 @@ def answer_create(request, question_id):
 {% endblock %}
 ```
 
-답변 내용 오류 메세지
 
-```
-
-```
 
 
 
@@ -694,13 +762,78 @@ def answer_create(request, question_id):
 
 ## 페이지 삽입
 
+- shell로 테스트 케이스 500개 만들어 놓기
 
+<img src="mybo.assets/image-20210205102434020.png" alt="image-20210205102434020" style="zoom:80%;" />
 
+- 페이지네이터 생성
 
+```python
+mybo/views.py
 
+from django.core.paginator import Paginator
 
+def index(request):
+    page=request.GET.get('page',1) #일반적으로 get방식으로 가져옴
+    #page 파라미터가 없으면 기본 페이지를 1페이지로 설정
+    question_list=Question.objects.order_by('-create_date') #정렬
+    #question_list에 들은 것들을 몇개를 기준으로 나눌건지
+    paginator=Paginator(question_list,10)
+    page_obj=paginator.get_page(page)
+    context={'question_list':page_obj}
+    
+    return render(request, 'mybo/question_list.html',context)
+```
 
+ ※ paginator 상세 : https://docs.djangoproject.com/en/3.1/ref/paginator/
 
+```html
+mybo/question_list.html
+
+<!-- 페이징처리 시작 -->
+<ul class="pagination justify-content-center">
+    <!-- 이전페이지 -->
+    {% if question_list.has_previous %}
+    	<li class="page-item">
+        	<a class="page-link" href="?page={{ question_list.previous_page_number }}">이전</a>
+    	</li>
+    {% else %}
+    	<li class="page-item disabled">
+        	<a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+    	</li>
+    {% endif %}
+    
+<!-- 페이지리스트 -->
+	{% for page_number in question_list.paginator.page_range %}
+    
+    <!-- 앞뒤로5페이지 10페이지만 나오게 -->
+    {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %} 
+    	{% if page_number == question_list.number %}
+    		<li class="page-item active" aria-current="page">
+				<a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+    		</li>
+    	{% else %}
+    		<li class="page-item">
+        		<a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+    		</li>
+    	{% endif %}
+	{% endif %}
+
+	{% endfor %}
+    
+<!-- 다음페이지 -->
+    {% if question_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ question_list.next_page_number }}">다음</a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+    {% endif %}
+</ul>
+<!-- 페이징처리 끝 -->
+```
 
 
 
