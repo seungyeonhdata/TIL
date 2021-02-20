@@ -40,7 +40,7 @@ Tools-->global options-->default working directory를 지정
 
 새 스크립트 : `ctrl+shirt+n`
 
-## 벡터 속성
+## 벡터
 
 - c함수 : 벡터들을 모아 하나의 벡터를 만드는 함수
 
@@ -132,6 +132,7 @@ prime <- c(2,3,5,7,11,13,17)
 idx <- c(3,4,5)
 prime[idx] #5 7 11
 prime[3:5] #5 7 11
+prime[seq(3,5)] #5 7 11
 prime[-(3:5)] #3~5번 인덱스 제외
 
 > #마지막꺼 빼기
@@ -141,6 +142,17 @@ prime[-(3:5)] #3~5번 인덱스 제외
 > prime[c(3,4)] <- c(30,40)
 > prime
 [1]  2  3 30 40 11 13 17
+```
+
+- any/all
+
+```R
+any(): 논리값이 하나라도 TRUE면 결과가 TRUE
+all(): 논리값이 모두 TRUE면 결과가 TRUE
+
+a <- -3:3
+any(a>0) #TRUE
+all(a>0) #FALSE
 ```
 
 
@@ -178,7 +190,7 @@ factorial(1:5)
 # 1 2 6 24 120
 ```
 
-- 논리형
+#### 논리형
 
 ```R
 x <- c(1,3,5)
@@ -221,21 +233,10 @@ sd() : 표준편차
 range() : 범위
 ```
 
-- any/all 함수
+- 문자열 합치기
 
 ```R
-any(): 논리값이 하나라도 TRUE면 결과가 TRUE
-all(): 논리값이 모두 TRUE면 결과가 TRUE
-
-a <- -3:3
-any(a>0) #TRUE
-all(a>0) #FALSE
-```
-
-- 문자열 합치기 paste()
-
-```R
-zip 같은??
+paste()
 
 > fruits <- c("gum","gu","bar")
 > food <- c("pie","juice","cake")
@@ -269,7 +270,7 @@ choose(5,2) #5개 중 2개를 선택하는 경우의 수 5C2
 #nCr = n! / r!(n-r)!
 ```
 
-- 유효자리수
+#### 유효자리수
 
 ```R
 디폴트는 7
@@ -307,7 +308,7 @@ r은 1.8*10의 308승까지 표현 가능
 is.infinite(3/0) #TRUE
 ```
 
-- 특수한 값들
+#### 특수한 값들
 
 ```R
 NA : 결측값, 누락된 값
@@ -335,7 +336,7 @@ attr(,"class")
 [1] 10
 ```
 
-- 누적합
+#### 누적합
 
 ```R
 cumsum():
@@ -347,7 +348,7 @@ cumsum():
 #중간에 NA가 있으면 빼고 누적합 안됨
 ```
 
-- 요소간의 차
+#### 요소간의 차
 
 ```R
 diff(, lag=) #lag=간격
@@ -362,7 +363,7 @@ diff(, lag=) #lag=간격
 [1] 3 3 3 3 3 3 3
 ```
 
-- 집합
+#### 집합
 
 ```R
 > p <- 1:10
@@ -377,7 +378,23 @@ diff(, lag=) #lag=간격
 > is.element(1, p) #p안에 1 있음? ㅇㅇ
 ```
 
+#### 이름붙이기
 
+```R
+벡터에 값에 names() 함수로 이름 붙이기
+
+> absent <- c(8,2,0,4,1)
+> names(absent)
+NULL
+> names(absent) <- c('mon','tue','wed','thu','fri')
+> absent
+mon tue wed thu fri 
+  8   2   0   4   1 
+> absent['mon'] #이름으로 값 추출
+mon 
+  8 
+
+```
 
 
 
