@@ -125,7 +125,7 @@ month.name[m]
 # [1] "December"  "September" "March"     "May"       "January" 
 ```
 
-- 인덱싱
+#### 인덱싱
 
 ```R
 prime <- c(2,3,5,7,11,13,17)
@@ -143,7 +143,53 @@ prime[-(3:5)] #3~5번 인덱스 제외
 > prime[c(3,4)] <- c(30,40)
 > prime
 [1]  2  3 30 40 11 13 17
+
+#불리언 참조
+> p <- c(2,3,5,19,22,14,199)
+> p[c(TRUE,TRUE,FALSE)]
+[1]   2   3  19  22 199
+
 ```
+
+- which()
+
+```R
+논리값으로 TRUE 위치 인덱스 추출
+
+> data
+ [1] 10 11 12 13 14 15 16 17 18 19 20
+> which(data>15) 
+[1]  7  8  9 10 11 #인덱스값
+> which.min(data)
+[1] 1 #1번 인덱스가 제일 작음
+
+#월로 변환
+> data <- c(100:111) #길이 12개라서
+> month.abb[which(data>105)]
+[1] "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
+```
+
+#### 이름붙이기
+
+```R
+벡터에 값에 names() 함수로 이름 붙이기
+
+> absent <- c(8,2,0,4,1)
+> names(absent)
+NULL
+> names(absent) <- c('mon','tue','wed','thu','fri')
+> absent
+mon tue wed thu fri 
+  8   2   0   4   1 
+> absent['mon'] #이름으로 값 추출
+mon 
+  8 
+
+```
+
+
+
+
 
 - any/all
 
@@ -178,7 +224,7 @@ c(1,2,3) + c(4,5,6)
 y<-c(2,4,6)
 y/c(2,1,3)
 #[1] 1 4 2
-
+ 
 x<-c(1:3)
 y<-c(4:9)
 x+y
@@ -204,6 +250,9 @@ x==y
 [1] 1
 > TRUE+TRUE
 [1] 2
+
+
+
 ```
 
 ```R
@@ -379,25 +428,47 @@ diff(, lag=) #lag=간격
 > is.element(1, p) #p안에 1 있음? ㅇㅇ
 ```
 
-#### 이름붙이기
-
-```R
-벡터에 값에 names() 함수로 이름 붙이기
-
-> absent <- c(8,2,0,4,1)
-> names(absent)
-NULL
-> names(absent) <- c('mon','tue','wed','thu','fri')
-> absent
-mon tue wed thu fri 
-  8   2   0   4   1 
-> absent['mon'] #이름으로 값 추출
-mon 
-  8 
+### 팩터
 
 ```
+카테고리를 구분하는 범주형 데이터
 
+levels : 팩터에 포함된 범주값
+factor() : 문자/숫자 벡터를 범주형 데이터로 변형
+```
 
+```R
+> review <- c('good','good','bad','ind','bad','good')
+> review.factor <- factor(review)
+> review.factor
+[1] good good bad  ind  bad  good #따옴표 없어짐
+Levels: bad good ind #알파벳 순 정렬
+> str(review.factor)
+ Factor w/ 3 levels "bad","good","ind": 2 2 1 3 1 2
+> as.numeric(review.factor) #팩터형을 숫자형으로 전환
+[1] 2 2 1 3 1 2
 
+#levels 변경
+> levels(review.factor) <- c('B','G','I')
+> review.factor
+[1] G G B I B G
+Levels: B G I
 
+#levels 길이
+nlevels(review.factor)
+
+#levels 지정
+> everyday <- c('mon','mon','fri','fri','tue')
+> everyday.factor <- factor(everyday, levels=c('mon','tue','wed','thu','fri','sat','sun'))
+> everyday.factor
+[1] mon mon fri fri tue
+Levels: mon tue wed thu fri sat sun
+
+#서열팩터 : 순서가 있는 범주형 데이터(부등호로 표시)
+> eval <- c('medium','low','high','medium','high')
+> eval.ordered <- factor(eval, levels=c('low','medium','high'),ordered=TRUE)
+> eval.ordered
+[1] medium low    high   medium high  
+Levels: low < medium < high
+```
 
