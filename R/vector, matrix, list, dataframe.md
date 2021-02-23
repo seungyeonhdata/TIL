@@ -963,11 +963,120 @@ max(unlist(mydata))
 동일한 길이의 벡터로 이루어진 2차원 리스트와 같은 것. 
 ```
 
+```R
+이미지 데이터라면? 100*100이라면
 
+  x1 x2 ... x10000
+0  0 20 ... 255
+1  0 20 ... 255
+...
+99 0 20 ... 255
+
+- variable(feature)는 10000
+- obs(instance,object)는 관측치 (몇장인지)
+- 각 이미지의 차원은 10000차원
+- 각각의 이미지가 10000차원 공간의 (0,2.,...,255) 위치에 점으로 표시됨
+- 점 사이의 거리를 구할 수 있다. 가까운 점이 유사한 이미지
+- 두 점 사이의 거리는 피타고라스의 정리로 구하듯
+- 만 차원이니까 유클리디안 거리 또는 코사인 유사도 등의 알고리즘 기반 거리 계산으로 이미지 유사도 분석 가능
+```
+
+### 속성
 
 ```R
+v1 <- c('a1','a2','a3')
+v2 <- c(10,20,30)
+v3 <- c('x','y','z')
 
+1. 벡터들 연결해서 데이터프레임 만들기
+data.frame(id=v1, name=v2, price=v3) #열이름 지정
+  id name price
+1 a1   10     x
+2 a2   20     y
+3 a3   30     z
+
+data.frame(row.names=v1,v2,v3) #행이름 지정
+   v2 v3
+a1 10  x
+a2 20  y
+a3 30  z
+
+2. as.data.frame() : 행렬, 리스트로 데이터프레임 만들기
+lst <- list(v1,v2,v3)
+p <- as.data.frame(lst)
+  c..a1....a2....a3.. c.10..20..30. c..x....y....z..
+1                  a1            10                x
+2                  a2            20                y
+3                  a3            30                z
+#열이름 만들기
+colnames(p) <- c('id','name','price')
+  id name price
+1 a1   10     x
+2 a2   20     y
+3 a3   30     z
+#열 개수
+length(p) #3 (행렬은 전체 원소 수)
+
+stringAsFactors=TRUE #문자열을 팩터로 읽는다.
+> p <- data.frame(id=v1, price=v2, name=v3, stringsAsFactors = TRUE)
+> str(p)
+'data.frame':	3 obs. of  3 variables: #3행 3열
+ $ id   : Factor w/ 3 levels "a1","a2","a3": 1 2 3
+ $ price: num  10 20 30
+ $ name : Factor w/ 3 levels "x","y","z": 1 2 3
 ```
+
+#### 추가/수정
+
+```R
+id<-c('a1','a2','a3')
+price<-c(10,20,30)
+name<-c('x','y','z')
+product <- data.frame(id,price,name)
+#요소 하나 추가
+#데이터프레임명 <- rbind(데이터프레임명, 넣을 요소)
+product <- rbind(product, c('a4',40,'k'))
+
+#여러 줄 추가
+#데이터프레임명 <- rbind(데이터프레임명, 넣을 데이터프레임)
+add <- data.frame(id=c('a4','a5','a6'),price=c(40,50,60),name=c('k','l','m'))
+product <- rbind(product, add)
+
+#요소 제거
+product <- product[-4,] #4행 제거
+
+#문자형 -> 숫자형 변환
+product$price <- as.numeric(product$price)
+```
+
+#### 인덱싱
+
+```R
+리스트 인덱싱, 행렬 인덱싱 다 적용 가능
+
+#패키지에 데이터셋 들어있음
+state.abb #미국 주 약자
+state.name
+state.region
+str(state.region) #팩터임
+
+us.state <- data.frame(state.abb,state.name,state.region,state.area)
+
+#열 추출
+us.state[['state.name']] #벡터 형식
+us.state['state.name'] #데이터프레임 형식
+us.state[c(2,3)] #여러 열 추출
+
+#행렬 인덱싱 사용 가능
+us.state[,2,drop=FALSE]
+us.state[,2]
+us.state[c('state.name','state.abb')] #리스트 인덱싱
+us.state[,c('state.name','state.abb')] #행렬 인덱싱
+```
+
+
+
+
 
 
 
