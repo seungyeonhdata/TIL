@@ -1014,6 +1014,7 @@ colnames(p) <- c('id','name','price')
 1 a1   10     x
 2 a2   20     y
 3 a3   30     z
+
 #열 개수
 length(p) #3 (행렬은 전체 원소 수)
 
@@ -1147,6 +1148,58 @@ subset(states, select=c(Murder,Illiteracy), subset=(Income>5000))
 mtcars[mtcars$cyl==4&mtcars$am==0,c('mpg','hp','wt')] #열이름에 ''
 subset(mtcars,cyl==4&am==0,c(mpg,hp,wt)) #그냥씀
 
+```
+
+```R
+class(iris)
+subset(iris,select=-c(Sepal.Width,Petal.Length))
+iris$Sepal.Length/iris$Sepal.Width #비율
+#특성공학: 주어진 데이터 칼럼으로부터 연산을 수행하여 새로운 칼럼만듦
+
+#with(): 여러개의 명령 한번에 실행, iris$생략
+with(iris,Sepal.Length/Sepal.Width)
+with(iris, {
+  print(summary(Sepal.Length))
+  plot(Sepal.Length, Sepal.Width)  
+})
+
+#기술통계
+summary(iris$Sepal.Length)
+
+with(iris,{
+  stats <<-summary(Sepal.Length)
+  stats
+})
+#<<- : 현재 속해있는 변수환경 하나 위에 있는 환경에 있는 변수에 값을 부여할 때
+stats
+
+iris$Sepal.Ratio <- iris$Sepal.Length/iris$Sepal.Width
+iris <- within(iris, Sepal.Ratio <- Sepal.Length/Sepal.width)
+iris
+#with, within은 거의 동일(코드의 양 줄여줌)
+#within은 데이터 수정 가능
+
+#Sepal.Ratio가 na이면 중앙값으로 대체
+within(iris,{     
+    Sepal.Ratio=ifelse(is.na(Sepal.Ratio),#조건
+                median(Sepal.Ration,na.rm=T), #참
+                Sepal.Ratio) #거짓
+})
+```
+
+- SQL 패키지
+
+```R
+#sqldf패키지 : SQL 명령문 사용 가능
+install.packages('sqldf') #패키지 설치
+library(sqldf)
+#Structured Query Language : 데이터베이스에 데이터를 검색/수정/삭제/추가 작업
+#수행하는 질의어
+
+sqldf('select * from mtcars', row.names=T)
+sqldf('select cyl from mtcars', row.names=T)
+sqldf('select * from mtcars where mpg>30 order by hp', row.names=T)
+sqldf('select avg(mpg) as avg_mpg from mtcars where mpg>30 group by cyl', row.name=T)
 ```
 
 
