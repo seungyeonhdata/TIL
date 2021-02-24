@@ -69,7 +69,7 @@ seq(from=3, to=9, length.out=5)
 #[1] 3.0 4.5 6.0 7.5 9.0
 ```
 
-#### 반복 
+- 반복 
 
 ```R
 벡터 전체 반복 : times
@@ -105,7 +105,7 @@ str(n)
 #3개의 원소를 갖는 1차원 벡터
 ```
 
-#### 상수벡터
+- 상수벡터
 
 ```
 이미 정의된 벡터들
@@ -172,7 +172,7 @@ prime[-(3:5)] #3~5번 인덱스 제외
 [1] "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 ```
 
-#### 이름붙이기
+- 이름붙이기
 
 ```R
 벡터에 값에 names() 함수로 이름 붙이기
@@ -236,7 +236,7 @@ factorial(1:5)
 # 1 2 6 24 120
 ```
 
-#### 논리형
+- 논리형
 
 ```R
 x <- c(1,3,5)
@@ -317,7 +317,7 @@ choose(5,2) #5개 중 2개를 선택하는 경우의 수 5C2
 #nCr = n! / r!(n-r)!
 ```
 
-#### 유효자리수
+- 유효자리수
 
 ```R
 디폴트는 7
@@ -355,7 +355,7 @@ r은 1.8*10의 308승까지 표현 가능
 is.infinite(3/0) #TRUE
 ```
 
-#### 특수한 값들
+- 특수한 값들
 
 ```R
 NA : 결측값, 누락된 값
@@ -382,7 +382,7 @@ attr(,"class")
 [1] 10
 ```
 
-#### 누적합
+- 누적합
 
 ```R
 cumsum():
@@ -394,7 +394,7 @@ cumsum():
 #중간에 NA가 있으면 빼고 누적합 안됨
 ```
 
-#### 요소간의 차
+- 요소간의 차
 
 ```R
 diff(, lag=) #lag=간격
@@ -409,7 +409,7 @@ diff(, lag=) #lag=간격
 [1] 3 3 3 3 3 3 3
 ```
 
-#### 집합
+- 집합
 
 ```R
 > p <- 1:10
@@ -1026,7 +1026,7 @@ stringAsFactors=TRUE #문자열을 팩터로 읽는다.
  $ name : Factor w/ 3 levels "x","y","z": 1 2 3
 ```
 
-#### 추가/수정
+### 추가/수정
 
 ```R
 id<-c('a1','a2','a3')
@@ -1047,9 +1047,42 @@ product <- product[-4,] #4행 제거
 
 #문자형 -> 숫자형 변환
 product$price <- as.numeric(product$price)
+
+#여러 데이터프레임들 합쳐서 데이터프레임 만들기 #리스트 내용물을 합치는것
+do.call(함수, 인수)
+df1 <- data.frame(gender='f',months=1,weight=55)
+df2 <- data.frame(gender='f',months=3,weight=58)
+df3 <- data.frame(gender='m',months=4,weight=105)
+df4 <- data.frame(gender='m',months=10,weight=75)
+df5 <- data.frame(gender='f',months=12,weight=85)
+lst <- list(df1,df2,df3,df4,df5)
+do.call(rbind,lst)
+
+#여러 리스트 합쳐서 데이터프레임 만들기
+lst1 <- list(gender='f',months=1,weight=55)
+lst2 <- list(gender='f',months=3,weight=58)
+lst3 <- list(gender='m',months=4,weight=105)
+lst4 <- list(gender='m',months=10,weight=75)
+lst5 <- list(gender='f',months=12,weight=85)
+lstt <- list(lst1,lst2,lst3,lst4,lst5)
+
+#lstt 안의 모든 list를 dataframe으로 변환해줘야함
+lapply(리스트, 적용함수) : 리스트에 함수 적용
+lapply(lstt,as.data.frame) #위의 lst와 같이 변환된 상태임
+do.call(rbind, lapply(lstt,as.data.frame))
+
+#행을 열로 바꿔 추가하기(행도 데이터로 쓰기)
+state.x77 
+class(state.x77) #matrix임
+states <- data.frame(state.x77) #데이터프레임으로 변환
+str(states)
+row.names(states) #행 이름 벡터로 출력
+states$name <- row.names(states) #행 이름 열에 추가
+row.names(states) <- NULL #행 지우기
+states
 ```
 
-#### 인덱싱
+### 인덱싱
 
 ```R
 리스트 인덱싱, 행렬 인덱싱 다 적용 가능
@@ -1072,6 +1105,48 @@ us.state[,2,drop=FALSE]
 us.state[,2]
 us.state[c('state.name','state.abb')] #리스트 인덱싱
 us.state[,c('state.name','state.abb')] #행렬 인덱싱
+```
+
+### 추출
+
+```R
+#자료 부분 추출
+states <- data.frame(state.x77)
+head(states) #상위 6개 자료
+tail(states,10) #하위 10개 자료
+
+#states에서 income이 5000달러 이상인 자료 전체 출력
+states[states$Income>=5000,]
+
+#states에서 income이 5000달러 이상인 자료의 name과 income 출력
+rich <- states[states$Income>=5000,c('name','Income')]
+
+#states에서 area가 100000 이상인 자료의 name과 area 출력
+large <- states[states$Area>=100000,c('name','Area')]
+
+#merge로 합쳐서 추출 (기본값 : 공통으로 열(name)이 일치하는 자료)
+merge(rich,large) #교집합
+merge(rich,large,all=TRUE) #합집합
+
+#subset은 다양한 조건 붙일 수 있음
+subset(데이터셋,조건,출력할 열이름)으로 출력 #default는 all 
+
+#income이 5000넘고 Area가 50000 넘는 자료의 모든 정보 추출
+subset(states, Income>5000 & Area>50000)
+
+#name이 Alaska인 자료의 모든 정보 추출
+subset(states, name=='Alaska')
+
+#income이 5000넘는 주의 murder와 문명률 추출
+subset(states, subset=(Income>5000), select=c(Murder,Illiteracy))
+subset(states, select=c(Murder,Illiteracy), subset=(Income>5000))
+#순서바꿔도 괜찮음. 생략할때는 순서지켜야함
+
+#연습
+#cyl가 4이고 am이 0인 mtcars자료의 mpg,hp,wt 출력
+mtcars[mtcars$cyl==4&mtcars$am==0,c('mpg','hp','wt')] #열이름에 ''
+subset(mtcars,cyl==4&am==0,c(mpg,hp,wt)) #그냥씀
+
 ```
 
 
