@@ -152,6 +152,9 @@ prime[-(3:5)] #3~5번 인덱스 제외
 > p[c(TRUE,TRUE,FALSE)]
 [1]   2   3  19  22 199
 
+#자리 참조
+which(p%%2==0) #짝수인 원소들의 인덱스
+p[which(p%%2==0)] #짝수인 원소들 추출
 ```
 
 - which()
@@ -1111,6 +1114,10 @@ us.state[,c('state.name','state.abb')] #행렬 인덱싱
 ### 추출
 
 ```R
+#열평균 추출
+cats
+colMeans(cats[2:3], na.rm=T)
+
 #자료 부분 추출
 states <- data.frame(state.x77)
 head(states) #상위 6개 자료
@@ -1129,6 +1136,7 @@ large <- states[states$Area>=100000,c('name','Area')]
 merge(rich,large) #교집합
 merge(rich,large,all=TRUE) #합집합
 
+부분집합 subset
 #subset은 다양한 조건 붙일 수 있음
 subset(데이터셋,조건,출력할 열이름)으로 출력 #default는 all 
 
@@ -1201,6 +1209,78 @@ sqldf('select cyl from mtcars', row.names=T)
 sqldf('select * from mtcars where mpg>30 order by hp', row.names=T)
 sqldf('select avg(mpg) as avg_mpg from mtcars where mpg>30 group by cyl', row.name=T)
 ```
+
+### 정렬
+
+```R
+sort() #정렬. 데이터프레임 사용 x
+order() #정렬 색인 값 추출. 데이터프레임 정렬에서 사용
+arrange() #plyr 패키지에 있는 정렬 함수
+
+v1 <- c(20,60,45,10,15)
+v2 <- c(300,200,100,700,600)
+v3 <- c('a','b','c','d','f')
+df <- data.frame(v1,v2,v3)
+
+sort(v1) #벡터 정렬
+sort(v1,decreasing=T)
+
+order(v1) #벡터 정렬
+order(-v1) #내림차순
+df[order(v1),] #데이터프레임 정렬
+df[order(v1,-v2,v3),] #우선순위
+
+install.packages('plyr') #설치
+library(plyr) #호출
+arrange(df,v1,desc(v2),v3) #우선순위
+
+```
+
+### 표준화/정규화
+
+```R
+표준화(평균:0, 표준편차:1) = (각 열 data - 각 열 평균) / 각 열 표준편차
+
+#iris 표준화
+iris.mean <- c(mean(iris$Sepal.Length),mean(iris$Sepal.Width),mean(iris$Petal.Length),mean(iris$Petal.Width))
+iris.sd <- c(sd(iris$Sepal.Length),sd(iris$Sepal.Width),sd(iris$Petal.Length),sd(iris$Petal.Width))
+iris.temp <- t(iris[1:4])
+iris.std <- (iris.temp-iris.mean)/iris.sd #표준화된 iris[1:4]. vector
+
+#비교하려는 벡터 ex도 iris로 표준화
+ex <- c(4.0, 3.0, 1.5, 0.15)
+ex.std <- (ex-iris.mean)/iris.sd
+
+#표준화 함수 scale()
+scale(iris[1:4]) #matrix
+cbind(iris, scale=scale(iris[,-5])) #5열만 제외한건 cbind로 연결
+
+```
+
+- apply()
+
+```R
+mean(iris[,-5])
+경고메시지(들): 
+In mean.default(iris[, -5]) :
+  인자가 수치형 또는 논리형이 아니므로 NA를 반환합니다
+데이터프레임에 mean 안됨. 열단위로 함수 적용할 때는 apply 함수
+
+#apply(데이터, 행(1)/열(2), 함수)
+apply(iris[,-5],2,scale) #데이터프레임에 열 단위로 scale함수 적용
+apply(iris[,-5],2,function(x){x-mean(x,na.rm=T))/sd(x)})
+
+#유클리디언 거리
+iris$distance <- sqrt(colSums(iris.std-ex.std)^2)
+head(iris[order(iris$distance),],9)
+--------------------------------------------------------------------
+정규화 = (각 열 data - 각 열 최소값) / (각 열 최대값 - 각 열 최소값)
+
+#apply에 함수 넣어서 한방에 해결
+apply(iris[,-5],2,function(x){(x-min(x,na.rm=T))/(max(x,na.rm=T)-min(x,na.rm=T))})
+```
+
+
 
 
 
