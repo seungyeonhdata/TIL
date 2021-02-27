@@ -318,15 +318,3 @@ qrt <- seq(s,by='3 months',length.out=4)
 
 
 
-### 연산
-
-
-
-## 파일 불러오기
-
-```R
-파일을 작업하는 R파일과 같은 폴더에 넣어두면 파일명으로 바로 불러짐
-read.csv(file명,header=TRUE,sep=',')
-
-```
-
