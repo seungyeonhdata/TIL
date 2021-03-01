@@ -41,6 +41,8 @@ Tools-->global options-->default working directory를 지정
 
 새 스크립트 : `ctrl+shirt+n`
 
+# 1차원 자료구조
+
 ## 벡터
 
 - c함수 : 벡터들을 모아 하나의 벡터를 만드는 함수
@@ -127,6 +129,16 @@ month.name[2]
 month.name[m]
 # [1] "December"  "September" "March"     "May"       "January" 
 ```
+
+- 벡터에 저장된값의 종류 알아내기
+
+```
+unique()
+
+팩터로 만든다면 levels에 해당하는 내용
+```
+
+
 
 #### 인덱싱
 
@@ -429,13 +441,24 @@ diff(, lag=) #lag=간격
 
 
 
-### 팩터
+## 팩터
 
 ```
-카테고리를 구분하는 범주형 데이터
+카테고리를 구분하는 범주형 데이터 #문자
 
-levels : 팩터에 포함된 범주값
+levels() : 팩터에 포함된 범주값
 factor() : 문자/숫자 벡터를 범주형 데이터로 변형
+```
+
+### 속성
+
+```
+- 범주형 자료의 저장에 이용
+- factor() 함수로 생성
+- 저장되는 값에 따옴표 없음
+- 팩터의 내용 출력하면 levels 옆에 값들의 종류 표시됨
+- levels() 함수로 값의 종류 알 수 있음
+- levels 옆에 표시되는 값 이외의 다른 값은 추가하여 저장할 수 없음
 ```
 
 ```R
@@ -481,14 +504,226 @@ gender <- c(2,1,2,2,1,0)
 > gender.factor
 [1] female male   female female male   <NA>  
 Levels: male female
+#팩터는 이미 지정된 값의 종류 외에 다른 값이 들어오는 것을 막는다.
+#0은 levels에 없는 값이라 <NA>
 ```
 
 
 
-## 행렬
+## 리스트
 
 ```
-2차원 벡터로 이루어진 자료구조로 매트릭스라고도 한다.
+벡터와 행렬은 원소의 데이터 타입이 모두 같아야 하지만
+리스트는 다양한 데이터 타입을 저장할 수 있다.
+```
+
+### 생성
+
+```R
+> lst <- list(0.6,0.9,'fruits')
+> lst
+[[1]]
+[1] 0.6
+
+[[2]]
+[1] 0.9
+
+[[3]]
+[1] "fruits"
+
+n <- c('n1','n2','n3')
+v <- c(100,200,300)
+mylist <- list()
+mylist[n] <- v
+> mylist
+$n1
+[1] 100
+$n2
+[1] 200
+$n3
+[1] 300
+```
+
+### 추가/수정
+
+```R
+> lst[[3]] <- 'apple'
+> lst[[4]] <- matrix(1:6,2,3)
+> lst
+[[1]]
+[1] 0.6
+
+[[2]]
+[1] 0.9
+
+[[3]]
+[1] "apple"
+
+[[4]]
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+
+#하나의 원소에 값을 추가/수정할때는 [[]],[] 둘다 가능
+
+#하나의 원소에 여러개의 값을 할당할때 [[]],[]는 다름
+#[[]]는 벡터 형식으로 줘야하고
+#[]는 리스트 형식으로 변환해야함
+> prod[[3]] <- c(40000,50000)
+> prod[3] <- list(c(20000,30000))
+
+#두 개 이상의 원소 값 동시 변경할때는 [] 사용
+> prod[1:3] <- list('a02','monitor',10000) #리스트를 넣으면 형식 유지
+[[6]]
+[1] 0.1
+[[7]]
+[1] 0.2
+[[8]]
+[1] "0.3"
+
+> prod[6:8] <- c(0.1,0.2,'0.3') #벡터로 넣으면 데이터 형식 자동 통일됨
+[[6]]
+[1] "0.1"
+[[7]]
+[1] "0.2"
+[[8]]
+[1] "0.3"
+
+#제거 : NULL 할당
+prod[4] <- NULL
+mylist[mylist<200] <- NULL #조건에 따른 원소제거 #근데 원소내 원소개수가 하나여야가능
+
+#list에 함수 적용
+lapply(리스트, 적용함수) : 리스트에 함수 적용
+lapply(lstt,as.data.frame) #lstt 리스트를 데이터프레임으로 변환
+```
+
+### 이름붙이기
+
+```R
+> names(lst) <- c('n1','n2','n3')
+> lst
+$n1
+[1] 0.6
+
+$n2
+[1] 0.9
+
+$n3
+[1] "apple"
+
+# $로 요소 참조 가능
+> lst$n1
+[1] 0.6
+
+#이름 확인
+> names(lst)
+[1] "n1" "n2" "n3" "n4"
+
+#길이 확인
+> length(lst)
+[1] 4
+
+#만들면서 이름 붙이기
+> prod <- list(id='a001',name='mouse',price=3000)
+> prod
+$id
+[1] "a001"
+
+$name
+[1] "mouse"
+
+$price
+[1] 3000
+```
+
+### 참조
+
+```R
+lst[[n]] : n번째 원소가 원소 저장형식 그대로 가짐
+lst[n] : n번째 원소가 리스트 형식으로 출력
+※자료구조가 다름
+
+prod <- list('a1','mouse',3000)
+> prod[[3]]
+[1] 3000
+> prod[2]
+[[1]]
+[1] 3000
+
+> class(prod[[3]]) #연산가능
+[1] "numeric"
+> class(prod[3]) #리스트임
+[1] "list"
+```
+
+```R
+> prod[c(1,2)]
+[[1]]
+[1] "a1"
+[[2]]
+[1] "mouse"
+
+> prod[c(TRUE,FALSE,TRUE)]
+[[1]]
+[1] "a1"
+[[2]]
+[1] 3000
+
+> prod[-1]
+[[1]]
+[1] "mouse"
+[[2]]
+[1] 3000
+
+#이름으로 참조
+> prod$name
+[1] "mouse"
+
+> prod[['name']]
+[1] "mouse"
+
+> prod['name'] #리스트형식
+$name
+[1] "mouse"
+
+#2개 이상의 원소 참조
+> prod[c('name','price')]
+$name
+[1] "mouse"
+$price
+[1] 3000
+
+#없는 이름은 NULL
+#첨자 허용 넘어가면 에러
+> prod[5]
+$<NA>
+NULL
+
+> prod[[5]]
+Error in prod[[5]] : 첨자의 허용 범위를 벗어났습니다
+```
+
+### 연산
+
+```R
+R의 수치연산 함수들은 대부분 벡터 자료구조에 적용 가능하다.
+따라서 리스트로 저장된 데이터를 연산하려면, 벡터로 변한해야한다.
+unlist() : 리스트 -> 벡터
+
+mydata <- list(1.5,2.0,3.5,4.5)
+mean(unlist(mydata))
+max(unlist(mydata))
+```
+
+
+
+# 2차원 자료구조
+
+## 매트릭스
+
+```
+2차원 벡터로 이루어진 자료구조로 행렬이라고도 한다.
 여러 주제로 데이터 수집이 가능하며 모든 자료의 종류가 동일하다. 
 ```
 
@@ -586,7 +821,7 @@ v2    6    7    8    9   10
 [5,]  5 10
 ```
 
-- 벡터+행렬
+- 벡터+행렬, 행렬+행렬
 
 ```R
 > cbind(1:3,4:6,matrix(7:12,3,2))
@@ -754,210 +989,6 @@ v2    6    7    8    9   10
 
 
 
-## 리스트
-
-```
-벡터와 행렬은 원소의 데이터 타입이 모두 같아야 하지만
-리스트는 다양한 데이터 타입을 저장할 수 있다.
-```
-
-### 생성
-
-```R
-> lst <- list(0.6,0.9,'fruits')
-> lst
-[[1]]
-[1] 0.6
-
-[[2]]
-[1] 0.9
-
-[[3]]
-[1] "fruits"
-
-n <- c('n1','n2','n3')
-v <- c(100,200,300)
-mylist <- list()
-mylist[n] <- v
-> mylist
-$n1
-[1] 100
-$n2
-[1] 200
-$n3
-[1] 300
-```
-
-### 추가/수정
-
-```R
-> lst[[3]] <- 'apple'
-> lst[[4]] <- matrix(1:6,2,3)
-> lst
-[[1]]
-[1] 0.6
-
-[[2]]
-[1] 0.9
-
-[[3]]
-[1] "apple"
-
-[[4]]
-     [,1] [,2] [,3]
-[1,]    1    3    5
-[2,]    2    4    6
-
-#하나의 원소에 값을 추가/수정할때는 [[]],[] 둘다 가능
-
-#하나의 원소에 여러개의 값을 할당할때 [[]],[]는 다름
-#[[]]는 벡터 형식으로 줘야하고
-#[]는 리스트 형식으로 변환해야함
-> prod[[3]] <- c(40000,50000)
-> prod[3] <- list(c(20000,30000))
-
-#두 개 이상의 원소 값 동시 변경할때는 [] 사용
-> prod[1:3] <- list('a02','monitor',10000) #리스트를 넣으면 형식 유지
-[[6]]
-[1] 0.1
-[[7]]
-[1] 0.2
-[[8]]
-[1] "0.3"
-
-> prod[6:8] <- c(0.1,0.2,'0.3') #벡터로 넣으면 데이터 형식 자동 통일됨
-[[6]]
-[1] "0.1"
-[[7]]
-[1] "0.2"
-[[8]]
-[1] "0.3"
-
-#제거 : NULL 할당
-prod[4] <- NULL
-mylist[mylist<200] <- NULL #조건에 따른 원소제거 #근데 원소내 원소개수가 하나여야가능
-```
-
-### 이름붙이기
-
-```R
-> names(lst) <- c('n1','n2','n3')
-> lst
-$n1
-[1] 0.6
-
-$n2
-[1] 0.9
-
-$n3
-[1] "apple"
-
-# $로 요소 참조 가능
-> lst$n1
-[1] 0.6
-
-#이름 확인
-> names(lst)
-[1] "n1" "n2" "n3" "n4"
-
-#길이 확인
-> length(lst)
-[1] 4
-
-#만들면서 이름 붙이기
-> prod <- list(id='a001',name='mouse',price=3000)
-> prod
-$id
-[1] "a001"
-
-$name
-[1] "mouse"
-
-$price
-[1] 3000
-```
-
-### 참조
-
-```R
-lst[[n]] : n번째 원소가 원소 저장형식 그대로 가짐
-lst[n] : n번째 원소가 리스트 형식으로 출력
-※자료구조가 다름
-
-prod <- list('a1','mouse',3000)
-> prod[[3]]
-[1] 3000
-> prod[2]
-[[1]]
-[1] 3000
-
-> class(prod[[3]]) #연산가능
-[1] "numeric"
-> class(prod[3]) #리스트임
-[1] "list"
-```
-
-```R
-> prod[c(1,2)]
-[[1]]
-[1] "a1"
-[[2]]
-[1] "mouse"
-
-> prod[c(TRUE,FALSE,TRUE)]
-[[1]]
-[1] "a1"
-[[2]]
-[1] 3000
-
-> prod[-1]
-[[1]]
-[1] "mouse"
-[[2]]
-[1] 3000
-
-#이름으로 참조
-> prod$name
-[1] "mouse"
-
-> prod[['name']]
-[1] "mouse"
-
-> prod['name'] #리스트형식
-$name
-[1] "mouse"
-
-#2개 이상의 원소 참조
-> prod[c('name','price')]
-$name
-[1] "mouse"
-$price
-[1] 3000
-
-#없는 이름은 NULL
-#첨자 허용 넘어가면 에러
-> prod[5]
-$<NA>
-NULL
-
-> prod[[5]]
-Error in prod[[5]] : 첨자의 허용 범위를 벗어났습니다
-```
-
-### 연산
-
-```R
-R의 수치연산 함수들은 대부분 벡터 자료구조에 적용 가능하다.
-따라서 리스트로 저장된 데이터를 연산하려면, 벡터로 변한해야한다.
-unlist() : 리스트 -> 벡터
-
-mydata <- list(1.5,2.0,3.5,4.5)
-mean(unlist(mydata))
-max(unlist(mydata))
-```
-
-
-
 ## 데이터프레임
 
 ```
@@ -1011,6 +1042,7 @@ p <- as.data.frame(lst)
 1                  a1            10                x
 2                  a2            20                y
 3                  a3            30                z
+
 #열이름 만들기
 colnames(p) <- c('id','name','price')
   id name price
@@ -1020,14 +1052,19 @@ colnames(p) <- c('id','name','price')
 
 #열 개수
 length(p) #3 (행렬은 전체 원소 수)
+ncol(p)
 
-stringAsFactors=TRUE #문자열을 팩터로 읽는다.
+#문자열을 팩터로 읽기
+stringAsFactors=TRUE 
 > p <- data.frame(id=v1, price=v2, name=v3, stringsAsFactors = TRUE)
 > str(p)
 'data.frame':	3 obs. of  3 variables: #3행 3열
  $ id   : Factor w/ 3 levels "a1","a2","a3": 1 2 3
  $ price: num  10 20 30
  $ name : Factor w/ 3 levels "x","y","z": 1 2 3
+
+#행열 전환
+t()
 ```
 
 ### 추가/수정
@@ -1037,13 +1074,16 @@ id<-c('a1','a2','a3')
 price<-c(10,20,30)
 name<-c('x','y','z')
 product <- data.frame(id,price,name)
+
 #요소 하나 추가
 #데이터프레임명 <- rbind(데이터프레임명, 넣을 요소)
 product <- rbind(product, c('a4',40,'k'))
 
 #여러 줄 추가
 #데이터프레임명 <- rbind(데이터프레임명, 넣을 데이터프레임)
-add <- data.frame(id=c('a4','a5','a6'),price=c(40,50,60),name=c('k','l','m'))
+add <- data.frame(id=c('a4','a5','a6'),
+                  price=c(40,50,60),
+                  name=c('k','l','m'))
 product <- rbind(product, add)
 
 #요소 제거
@@ -1069,7 +1109,6 @@ lst3 <- list(gender='m',months=4,weight=105)
 lst4 <- list(gender='m',months=10,weight=75)
 lst5 <- list(gender='f',months=12,weight=85)
 lstt <- list(lst1,lst2,lst3,lst4,lst5)
-
 #lstt 안의 모든 list를 dataframe으로 변환해줘야함
 lapply(리스트, 적용함수) : 리스트에 함수 적용
 lapply(lstt,as.data.frame) #위의 lst와 같이 변환된 상태임
@@ -1111,6 +1150,16 @@ us.state[c('state.name','state.abb')] #리스트 인덱싱
 us.state[,c('state.name','state.abb')] #행렬 인덱싱
 ```
 
+| 명령어           | 적용가능                     | 결과값       |
+| ---------------- | ---------------------------- | ------------ |
+| iris[,'Species'] | 행렬, 데이터프레임 모두 가능 | 벡터         |
+| iris[,5]         | 행렬, 데이터프레임 모두 가능 | 벡터         |
+| iris[5]          | 데이터프레임만 가능          | 데이터프레임 |
+| iris['Speices']  | 데이터프레임만 가능          | 데이터프레임 |
+| iris$Species     | 데이터프레임만 가능          | 벡터         |
+
+
+
 ### 추출
 
 ```R
@@ -1118,7 +1167,7 @@ us.state[,c('state.name','state.abb')] #행렬 인덱싱
 cats
 colMeans(cats[2:3], na.rm=T)
 
-#자료 부분 추출
+#head, tail
 states <- data.frame(state.x77)
 head(states) #상위 6개 자료
 tail(states,10) #하위 10개 자료
@@ -1135,10 +1184,13 @@ large <- states[states$Area>=100000,c('name','Area')]
 #merge로 합쳐서 추출 (기본값 : 공통으로 열(name)이 일치하는 자료)
 merge(rich,large) #교집합
 merge(rich,large,all=TRUE) #합집합
+```
 
-부분집합 subset
-#subset은 다양한 조건 붙일 수 있음
+- subset()
+
+```R
 subset(데이터셋,조건,출력할 열이름)으로 출력 #default는 all 
+#subset은 다양한 조건 붙일 수 있음
 
 #income이 5000넘고 Area가 50000 넘는 자료의 모든 정보 추출
 subset(states, Income>5000 & Area>50000)
@@ -1155,7 +1207,6 @@ subset(states, select=c(Murder,Illiteracy), subset=(Income>5000))
 #cyl가 4이고 am이 0인 mtcars자료의 mpg,hp,wt 출력
 mtcars[mtcars$cyl==4&mtcars$am==0,c('mpg','hp','wt')] #열이름에 ''
 subset(mtcars,cyl==4&am==0,c(mpg,hp,wt)) #그냥씀
-
 ```
 
 ```R
