@@ -108,4 +108,21 @@ unzip('baseball.zip','baseballdatabank-master/core/Salaries.csv')
 
 ## 출력
 
-ㅇㅅㅇ
+```
+source(스크립트)
+스크립트 : 명령어의 집합
+```
+
+```
+ls()
+메모리에 적재된 변수명, 함수명 출력
+```
+
+
+
+
+
+
+
+
+
