@@ -54,7 +54,7 @@ setwd('C:/rwork') : 작업 폴더 변경
 ```R
 파일을 작업하는 R파일과 같은 폴더에 넣어두면 파일명으로 바로 불러짐
 다른 폴더면 경로명 붙여서 파일명
-
+#기본값
 read.csv('file명',header=TRUE,sep=',') #csv는 ,로 데이터 구분
 read.table('file명',header=False) #table은 구분자 구분 없음. header 없음.
 
