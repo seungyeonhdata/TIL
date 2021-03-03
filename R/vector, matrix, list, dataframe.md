@@ -1096,6 +1096,7 @@ product <- rbind(product, add)
 
 #요소 제거
 product <- product[-4,] #4행 제거
+product[4] <- NULL
 
 #문자형 -> 숫자형 변환
 product$price <- as.numeric(product$price)
@@ -1147,13 +1148,13 @@ str(state.region) #팩터임
 us.state <- data.frame(state.abb,state.name,state.region,state.area)
 
 #열 추출
-us.state[['state.name']] #벡터 형식
-us.state['state.name'] #데이터프레임 형식
+us.state[['state.name']] #벡터 형식 #원소 1개
+us.state['state.name'] #데이터프레임 형식 #원소 여러개 가능
 us.state[c(2,3)] #여러 열 추출
 
 #행렬 인덱싱 사용 가능
-us.state[,2,drop=FALSE]
 us.state[,2]
+us.state[,2,drop=FALSE] #벡터를 데이터프레임으로 나오게
 us.state[c('state.name','state.abb')] #리스트 인덱싱
 us.state[,c('state.name','state.abb')] #행렬 인덱싱
 ```
@@ -1216,6 +1217,44 @@ subset(states, select=c(Murder,Illiteracy), subset=(Income>5000))
 mtcars[mtcars$cyl==4&mtcars$am==0,c('mpg','hp','wt')] #열이름에 ''
 subset(mtcars,cyl==4&am==0,c(mpg,hp,wt)) #그냥씀
 ```
+
+- match(), %in%
+
+```R
+#match() : 첫번째 인수가 두번째 인수의 어느 위치에 있는지 인덱스
+a <- c(1,2,3,4,5)
+b <- c(2,4,5,7,9)
+match(a,b,nomatch=0) #없는건 0으로
+
+#행이름을 열 이름으로 변경
+car <- mtcars
+car$name <- row.names(car)
+head(car)
+row.names(car) <- NULL
+head(car)
+
+#145마력 넘는 자동차 모델만 df로
+highhp.car <- car[car$hp>145,]
+highhp.car
+
+#wt가 3.200 미만인 모델만 df로
+lightwt.car <- car[car$wt<3.2,]
+lightwt.car
+
+#무게가 가벼우면서 힘이 센 자동차 모델
+index <- match(highhp.car$name,lightwt.car$name)
+lightwt.car[na.omit(index),]
+
+#match함수 대신 %in% 연산자 가능
+vec <- 1:5
+c(3,5,7)%in%vec
+!is.na(match(c(3,5,7),vec))
+
+index2 <- highhp.car$name%in% lightwt.car$name
+highhp.car[index2,]
+```
+
+
 
 ```R
 class(iris)
