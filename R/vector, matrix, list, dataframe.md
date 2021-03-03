@@ -295,7 +295,7 @@ range() : 범위
 평균0과 표준편차1로 표준화 :  데이터-분산/표준편차
 ```
 
-- 문자열 합치기
+#### paste()
 
 ```R
 paste()
@@ -306,9 +306,13 @@ paste()
 [1] "gum pie"  "gu juice" "bar cake"
 > paste(fruits, "yay")
 [1] "gum yay" "gu yay"  "bar yay"
+
+#paste의 collapse 옵션 : 텍스트 결합으로 생성된 텍스트들 연결하는 구분자 정의
+> paste(c('Everybody','wants','to','fly'),collapse=' ')
+[1] "Everybody wants to fly"
 ```
 
-- log()
+#### log()
 
 ```R
 default 밑수는 e(2.718..)
@@ -801,6 +805,10 @@ r3  9 10 11 12
 [1] 4
 > length(mat)
 [1] 12
+
+#리스트로 행렬 만들려면 unlist
+lst <- list(odd=c(1,3,5),even=c('two','four','six'))
+matrix(unlist(lst),3,2)
 ```
 
 - 벡터+벡터
@@ -838,7 +846,7 @@ v2    6    7    8    9   10
 [4,]    8   10   12
 ```
 
-### 호출
+### 추출
 
 ```R
 > mat <- matrix(v,3,4)
@@ -1037,7 +1045,7 @@ a3 30  z
 
 2. as.data.frame() : 행렬, 리스트로 데이터프레임 만들기
 lst <- list(v1,v2,v3)
-p <- as.data.frame(lst)
+p <- as.data.frame(lst) #숫자는 숫자벡터 유지, 문자는 문자벡터
   c..a1....a2....a3.. c.10..20..30. c..x....y....z..
 1                  a1            10                x
 2                  a2            20                y

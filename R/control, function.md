@@ -1,6 +1,74 @@
-함수
+# 제어문
 
-조건문
+## 조건문
+
+- if-else
+
+```R
+if(조건){
+    참일 때 명령문
+}else{
+    거짓일 때 명령문
+}
+
+#if,else는 벡터연산안됨
+a <- pi
+b <- 3
+if(a>b)a else b #생략보소
+
+#ex 1
+purchase <- 48000
+if(purchase>=50000){
+  price <- purchase*0.9
+}else{                       #else는 if가 끝나는 }와 같은 줄에 서술
+  price <- purchase*0.95
+}
+print(price)
+
+#ex 2    
+age <- 4
+if(age<6){
+  group <- '영유아'
+}else if(age<13){
+  group <- '어린이'
+}else{
+  group <- '성인'
+}
+cat(age,'세는 ',group,'입니다.',sep='')
+```
+
+- ifelse
+
+```R
+ifelse(조건, 참일 때 선택값, 거짓일 때 선택값)
+
+#ifelse는 벡터연산가능
+ifelse(x>y,x,y)
+```
+
+
+
+## 반복문
+
+- for
+
+```R
+for(반복변수 in 반복범위){
+    명령문
+}
+
+for(i in seq(5,25,5)) print(i)
+#실행결과는 루프 안에서는 출력되지 않는다.print 해야함
+
+#for문이 종료된 이후에도 변수는 사라지지 않는다.
+i <- 1
+for(i in seq(5,25,5)) i
+print(i) #가장 마지막에 할당된 25가 i에 저장
+```
+
+
+
+# 사용자정의 함수
 
 ```
 #transLength.R에 저장한 스크립트
@@ -74,12 +142,7 @@ transLength <- function(x,mult=0.9144,unit='m',FUN=round,...){ #default값 설�
 }
 transLength(y,digits=2)
 
-a <- pi
-b <- 3
-if(a>b)a else b
-#if,else 는 벡터연산안됨
-#ifelse는 벡터연산가능
-ifelse(x>y,x,y)
+
 
 #switch함수: 첫번째 인수로 주어진 값에 따라 두번째 이후의 인수에 코드 실행
 center <- function(x,type){
@@ -103,12 +166,7 @@ repeat{if(i>25)break
   }
 }
 
-for(i in seq(5,25,5)) print(i)
-#실행결과는 루프 안에서는 출력되지 않는다.print해야함
-#for문이 종료된 이후에도 변수는 사라지지 않는다.
-i <- 1
-for(i in seq(5,25,5)) i
-print(i) #가장 마지막에 할당된 25가 i에 저장
+
 
 #mode : 데이터유형 파악
 mode(c(3.14,1.5))
