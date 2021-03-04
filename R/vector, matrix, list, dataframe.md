@@ -41,7 +41,9 @@ Tools-->global options-->default working directory를 지정
 
 새 스크립트 : `ctrl+shirt+n`
 
-# 1차원 자료구조
+
+
+**<1차원 자료구조>**
 
 ## 벡터
 
@@ -138,9 +140,7 @@ unique()
 팩터로 만든다면 levels에 해당하는 내용
 ```
 
-
-
-#### 인덱싱
+### 인덱싱
 
 ```R
 prime <- c(2,3,5,7,11,13,17)
@@ -295,7 +295,7 @@ range() : 범위
 평균0과 표준편차1로 표준화 :  데이터-분산/표준편차
 ```
 
-#### paste()
+- paste()
 
 ```R
 paste()
@@ -312,7 +312,7 @@ paste()
 [1] "Everybody wants to fly"
 ```
 
-#### log()
+- log()
 
 ```R
 default 밑수는 e(2.718..)
@@ -454,7 +454,7 @@ levels() : 팩터에 포함된 범주값
 factor() : 문자/숫자 벡터를 범주형 데이터로 변형
 ```
 
-### 속성
+속성
 
 ```
 - 범주형 자료의 저장에 이용
@@ -521,7 +521,7 @@ Levels: male female
 리스트는 다양한 데이터 타입을 저장할 수 있다.
 ```
 
-### 생성
+- 생성
 
 ```R
 > lst <- list(0.6,0.9,'fruits')
@@ -548,7 +548,7 @@ $n3
 [1] 300
 ```
 
-### 추가/수정
+- 추가/수정
 
 ```R
 > lst[[3]] <- 'apple'
@@ -602,7 +602,7 @@ lapply(리스트, 적용함수) : 리스트에 함수 적용
 lapply(lstt,as.data.frame) #lstt 리스트를 데이터프레임으로 변환
 ```
 
-### 이름붙이기
+- 이름붙이기
 
 ```R
 > names(lst) <- c('n1','n2','n3')
@@ -641,7 +641,7 @@ $price
 [1] 3000
 ```
 
-### 참조
+- 참조
 
 ```R
 lst[[n]] : n번째 원소가 원소 저장형식 그대로 가짐
@@ -708,7 +708,7 @@ NULL
 Error in prod[[5]] : 첨자의 허용 범위를 벗어났습니다
 ```
 
-### 연산
+- 연산
 
 ```R
 R의 수치연산 함수들은 대부분 벡터 자료구조에 적용 가능하다.
@@ -906,7 +906,7 @@ v2    6    7    8    9   10
 [2,]   56   20
 ```
 
-### 속성
+- 속성
 
 ```R
 > mtx
@@ -1075,7 +1075,7 @@ stringAsFactors=TRUE
 t()
 ```
 
-### 추가/수정
+### 추가/수정/삭제
 
 ```R
 id<-c('a1','a2','a3')
@@ -1094,10 +1094,6 @@ add <- data.frame(id=c('a4','a5','a6'),
                   name=c('k','l','m'))
 product <- rbind(product, add)
 
-#요소 제거
-product <- product[-4,] #4행 제거
-product[4] <- NULL
-
 #문자형 -> 숫자형 변환
 product$price <- as.numeric(product$price)
 
@@ -1112,6 +1108,7 @@ lst <- list(df1,df2,df3,df4,df5)
 do.call(rbind,lst)
 
 #여러 리스트 합쳐서 데이터프레임 만들기
+lapply()
 lst1 <- list(gender='f',months=1,weight=55)
 lst2 <- list(gender='f',months=3,weight=58)
 lst3 <- list(gender='m',months=4,weight=105)
@@ -1132,6 +1129,77 @@ row.names(states) #행 이름 벡터로 출력
 states$name <- row.names(states) #행 이름 열에 추가
 row.names(states) <- NULL #행 지우기
 states
+
+#열 이름 변경 =modify names by name, not position
+library(plyr)
+rename(x,바꾼 후=바꾸기 전)
+rename(midwest,total=poptotal,asian=popasian)
+
+#데이터 종류 한꺼번에 변환
+transform(data, tag=value로 형태 정의)
+transform(iris.copy,  #대상 데이터프레임
+          Species=as.character(Species),  #형 변환
+          Sepal.Ratio=Sepal.Length/Sepal.Width) #계산으로 새로운 열 생성
+
+```
+
+```R
+#요소 제거
+product <- product[-4,] #4행 제거
+product[4] <- NULL
+
+#중복 제거
+#행 정보가 완전히 같은 중복값이 있을 수 있어서 제거해줘야함
+#duplicated(): 중복 여부를 논리값으로 출력
+#which로 위치(인덱스) 파악
+duplicated(c(1,2,3,1,1,3,5))
+
+id <- c('a001','a002','a003')
+name <- c('mouse','keyboard','usb')
+price <- c(3000,9000,5000)
+product <- data.frame(id,name,price)
+product <- rbind(product,c('a001','mouse','3000'))
+duplicated(product)
+which(duplicated(product)) #중복자료 위치
+product[!duplicated(product),] #중복 아닌것만 출력
+product[-which(duplicated(product)),]
+unique(product) #중복제거되지만 중복자료 파악 안됨
+
+#NA 제거
+#complete.cases(): 결측값 여부. 결측값 있는 경우 false
+#na.omit() : 결측값 행 전체 제거
+airquality
+airquality[complete.cases(airquality),]
+na.omit(airquality)
+```
+
+### 구간화
+
+```R
+#cut(x,구간) : 데이터를 구간에 따라 범주화
+#():개구간 (3,10)->3초과 10미만
+#[]:폐구간 (3,10]->3초과 10이하
+iris$Sepal.Width
+min(iris$Sepal.Width)
+max(iris$Sepal.Width)
+iris.cut <- cut(iris$Sepal.Width,c(1,2,3,4,5),right=FALSE) #right=F-->왼쪽 폐구간[)
+table(iris.cut)
+#구간에 이름 붙이기
+iris.cut2 <- cut(iris$Sepal.Width,
+    breaks=c(0,1,2,3,4,5),
+    labels=c('smallest','small','medium','big','biggest'))
+table(iris.cut2)
+summary(iris.cut2)
+
+#구간 자동으로 분리
+cut(iris$Sepal.Width,5) #최대 최소 사이를 5구간으로 범주화
+
+cut(iris$Sepal.Width,5, include.lowest=T) #최소값 포함
+iris.cut3 <- cut(iris$Sepal.Width,
+    breaks=c(0,1,2,3,4,5),
+    labels=c('smallest','small','medium','big','biggest'),
+    include.lowest=T)
+iris.cut3
 ```
 
 ### 인덱싱
@@ -1311,9 +1379,11 @@ sqldf('select avg(mpg) as avg_mpg from mtcars where mpg>30 group by cyl', row.na
 ### 정렬
 
 ```R
-sort() #정렬. 데이터프레임 사용 x
-order() #정렬 색인 값 추출. 데이터프레임 정렬에서 사용
-arrange() #plyr 패키지에 있는 정렬 함수
+sort() : 정렬. 데이터프레임 사용 x
+order() : 정렬 인덱스값 추출. 데이터프레임 정렬에서 사용
+xtfrm() : 동일하지 않은 정렬 방법 적용할때
+arrange() : plyr 패키지에 있는 정렬 함수
+
 
 v1 <- c(20,60,45,10,15)
 v2 <- c(300,200,100,700,600)
@@ -1322,11 +1392,18 @@ df <- data.frame(v1,v2,v3)
 
 sort(v1) #벡터 정렬
 sort(v1,decreasing=T)
+length(v1) <- 7 #NA 추가
+sort(v1) #NA 포함 안됨
+sort(v1,na.last=T) #NA가 마지막에 포함
+sort(v1,na.last=F) #NA가 처음에 포함
 
 order(v1) #벡터 정렬
 order(-v1) #내림차순
-df[order(v1),] #데이터프레임 정렬
-df[order(v1,-v2,v3),] #우선순위
+df[order(v1),] #데이터프레임 v1기준으로 오름차순 정렬
+df[order(v1,decreasing=T),] #데이터프레임 v1기준으로 내림차순 정렬
+df[order(v1,-v2,v3),] #정렬기준 순위
+
+df[order(-xtfrm(df$v1),df$v2),] #1순위 v1 내림차순, 2순위 v2 오름차순
 
 install.packages('plyr') #설치
 library(plyr) #호출
