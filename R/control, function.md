@@ -70,7 +70,7 @@ print(i) #가장 마지막에 할당된 25가 i에 저장
 
 # 사용자정의 함수
 
-```
+```R
 #transLength.R에 저장한 스크립트
 #스크립트 : 야드를 미터로 변환하는 명령어의 집합
 #x <- c(30,50,90)
@@ -168,6 +168,13 @@ repeat{if(i>25)break
 
 
 
+```
+
+# 데이터 처리 함수
+
+## 유형 확인
+
+```R
 #mode : 데이터유형 파악
 mode(c(3.14,1.5))
 mode(factor('high','medium','low'))
@@ -176,5 +183,11 @@ mode(5>2)
 mode(list(1.2,'apple',c(3,4)))
 mode(mean)
 
+#class
+#str
 ```
+
+
+
+
 
