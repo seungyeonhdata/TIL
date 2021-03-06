@@ -43,11 +43,13 @@ iris[index,]
 
 ```
 
-## apply family
+## apply 함수
+
+: 데이터에 함수를 적용하는 함수
 
 - apply()
 
-```
+```R
 적용하려는 데이터가 행렬이나 배열일 때 사용가능
 #결과값이 벡터, 행렬
 x <- 1:24
@@ -73,69 +75,10 @@ apply(Titanic,c(1,4),sum)
 
 - lapply()
 
-```
-
-```
-
-- sapply()
-
-```
-
-```
-
-- mapply()
-
-```
-
-```
-
-
-
-## 정리할것
-
-iris.copy <- iris
-class(iris.copy$Species)
-as.character(iris.copy$Species)
-
-transform(iris.copy,
-          Species=as.character(Species),
-          Sepal.Ratio=Sepal.Length/Sepal.Width)
-
-#데이터에 함수를 적용하는 함수:
-#apply family: apply(), lapply(), sapply()
-
-#apply() : 적용하려는 데이터가 행렬이나 배열일 때 사용가능
-#결과값이 벡터, 행렬
-x <- 1:24
-dim(x) <- c(4,3,2)
-x
-apply(x,1,max)
-apply(x,1,paste,collapse=',') #char
-apply(x,2,paste,collapse=',')
-apply(x,3,paste,collapse=',') #3:면
-
-apply(x,c(1,2),paste,collapse=',') #행과 열이 교차하는 부분에 함수적용
-#결과값 : 행렬
-
-
-#4차원 데이터 Titanic
-str(Titanic)
-
-#등급별 탑승 인원 파악
-apply(Titanic,1,sum)
-
-#승객 등급별 생존자 통계
-apply(Titanic,c(1,4),sum)
-
+```R
 #lapply(데이터,함수)
 #리스트형식
-#sapply() : 길이가 모두 1이면 벡터, 
-
-길이가 2이상이면서 모두 같은경우 행렬
-
-길이가 2이상이면서 서로 다른경우 리스트로 출력
-
-#둘다 데이터프레임에 적용 가능
+#데이터프레임에 적용 가능
 exams <- list(s1=c(80,70,60,50,100),
      s2=c(80,40,60,50),
      s3=c(30,70,60,50,100,90),
@@ -144,6 +87,24 @@ lapply(exams,length)
 lapply(exams,mean)
 lapply(exams,sd)
 
+lapply(iris,class)
+
+lapply(iris,mean)
+```
+
+- sapply()
+
+```
+sapply() : 길이가 모두 1이면 벡터, 
+길이가 2이상이면서 모두 같은경우 행렬
+길이가 2이상이면서 서로 다른경우 리스트로 출력
+#데이터프레임에 적용 가능
+
+exams <- list(s1=c(80,70,60,50,100),
+     s2=c(80,40,60,50),
+     s3=c(30,70,60,50,100,90),
+     s4=c(80,60,60,50,100))
+     
 sapply(exams,length)
 sapply(exams,mean)
 sapply(exams,sd)
@@ -152,16 +113,54 @@ s4=c(80,60,60,50,100)
 range(s4)
 sapply(exams,range)
 
-lapply(iris,class)
 sapply(iris,class)
 
-lapply(iris,mean)
 sapply(iris,mean)
 sapply(iris,function(x) ifelse(is.numeric(x),mean(x),NA)) #경고안나오게
+```
 
+- mapply()
+
+```R
 #mapply(): 함수가 벡터 연산을 지원하지 않을때 유용
 mapply(rep,1:4,4:1)
 
+[[1]]
+[1] 1 1 1 1
+
+[[2]]
+[1] 2 2 2
+
+[[3]]
+[1] 3 3
+
+[[4]]
+[1] 4
+
+```
+
+- tapply()
+
+```R
+#그룹 분할 작업 -> 그룹별 연산 작업 동시 진행 가능
+#tapply(), aggregate(), by()
+?tapply
+#tapply(x,팩터(리스트도 가능),함수)
+tapply(iris$Sepal.Length,iris$Species,mean)
+
+tapply(iris$Sepal.Length,iris$Species,length)
+car
+with(car,tapply(mpg,list(cyl,am),mean))
+#group명 저절로 들어감
+```
+
+
+
+## 요약
+
+- split()
+
+```R
 #-------집단 요약------------------
 #벡터를 집단별로 분할(split, unstack)
 data(mtcars)
@@ -177,7 +176,11 @@ car
 g <- split(car$mpg,car$am) #list
 mean(g[['Manual']])
 data.frame(split(iris$Sepal.Length,iris$Species))
+```
 
+- unstack()
+
+```R
 #unstack(x,f,...)
 #그룹별로 분할된 데이터의 길이가 동일하면 데이터프레임
 #다르면 리스트로 출력
@@ -190,66 +193,16 @@ g2 <- unstack(data.frame(iris$Sepal.Length,iris$Species)) #dataframe
 g2
 summary(g2) #데이터프레임은 요약됨
 
-#그룹 분할 작업 -> 그룹별 연산 작업 동시 진행 가능
-#tapply(), aggregate(), by()
-?tapply
-#tapply(x,팩터(리스트도 가능),함수)
-tapply(iris$Sepal.Length,iris$Species,mean)
 
-tapply(iris$Sepal.Length,iris$Species,length)
-car
-with(car,tapply(mpg,list(cyl,am),mean))
-#group명 저절로 들어감
+```
 
-?aggregate
-#aggregate(벡터,by=집단변수를 리스트형식으로,함수)
-with(car,aggregate(mpg,list(Cyl=cyl,Transmission=am),mean))
-#group명이 없음
+- table()
 
-#car[c(1:6)] 변수의 평균, 실린더 개수와 변속기 유형의 조합에 따라
-car[c(1:6)]
-aggregate(car[c(1:6)],list(car$cyl,car$am),mean)
-
-#꽃 종류별 측정 변수별 요약
-aggregate(iris[-5],list(Species=iris$Species),mean)
-
-#by(data,팩터나 리스트,함수)
-?by
-by(iris, iris$Species,summary)
-by(iris, iris$Species,function(x) mean(x$Sepal.Length))
-
-#rowsum(x,group)
-rowsum(iris[-5],iris$Species)
-
-#범주별 관측값 개수
-tabulate()
-gc <- tabulate(car$gear)
-table(car$gear)
-names(gc) <- 1:length(tabulate(car$gear))
-gc
-table(car$am, car$gear)
-
+```R
 #xtabs :table함수와 동일한 기능 
-#포물려사용 : 데이터 처리시 어떤 열 사용할 건지 나타낸 수식
+#포물러사용 : 데이터 처리시 어떤 열 사용할 건지 나타낸 수식
 xtabs(formula=~., data=parent.frame(), subset)
 xtabs(~am+gear,car) #am과 gear 조합한 테이블
-
-#포뮬러 이용하여
-#cyl와 am 열로 mpg열의 평균 구하기
-aggregate(mpg~cyl+am, car, mean)
-with(car,aggregate(mpg,list(Cyl=cyl,am=am),mean)) #포뮬려 없이
-
-#분할(split)-적용(apply)-결합(combine) 
-#dplyr: SAC작업 도와주는 패키지
-library(dplyr)
-
-#filter()
-
-airquality
-air <- filter(airquality,Month==6,Temp>90) #,는 and 연산
-air <- filter(airquality,Month==6&Temp>90) # &도 가능
-head(air)
-subset(airquality,Month==6)
 
 #---prop.table--------
 
@@ -273,30 +226,121 @@ prop.table(mydata, 1) %>% rowSums
 
 colSums(prop.table(mydata, 2))
 prop.table(mydata, 2) %>% colSums
+```
+
+
+
+- transform()
+
+```R
+데이터 셋 내 형변환/연산 한꺼번에 정의
+transform(iris.copy,
+          Species=as.character(Species),
+          Sepal.Ratio=Sepal.Length/Sepal.Width)
+```
+
+
+
+
+
+
+
+### 그룹 분할 작업
+
+ -> 그룹별 연산 작업 동시 진행 가능
+
+- aggregate
+
+```
+#aggregate(벡터,by=집단변수를 리스트형식으로,함수)
+with(car,aggregate(mpg,list(Cyl=cyl,Transmission=am),mean))
+#group명이 없음
+
+#car[c(1:6)] 변수의 평균, 실린더 개수와 변속기 유형의 조합에 따라
+car[c(1:6)]
+aggregate(car[c(1:6)],list(car$cyl,car$am),mean)
+
+#꽃 종류별 측정 변수별 요약
+aggregate(iris[-5],list(Species=iris$Species),mean)
+```
+
+- by()
+
+```
+#by(data,팩터나 리스트,함수)
+?by
+by(iris, iris$Species,summary)
+by(iris, iris$Species,function(x) mean(x$Sepal.Length))
+```
+
+- rowsum()
+
+```
+#rowsum(x,group)
+rowsum(iris[-5],iris$Species)
+```
+
+- tabulate()
+
+```R
+#범주별 관측값 개수
+tabulate()
+gc <- tabulate(car$gear)
+table(car$gear)
+names(gc) <- 1:length(tabulate(car$gear))
+gc
+table(car$am, car$gear)
+```
+
+- formula
+
+```
+~..+..
+
+#cyl와 am 열로 mpg열의 평균 구하기
+aggregate(mpg~cyl+am, car, mean)
+with(car,aggregate(mpg,list(Cyl=cyl,am=am),mean)) #포뮬려 없이
+```
 
 
 
 ## dplyr 패키지
 
+: 분할(split)-적용(apply)-결합(combine)  SAC 작업 용이
 
+```
+library(dplyr)
+```
+
+### %>%
+
+```R
+
+```
 
 ### 추출
 
+- select()
+
 ```R
 #필요한 열만 추출
-select()
+
 df <- read.csv('train.csv',na.string='')
 df <- select(df,Survived,Pclass,Age,Sex,SibSp,Parch)
 missmap(df,col=c('red','grey'))
 ```
 
+- filter()
 
-
-### %>%
-
+```R
+airquality
+air <- filter(airquality,Month==6,Temp>90) #,는 and 연산
+air <- filter(airquality,Month==6&Temp>90) # &도 가능
+head(air)
+subset(airquality,Month==6)
 ```
 
-```
+
 
 # 타이타닉
 
