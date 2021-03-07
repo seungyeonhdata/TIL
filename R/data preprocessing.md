@@ -40,8 +40,16 @@ sample(iris,3)
 set.seed(1)
 index <- sample(1:nrow(iris),5) #행 번호 추출
 iris[index,]
+```
+
+- library(dplyr)
 
 ```
+sample_n() : random sample rows for a fixed number
+sample_frac() : random sample rows for a fixed fraction
+```
+
+
 
 ## apply 함수
 
@@ -94,7 +102,7 @@ lapply(iris,mean)
 
 - sapply()
 
-```
+```R
 sapply() : 길이가 모두 1이면 벡터, 
 길이가 2이상이면서 모두 같은경우 행렬
 길이가 2이상이면서 서로 다른경우 리스트로 출력
@@ -139,12 +147,12 @@ mapply(rep,1:4,4:1)
 
 ```
 
+- 그룹 분할 작업 -> 그룹별 연산 작업 동시 진행 가능
+  - `tapply()`, `aggregate()`, `by()`
 - tapply()
 
 ```R
-#그룹 분할 작업 -> 그룹별 연산 작업 동시 진행 가능
-#tapply(), aggregate(), by()
-?tapply
+
 #tapply(x,팩터(리스트도 가능),함수)
 tapply(iris$Sepal.Length,iris$Species,mean)
 
@@ -158,7 +166,7 @@ with(car,tapply(mpg,list(cyl,am),mean))
 
 ## 요약
 
-- split()
+### split()
 
 ```R
 #-------집단 요약------------------
@@ -178,7 +186,7 @@ mean(g[['Manual']])
 data.frame(split(iris$Sepal.Length,iris$Species))
 ```
 
-- unstack()
+### unstack()
 
 ```R
 #unstack(x,f,...)
@@ -196,7 +204,7 @@ summary(g2) #데이터프레임은 요약됨
 
 ```
 
-- table()
+### table()
 
 ```R
 #xtabs :table함수와 동일한 기능 
@@ -205,7 +213,7 @@ xtabs(formula=~., data=parent.frame(), subset)
 xtabs(~am+gear,car) #am과 gear 조합한 테이블
 
 #---prop.table--------
-
+#비율. 더해서 1. 행기준 : 1, 열기준 : 2
 mydata<-matrix(sample(100,15), ncol=3)
 colnames(mydata)<-LETTERS[seq(1,3)]
 mydata
@@ -239,17 +247,9 @@ transform(iris.copy,
           Sepal.Ratio=Sepal.Length/Sepal.Width)
 ```
 
+**<그룹별 분할 작업>**
 
-
-
-
-
-
-### 그룹 분할 작업
-
- -> 그룹별 연산 작업 동시 진행 가능
-
-- aggregate
+### aggregate
 
 ```
 #aggregate(벡터,by=집단변수를 리스트형식으로,함수)
@@ -264,7 +264,7 @@ aggregate(car[c(1:6)],list(car$cyl,car$am),mean)
 aggregate(iris[-5],list(Species=iris$Species),mean)
 ```
 
-- by()
+### by()
 
 ```
 #by(data,팩터나 리스트,함수)
@@ -306,7 +306,7 @@ with(car,aggregate(mpg,list(Cyl=cyl,am=am),mean)) #포뮬려 없이
 
 ## dplyr 패키지
 
-: 분할(split)-적용(apply)-결합(combine)  SAC 작업 용이
+: 데이터프레임의 분할(split)-적용(apply)-결합(combine)  SAC 작업 용이
 
 ```
 library(dplyr)
@@ -320,25 +320,108 @@ library(dplyr)
 
 ### 추출
 
-- select()
+:{base}의 subset()과 같은 기능
+
+- select() :select columns
 
 ```R
 #필요한 열만 추출
 
 df <- read.csv('train.csv',na.string='')
 df <- select(df,Survived,Pclass,Age,Sex,SibSp,Parch)
+library(Amelia)
 missmap(df,col=c('red','grey'))
 ```
 
-- filter()
+| verbs                    | description                                          |
+| ------------------------ | ---------------------------------------------------- |
+| select(df,starts_with()) | select columns that `start` with a prefix            |
+| select(df,ends_with())   | select columns that `end` with a prefix              |
+| select(df,contains())    | select columns that contain a `char string`          |
+| select(df,matches())     | select columns that match a `regular expression`     |
+| select(df,one_of())      | select columns that are from `a group of names`      |
+| select(df,num_range())   | select columns from `num_range a to n` with a prefix |
 
 ```R
+'xx_name'은 대소문자 구분 안함
+select(df, start_with('s')) #Survived, Sibsp, Sex 열 나옴
+select(df, ends_with('s')) #Pclass 열
+select(df, contains('s')) #Survived, Sibsp, Sex, Pclass, PassengerId
+select(df, matches('.p')) #Sibsp만
+
+vars <- c('Survived','Dead','Sex')
+select(df, one_of(vars)) #Survived, Sex 열
+Warning message:
+In one_of(vars) : Unknown variables: `Dead`
+
+select(df,2:4) #서로 인접해서 줄지어 있는 변수들의 경우
+select(df,-(2:4))
+
+#동일한 접두사를 사용하는 변수들인 경우
+select(df, num_range("V", 2:3)) #V2,V3열 추출
+```
+
+
+
+- filter() : filter rows with condition
+
+```R
+filter(dataframe, filter condition1, filter condition2,...)
 airquality
-air <- filter(airquality,Month==6,Temp>90) #,는 and 연산
-air <- filter(airquality,Month==6&Temp>90) # &도 가능
+air <- filter(airquality,Month==6,Temp>90) #,는 and 연산, &도 가능
+air <- filter(airquality,Month==6|Temp>90) # or
 head(air)
 subset(airquality,Month==6)
 ```
+
+- slice() : filter rows with position
+
+```R
+slice(dataframe,from,to)
+Cars93_1
+slice(Cars93_1,6:10) #6번부터 10번 행
+```
+
+- distinct() : {base}의 unique()
+
+```R
+중복 제거하여 행 추출
+```
+
+### 정렬
+
+- arrange() 
+
+```R
+{base}의 order()과 같은 기능
+arrange(Cars93_1, desc(MPG.highway), Max.Price)
+```
+
+### 수정
+
+- rename()
+
+```R
+#열 이름 변경
+rename(x,바꾼 후=바꾸기 전)
+rename(midwest,total=poptotal,asian=popasian)
+```
+
+- mutate() 
+
+```
+{base}의 transform() 기능
+
+create(add) new columns and refer to columns that you've just created
+```
+
+- transmute()
+
+```
+create(add) new columns and only keeps the new columns
+```
+
+**요약** : summarise()
 
 
 
