@@ -258,7 +258,7 @@ transform(iris.copy,
 
 ### aggregate
 
-```
+```R
 #aggregate(벡터,by=집단변수를 리스트형식으로,함수)
 with(car,aggregate(mpg,list(Cyl=cyl,Transmission=am),mean))
 #group명이 없음
@@ -299,14 +299,14 @@ gc
 table(car$am, car$gear)
 ```
 
-- formula
+#### formula
 
-```
+```R
 ~..+..
 
 #cyl와 am 열로 mpg열의 평균 구하기
 aggregate(mpg~cyl+am, car, mean)
-with(car,aggregate(mpg,list(Cyl=cyl,am=am),mean)) #포뮬려 없이
+with(car,aggregate(mpg,list(Cyl=cyl,am=am),mean)) #포뮬러 없이
 ```
 
 
@@ -363,6 +363,8 @@ result = words.map(lambda x: (x, 1)).reduceByKey(lambda x, y: x + y)
 
 :{base}의 subset()과 같은 기능
 
+**열 단위 추출**
+
 - select() :select columns
 
 ```R
@@ -396,31 +398,11 @@ Warning message:
 In one_of(vars) : Unknown variables: `Dead`
 
 select(df,2:4) #서로 인접해서 줄지어 있는 변수들의 경우
+select(df,Survived:Name)
 select(df,-(2:4))
 
 #동일한 접두사를 사용하는 변수들인 경우
 select(df, num_range("V", 2:3)) #V2,V3열 추출
-```
-
-
-
-- filter() : filter rows with condition
-
-```R
-filter(dataframe, filter condition1, filter condition2,...)
-airquality
-air <- filter(airquality,Month==6,Temp>90) #,는 and 연산, &도 가능
-air <- filter(airquality,Month==6|Temp>90) # or
-head(air)
-subset(airquality,Month==6)
-```
-
-- slice() : filter rows with position
-
-```R
-slice(dataframe,from,to)
-Cars93_1
-slice(Cars93_1,6:10) #6번부터 10번 행
 ```
 
 - distinct() : {base}의 unique()
@@ -460,6 +442,27 @@ dictinct(df, var1, var2)
 11 non-USA     Van
 ```
 
+**행 단위 추출**
+
+- filter() : filter rows with condition
+
+```R
+filter(dataframe, filter condition1, filter condition2,...)
+airquality
+air <- filter(airquality,Month==6,Temp>90) #,는 and 연산, &도 가능
+air <- filter(airquality,Month==6|Temp>90) # or
+head(air)
+{base} subset(airquality,Month==6)
+```
+
+- slice() : filter rows with position
+
+```R
+slice(dataframe,from,to)
+Cars93_1
+slice(Cars93_1,6:10) #6번부터 10번 행
+```
+
 ### 정렬
 
 - arrange() 
@@ -469,7 +472,7 @@ dictinct(df, var1, var2)
 arrange(Cars93_1, desc(MPG.highway), Max.Price)
 ```
 
-### 수정
+### 수정/추가
 
 - rename()
 
@@ -497,6 +500,20 @@ create(add) new columns and only keeps the new columns
 = 신규 변수만 keep
 ```
 
+- left_join()
+
+```R
+열 합침
+```
+
+- bind_rows()
+
+```R
+행 합침
+```
+
+
+
 ### 요약
 
 ```R
@@ -517,7 +534,7 @@ create(add) new columns and only keeps the new columns
 +           Price_sd = sd(Price, na.rm = TRUE), 
 +           Price_min = min(Price, na.rm = T), 
 +           Price_max = max(Price, na.rm = T), 
-+           Price_IQR = IQR(Price), na.rm = T, 
++           Price_IQR = IQR(Price, na.rm = T), 
 +           Price_sum = sum(Price, na.rm = TRUE)) 
 
   Price_mean Price_median Price_sd Price_min Price_max Price_IQR na.rm 
@@ -601,11 +618,61 @@ summarise_each() : 다수의 변수에 동일한 summarise 함수 적용
 
 
 
+## Reshape2 패키지
+
+```
+install.packages('reshape2')
+library(reshape2)
+
+pivoting
+#와이드형, 롱형 변환
+```
+
+- melt()
+
+```R
+와이드형 -> 롱형
+#melt(data,id.vars='subject') factor형 이어야함
+smiths.long <- melt(smiths)
+> smiths.long
+     subject variable value
+1 John Smith     time  1.00
+2 Mary Smith     time  1.00
+3 John Smith      age 33.00
+4 Mary Smith      age    NA
+5 John Smith   weight 90.00
+6 Mary Smith   weight    NA
+7 John Smith   height  1.87
+8 Mary Smith   height  1.54
+```
+
+
+
+- dcast()
+
+```
+
+```
+
+
+
+- acast()
+
+```
+
+```
+
+
+
+
+
+
+
 
 
 # 타이타닉
 
-```
+```R
 df <- read.csv('train.csv',na.string='')
 View(df)
 
