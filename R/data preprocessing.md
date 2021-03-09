@@ -490,6 +490,11 @@ mutate(dataframe, 새로운변수 = 기존변수 조합한 수식,...)
 create(add) new columns and refer to columns that you just created
 =기존변수 + 신규변수 모두 keep
 하나의 함수 명령문 안에서 신규로 생성한 변수를 바로 다른 신규 생성 변수의 input 변수로 사용할 수 있어 편리 (transform()은 안됨)
+
+exam %>% 
+  mutate(total=math+english+science,
+         test=ifelse(science>=60,'pass','fail')) %>% 
+  arrange(total)
 ```
 
 - transmute()
@@ -504,12 +509,32 @@ create(add) new columns and only keeps the new columns
 
 ```R
 열 합침
+# 중간고사 데이터 생성
+test1 <- data.frame(id = c(1, 2, 3, 4, 5),
+                    midterm = c(60, 80, 70, 90, 85))
+# 기말고사 데이터 생성
+test2 <- data.frame(id = c(1, 2, 3, 4, 5),
+                    final = c(70, 83, 65, 95, 80))
+
+left_join(test1,test2,by='id')
+
+name <- data.frame(class = c(1, 2, 3, 4, 5),
+                   teacher = c("kim", "lee", "park", "choi", "jung"))
+left_join(name,exam)
 ```
 
 - bind_rows()
 
 ```R
 행 합침
+
+# 학생 1~5 번 시험 데이터 생성
+group_a <- data.frame(id = c(1, 2, 3, 4, 5),
+                      test = c(60, 80, 70, 90, 85))
+# 학생 6~10 번 시험 데이터 생성
+group_b <- data.frame(id = c(6, 7, 8, 9, 10),
+                      test = c(70, 83, 65, 95, 80))
+bind_rows(group_a,group_b)
 ```
 
 
@@ -646,12 +671,14 @@ smiths.long <- melt(smiths)
 8 Mary Smith   height  1.54
 ```
 
-
-
 - dcast()
 
-```
-
+```R
+#포물러x~y : x는 식별자 변수, y는 측정 변수, 변수가 여러개면 +로 연결
+dcast(smiths.long,subject~variable)
+#month 와 day 묶어서 식별자로 사용
+aq.long <- melt(airquality,id.vars=c('Month','Day'))
+aq.wide <- dcast(aq.long,Month+Day~variable)
 ```
 
 
