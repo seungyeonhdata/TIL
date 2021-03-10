@@ -64,6 +64,15 @@ for(i in seq(5,25,5)) print(i)
 i <- 1
 for(i in seq(5,25,5)) i
 print(i) #가장 마지막에 할당된 25가 i에 저장
+
+acc <- c()
+for(i in seq(1,25,2)){
+  wbcd_z_pred <- knn(train=wbcd_train, test=wbcd_test,
+                     cl=wbcd_train_labels,k=i)
+  acc <- c(acc,sum(wbcd_test_labels==wbcd_z_pred)/length(wbcd_test_labels))
+}
+which(acc==max(acc))
+
 ```
 
 

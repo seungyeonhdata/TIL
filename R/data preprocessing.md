@@ -31,11 +31,14 @@ set.seed(20210303)
 sample(1:10)
 #1~10 데이터로 할때
 #전처리 -> 랜덤 : 124579번 추출해서 훈련데이터 ->모델-> 평가(3,8,10)
+
 #정확도를 같은 데이터로 계속 알아봐야함
 set.seed(1)
 sample(1:10,5,replace=T) #복원추출
+
 #데이터프레임 열로부터 표본 추출
 sample(iris,3)
+
 #데이터프레임 행으로부터 표본 추출
 set.seed(1)
 index <- sample(1:nrow(iris),5) #행 번호 추출
@@ -94,6 +97,7 @@ apply(Titanic,c(1,4),sum)
 #lapply(데이터,함수)
 #리스트형식
 #데이터프레임에 적용 가능
+#함수를 각 열에 모두 적용
 exams <- list(s1=c(80,70,60,50,100),
      s2=c(80,40,60,50),
      s3=c(30,70,60,50,100,90),
@@ -743,6 +747,27 @@ ggcorr(df, nbreaks=6,        #수치 구간을 6개로 나눔
        label=T, 
        label_size=3, color='grey50') 
 #운임이 높을수록 생존율 높음, Pclass가 작을수록(높은등급) 생존율 높음
+```
+
+## 결측값
+
+```R
+is.na()
+x <- c(1, 2, 3, 4, NA, 6, 7, 8, 9, NA)
+> is.na(x)
+ [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE
+
+갯수가 너무 많으면 어렵다.
+#개수만 확인
+sum(is.na(df)) #df전체
+
+sum(is.na(df$Luggage.room)) #특정 열
+[1] 11
+
+#각 열
+colSums(is.na(df))
+
+
 ```
 
 
