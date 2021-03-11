@@ -161,6 +161,17 @@ center <- function(x,type){
          trimmed=mean(x,trim=0.1)
          )
 }
+
+x <- c(5,6,7,8)
+switch(1,mean(x),sum(x),var(x)) #mean(x)
+switch(2,mean(x),sum(x),var(x)) #sum(x)
+switch(3,mean(x),sum(x),var(x)) #var(x)
+
+#성별 0,1 변환
+train$Sex <- sapply(train$Sex,switch,'male'=0,'female'=1)
+test$Sex <- sapply(train$Sex,switch,'male'=0,'female'=1)
+
+
 x <- c(2,3,5,7,11,13,17)
 center(x,'mean')
 center(x,'median')

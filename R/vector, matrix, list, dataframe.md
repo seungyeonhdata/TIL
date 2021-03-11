@@ -1362,7 +1362,7 @@ iris
 #Sepal.Ratio가 na이면 중앙값으로 대체
 within(iris,{     
     Sepal.Ratio=ifelse(is.na(Sepal.Ratio),#조건
-                median(Sepal.Ration,na.rm=T), #참
+                median(Sepal.Ratio,na.rm=T), #참
                 Sepal.Ratio) #거짓
 })
 ```

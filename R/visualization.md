@@ -1,16 +1,19 @@
 # 시각화
 
+```
 #graphics패키지 :고수준, 저수준
 #고수준 : 완전한 하나의 그래프 생성
 #plot(), boxplot(),hist(),crve(),...
 #저수준 :  독자적으로 그래프 생성 불가능
 #완성된 그래프에 요소를 첨가하는 역할
 #points(),lines(),abline(),text(),polygon(),...
+```
 
-
+```
 #시계열 분석-> 시간의 흐름에 따라 변하는 데이터 분석
+```
 
-
+```
 #산점도 :  각 데이터 점으로 찍음 상관관계 보임.
 #분출시간이 길수록 대기시간도 김
 plot(faithful)
@@ -20,15 +23,15 @@ eruptions.long
 #점 색깔과 모양 바꾸기
 points(eruptions.long,col='red',pch=19)#심볼
 par(mar=c(5.1,4.1,4.1,2.1))
+```
 
-#dev.off() : 그래프 창 닫기
-dev.off()
+- 선형 회귀 모델
 
-#선형 회귀 모델
+```
 #lm(종속변수~독립변수,데이터)
 faith.lm <- lm(waiting~eruptions,data=faithful) #분출시간에 따른 대기시간의 변화
-coef(faith.lm)[1]
-coef(faith.lm)[2]
+coef(faith.lm)[1] -->b
+coef(faith.lm)[2] -->a
 #y=ax+b
 #a: 기울기(coefficient), b: y절편(intercept)
 
@@ -38,13 +41,29 @@ fitted(faith.lm) #y값
 
 #회귀선 (rmse값이 최소인 값)
 lines(x=faithful$eruptions,y=fitted(faith.lm),col='blue')
+```
 
+- 신뢰구간 그리기
+
+```
+
+```
+
+
+
+````
 #선 긋기
 abline(v=3,col='purple')
 abline(h=mean(faithful$waiting),col='green')
 abline(a=coef(faith.lm)[1]+10,b=coef(faith.lm)[2],col='green')
 abline(faith.lm,col='red')
+````
 
+
+
+### plot
+
+```
 #plot(x) : x 타입에 따라 출력되는 그래프가 달라짐
 #벡터, 데이터프레임, 팩터, 시계열, 테이블, 선형회귀 모델...
 
@@ -60,7 +79,6 @@ plot(ToothGrowth$supp,ToothGrowth$len)
 plot(iris[,1:4])
 #변수가 2개 넘으면 행렬식 구성
 
-
 nhtemp
 str(nhtemp)
 plot(nhtemp)
@@ -71,8 +89,220 @@ str(UCBAdmissions)
 plot(UCBAdmissions)
 #테이블 데이터는 모자이크 도표로 출력
 #모자이크 조각의 크기로 교차표의 상대적 빈도 확인
+```
 
+plot 창 닫기 
+
+dev.off() : 초기화
+
+```
+plot(faithful,
+     main='main title',
+     sub='sub title',
+     xlab='eruption time(m)',
+     ylab='waiting time till next eruption')
+#x,y축 숫자 방향
+plot(faithful,
+     las=3) #0기본값, 1:y축 숫자 돌아감, 2:x축 숫자 돌아감 3:둘다 돌아감
+#박스 모양(그래프 외곽선 모양)
+plot(faithful, bty='o')
+plot(faithful, bty='n')
+plot(faithful, bty='l')
+plot(faithful, bty=']')
+plot(faithful, pch=24, col='green2',bg='blue')
+
+plot(LakeHuron)
+str(LakeHuron)
+
+plot(LakeHuron, lty='solid')
+plot(LakeHuron, lty='dashed')
+plot(LakeHuron, lty='dotted')
+plot(LakeHuron, lty='twodash')
+
+pressure
+plot(pressure, type='p') #점으로 표시 (기본값)
+plot(pressure, type='l') #선으로
+plot(pressure, type='b') #both
+plot(pressure, type='o') #겹쳐서
+plot(pressure, type='h') #히스토그램
+plot(pressure, type='s') #계단식
+plot(pressure, type='n') #nothing
+#사용자 정의 형식 그래프
+x <- 1:10
+y1 <- exp(1:10)
+y2 <- exp(10:1)
+plot(x,y1,type='n',ylab='y')
+lines(x,y1,type='o',col='red')
+lines(x,y2,type='o',col='blue')
+
+plot(faithful,type='n') #틀 만들고
+grid() #격자선 추가
+points(faithful, pch=18, col='blue') #포인트찍기
+dev.off()
+plot(faithful, pch=18, col='blue') #처음부터 찍기
+
+colors() #색 이름들
+palette('default') #기본색상 파레트
+palette()
+pie(rep(1,12), col=1:12) #기본색상 파레트
+palette(rainbow(6)) #변경 파레트
+palette()
+pie(rep(1,12),col=1:12)
+pie(rep(1,12),col=gray(level=seq(0,1,length=12))) #그라데이션
+pie(rep(1,12),col=rainbow(12,alpha=seq(0,1,length=12))) #그라데이션
+#alpha: 투명도
+pie(rep(1,12),col=heat.colors(12))
+pie(rep(1,12),col=terrain.colors(12))
+pie(rep(1,12),col=cm.colors(12))
+
+install.packages('mlbench')
+library(mlbench)
+data("Ozone")
+head(Ozone)
+plot(Ozone$V8,Ozone$V9,
+     xlab='Sandburg',
+     ylab='El Monte', 
+     main='Ozone',  #제목
+     pch=19,        #점 모양
+     cex=0.5,       #점 크기
+     col='red',
+     xlim=c(0,150), #x축범위
+     ylim=c(0,150)) #y축범위
+     
+#iris 종별 sepal.length평균
+with(iris,tapply(Sepal.Length,Species,mean))
+
+#cars 속도별 거리 평균
+dist_mean <- with(cars,tapply(dist,speed,mean))
+plot(dist_mean, type='o',
+     xlab='speed',
+     ylab='dist',
+     cex=0.7)
+```
+
+- par()
+
+```
+#그래프 칸 개수
+opar <- par(mfrow=c(1,2)) #2칸으로 나누기
+par(mfcol=c(2,1)) #세로방향 두칸으로 나누기
+plot(Ozone$V8,Ozone$V9)
+plot(Ozone$V8,Ozone$V9)
+
+par(opar) #설정 불러오기
+dev.off() #설정 초기화
+```
+
+
+
+### 저장
+
+```
 png('myplot.png',width=800,height=400)
 
 windows()
 savePlot('myplot.pdf',type='pdf')
+```
+
+```
+#그래프 관련 함수
+#curve(함수나 표현식, 시작점, 끝점)
+curve(sin,)
+curve(sin,0,2*pi)
+
+
+#선형회귀 -> 신뢰구간 출력
+#속력에 따른 거리의 변화
+
+dev.off()
+cars
+m <- lm(dist~speed,cars)
+p <- predict(m, interval='confidence') #신뢰구간
+#fit=직선, lwv=하한구간, upr=상한구간
+#fit=회귀모델로 적합된 값
+#각 행은 cars 데이터의 각 행에 대한 신뢰구간 표시
+#1행은 speed 4에 대한 dist값 예측
+
+plot(cars, cex=0.5)
+#자료 내용 출력(문자열)
+text(cars$speed,cars$dist,pos=2,cex=0.5) #pos는 위치
+identify(cars$speed,cars$dist) #표 우측에 finish 눌러야 나옴
+abline(m) #회귀선
+
+head(cars)
+
+#신뢰구간 다각형으로 만들기
+#벡터 만들어서 그 안에 넣기
+x <- c(cars$speed,tail(cars$speed,1),rev(cars$speed),cars$speed[1]) #rev는 역순
+y <- c(p[,'lwr'],tail(p[,'upr'],1),rev(p[,'upr']),p[,'lwr'][1])
+#다각형 만들기
+polygon(x,y,col=rgb(.7,.7,.7,.5)) #마지막값은 투명도
+
+#iris로 점 찍기
+plot(iris$Sepal.Width,iris$Sepal.Length,cex=0.5,pch=20,
+     xlab='width',ylab='length')
+points(iris$Petal.Width,iris$Petal.Length,cex=0.5,pch='+'
+       ,col='#ff0000')
+#범례
+legend('topright',legend=c('sepal','petal'),pch=c(20,43),
+       cex=0.8,col=c('black','red'),bg='grey')
+
+#박스
+boxplot(iris$Sepal.Width)
+box <- boxplot(iris$Sepal.Width)
+#박스의 정보
+box #out:극단치
+boxplot(iris$Sepal.Width,horizontal=T)
+hist(iris$Sepal.Length,breaks='sturges') #히스토그램
+#sturges=log2(n)+1
+hist(iris$Sepal.Length,breaks=8,freq=F) #default는 개수
+#freq=F 확률밀도로 합이 1
+h <- hist(iris$Sepal.Length,breaks=8)
+h
+#밀도 그래프
+plot(density(iris$Sepal.Width))
+#히스토그램과 비교
+hist(iris$Sepal.Width,freq=F)
+lines(density(iris$Sepal.Width))
+
+#바 그래프
+barplot(tapply(iris$Sepal.Width,iris$Species,mean))
+
+#데이터 비율 :pie그래프 (구간 나눠서)
+pie(table(cut(iris$Sepal.Width,breaks=10)))
+```
+
+### ggplot2
+
+```
+library(ggplot2)
+#3층 레이어로 그래프 그릴 수 있음
+#데이터프레임만 가능
+#1층: 배경 + 2층: 그래프 + 3층: 범위,설정
+#aes:배경(변수설정)
+ggplot(data=mtcars, aes(x=wt,y=mpg))+
+  geom_point()+
+  labs(title='practice',
+       x='weight',y='mpg')
+
+mtcars$gear <- factor(mtcars$gear, levels=c(3,4,5),
+                      labels=c('3gear','4gear','5gear'))
+mtcars$cyl <- factor(mtcars$cyl, levels=c(4,6,8),
+                      labels=c('4cyl','6cyl','8cyl'))
+
+ggplot(data=mtcars, aes(x=mpg))+
+  geom_histogram()+
+  facet_grid(cyl~.)+
+  labs(title='cyl vs mpg')
+
+ggplot(data=mtcars, aes(x=cyl,y=mpg))+
+  geom_boxplot()+
+  labs(title='cyl x mpg')
+
+ggplot(data=mtcars, aes(x=mpg, fill=cyl))+
+  geom_density()+
+  labs(title='mpg x cyl density')
+```
+
+
+

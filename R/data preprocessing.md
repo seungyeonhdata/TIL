@@ -105,7 +105,7 @@ exams <- list(s1=c(80,70,60,50,100),
 lapply(exams,length)
 lapply(exams,mean)
 lapply(exams,sd)
-
+lapply(iris,scale)
 lapply(iris,class)
 
 lapply(iris,mean)
@@ -751,6 +751,15 @@ ggcorr(df, nbreaks=6,        #수치 구간을 6개로 나눔
 
 ## 결측값
 
+```
+개수 확인
+
+연속성 변수면
+summary()
+```
+
+
+
 ```R
 is.na()
 x <- c(1, 2, 3, 4, NA, 6, 7, 8, 9, NA)
@@ -760,14 +769,17 @@ x <- c(1, 2, 3, 4, NA, 6, 7, 8, 9, NA)
 갯수가 너무 많으면 어렵다.
 #개수만 확인
 sum(is.na(df)) #df전체
-
 sum(is.na(df$Luggage.room)) #특정 열
 [1] 11
 
 #각 열
 colSums(is.na(df))
 
+데이터가 연속성 숫자면
+summary()
 
+비연속성 변수면
+table()
 ```
 
 
