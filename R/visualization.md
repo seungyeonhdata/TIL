@@ -204,6 +204,8 @@ windows()
 savePlot('myplot.pdf',type='pdf')
 ```
 
+### plot
+
 ```
 #그래프 관련 함수
 #curve(함수나 표현식, 시작점, 끝점)
