@@ -25,7 +25,7 @@ points(eruptions.long,col='red',pch=19)#심볼
 par(mar=c(5.1,4.1,4.1,2.1))
 ```
 
-- 선형 회귀 모델
+## 선형 회귀 모델
 
 ```
 #lm(종속변수~독립변수,데이터)
@@ -43,21 +43,37 @@ fitted(faith.lm) #y값
 lines(x=faithful$eruptions,y=fitted(faith.lm),col='blue')
 ```
 
-- 신뢰구간 그리기
+### 신뢰구간 그리기
 
 ```
+#선형회귀 -> 신뢰구간 출력
+#속력에 따른 거리의 변화
+
+dev.off()
+cars
+m <- lm(dist~speed,cars)
+p <- predict(m, interval='confidence') #신뢰구간
+#fit=직선, lwv=하한구간, upr=상한구간
+#fit=회귀모델로 적합된 값
+#각 행은 cars 데이터의 각 행에 대한 신뢰구간 표시
+#1행은 speed 4에 대한 dist값 예측
+
+plot(cars, cex=0.5)
+#자료 내용 출력(문자열)
+text(cars$speed,cars$dist,pos=2,cex=0.5) #pos는 위치
+identify(cars$speed,cars$dist) #표 우측에 finish 눌러야 나옴
+abline(m) #회귀선
+
+head(cars)
+
+#신뢰구간 다각형으로 만들기
+#벡터 만들어서 그 안에 넣기
+x <- c(cars$speed,tail(cars$speed,1),rev(cars$speed),cars$speed[1]) #rev는 역순
+y <- c(p[,'lwr'],tail(p[,'upr'],1),rev(p[,'upr']),p[,'lwr'][1])
+#다각형 만들기
+polygon(x,y,col=rgb(.7,.7,.7,.5)) #마지막값은 투명도
 
 ```
-
-
-
-````
-#선 긋기
-abline(v=3,col='purple')
-abline(h=mean(faithful$waiting),col='green')
-abline(a=coef(faith.lm)[1]+10,b=coef(faith.lm)[2],col='green')
-abline(faith.lm,col='red')
-````
 
 
 
@@ -178,12 +194,23 @@ plot(dist_mean, type='o',
      xlab='speed',
      ylab='dist',
      cex=0.7)
+    
 ```
 
-- par()
+#### 선그리기
+
+````
+#선 긋기
+abline(v=3,col='purple')
+abline(h=mean(faithful$waiting),col='green')
+abline(a=coef(faith.lm)[1]+10,b=coef(faith.lm)[2],col='green')
+abline(faith.lm,col='red')
+````
+
+#### par()
 
 ```
-#그래프 칸 개수
+#plot창 분할(그래프 여러개 넣기)
 opar <- par(mfrow=c(1,2)) #2칸으로 나누기
 par(mfcol=c(2,1)) #세로방향 두칸으로 나누기
 plot(Ozone$V8,Ozone$V9)
@@ -193,9 +220,7 @@ par(opar) #설정 불러오기
 dev.off() #설정 초기화
 ```
 
-
-
-### 저장
+#### 저장
 
 ```
 png('myplot.png',width=800,height=400)
@@ -204,41 +229,13 @@ windows()
 savePlot('myplot.pdf',type='pdf')
 ```
 
-### plot
+### 그래프
 
 ```
 #그래프 관련 함수
 #curve(함수나 표현식, 시작점, 끝점)
 curve(sin,)
 curve(sin,0,2*pi)
-
-
-#선형회귀 -> 신뢰구간 출력
-#속력에 따른 거리의 변화
-
-dev.off()
-cars
-m <- lm(dist~speed,cars)
-p <- predict(m, interval='confidence') #신뢰구간
-#fit=직선, lwv=하한구간, upr=상한구간
-#fit=회귀모델로 적합된 값
-#각 행은 cars 데이터의 각 행에 대한 신뢰구간 표시
-#1행은 speed 4에 대한 dist값 예측
-
-plot(cars, cex=0.5)
-#자료 내용 출력(문자열)
-text(cars$speed,cars$dist,pos=2,cex=0.5) #pos는 위치
-identify(cars$speed,cars$dist) #표 우측에 finish 눌러야 나옴
-abline(m) #회귀선
-
-head(cars)
-
-#신뢰구간 다각형으로 만들기
-#벡터 만들어서 그 안에 넣기
-x <- c(cars$speed,tail(cars$speed,1),rev(cars$speed),cars$speed[1]) #rev는 역순
-y <- c(p[,'lwr'],tail(p[,'upr'],1),rev(p[,'upr']),p[,'lwr'][1])
-#다각형 만들기
-polygon(x,y,col=rgb(.7,.7,.7,.5)) #마지막값은 투명도
 
 #iris로 점 찍기
 plot(iris$Sepal.Width,iris$Sepal.Length,cex=0.5,pch=20,
@@ -276,7 +273,7 @@ pie(table(cut(iris$Sepal.Width,breaks=10)))
 
 ### ggplot2
 
-```
+```R
 library(ggplot2)
 #3층 레이어로 그래프 그릴 수 있음
 #데이터프레임만 가능
