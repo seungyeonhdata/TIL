@@ -206,7 +206,7 @@ grep(pattern='New',x=landmass) #'New'가 들어간 인덱스 출력
 | ^ , $              | 시작, 끝           |
 | [[:alnum:]] , \\\w | 알파벳 + 숫자      |
 | [[:digit:]] , \\\d | 숫자               |
-| [[:space:]] , \\\s | 빈칸               |
+| [[:space:]] , \\\s | 빈칸, 탭, \n       |
 | [[:punct:]]        | 문장부호, 특수문자 |
 | [[:alpha:]]        | 알파벳             |
 
@@ -315,6 +315,8 @@ qrt <- seq(s,by='3 months',length.out=4)
 > quarters(qrt) #분기 정보
 [1] "Q1" "Q2" "Q3" "Q4"
 ```
+
+## stringr 패키지
 
 
 
