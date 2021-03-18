@@ -27,9 +27,89 @@ par(mar=c(5.1,4.1,4.1,2.1))
 
 ## 선형 회귀 모델
 
+회귀선을 찾는 다양한 방법
+
+### optim()
+
+```R
+주어진 y데이터를 x데이터로 예측했을 경우, 예측값과 실제값 사이에서
+#차이의 제곱들의 합이 가장 작은 직선
+
+#잔차(residual): 예측값과 실제값 사이의 차이
+#잔차제곱의합 : residual sum of square (Rss)
+
+#중간고사(x) ->모델 -> 기말고사 점수 예측 (yhat)
+#잔차= y - yhat
+#잔차 제곱의 합
+#중 최소값인 선 찾기
+
+rss(mydata[,3:4],c(5,1))
+#y=x+5를 회귀직선으로, mydata[,3:4]에 대한 rss구하기
+
+
+#잔차 제곱의 합 구하는 함수
+rss <- function(data,lineInfo){
+  x <- data[,1] #mid
+  y <- data[,2] #final
+  intercept <- lineInfo[1] #y절편
+  slope <- lineInfo[2] #기울기
+  yhat <- intercept+slope*x
+  result <- sum((y-yhat)^2)
+  result
+}
+
+rss(mydata[,3:4],c(-15,1.5))
+
+#회귀모델 만들기 1 : optim()
+#optim() : y절편과 기울기를 변경하면서 최적의 값 찾아냄
+#par=y절편과 기울기, value=rss
+result <- optim(par=c(1,1), fn=rss, data=mydata[,3:4])
+
+#for문 돌듯이 반복해서 돌아서 결과 나옴
+
+# $par
+# [1] 13.8833436  0.8967623
+# 
+# $value
+# [1] 5712.789
+
+# 따라서, yhat=13.88x+0.896
+
+
+plot(mydata$midterm, mydata$final,
+     main='시험점수',
+     xlab='중간',
+     ylab='기말',
+     col=color)
+abline(result$par[1],result$par[2]) #회귀선
 ```
+
+
+
+### 수식
+
+```R
+# 기울기 = 상관계수 * 표준편차(y)/표준편차(x)
+x <- mydata$midterm
+y <- mydata$final
+a <- cor(x,y)*sd(y)/sd(x)
+#0.896
+
+# 절편 = 평균(y) - 기울기*평균(x)
+b <- mean(y)-a*mean(x)
+#13.88
+```
+
+
+
+### lm()
+
+```R
 #lm(종속변수~독립변수,데이터)
 faith.lm <- lm(waiting~eruptions,data=faithful) #분출시간에 따른 대기시간의 변화
+
+attributes(faith.lm) #속성명들 알려줌
+
 coef(faith.lm)[1] -->b
 coef(faith.lm)[2] -->a
 #y=ax+b
@@ -37,15 +117,18 @@ coef(faith.lm)[2] -->a
 
 #fitted : 회귀모델에서 예측값 추출
 fitted(faith.lm) #y값
+faith.lm$fitted.values #라고 해도 됨
 #데이터의 ~뒤 값들을 만들어진 선형회귀 모델에 대입한 것
 
 #회귀선 (rmse값이 최소인 값)
 lines(x=faithful$eruptions,y=fitted(faith.lm),col='blue')
 ```
 
+
+
 ### 신뢰구간 그리기
 
-```
+```R
 #선형회귀 -> 신뢰구간 출력
 #속력에 따른 거리의 변화
 
@@ -77,7 +160,7 @@ polygon(x,y,col=rgb(.7,.7,.7,.5)) #마지막값은 투명도
 
 
 
-### plot
+## plot
 
 ```
 #plot(x) : x 타입에 따라 출력되는 그래프가 달라짐

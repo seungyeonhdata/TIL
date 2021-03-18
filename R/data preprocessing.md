@@ -74,8 +74,8 @@ x <- 1:24
 dim(x) <- c(4,3,2)
 x
 apply(x,1,max)
-apply(x,1,paste,collapse=',') #char
-apply(x,2,paste,collapse=',')
+apply(x,1,paste,collapse=',') #1:행
+apply(x,2,paste,collapse=',') #2:열
 apply(x,3,paste,collapse=',') #3:면
 
 apply(x,c(1,2),paste,collapse=',') #행과 열이 교차하는 부분에 함수적용
