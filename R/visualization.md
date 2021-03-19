@@ -82,6 +82,7 @@ plot(mydata$midterm, mydata$final,
      ylab='기말',
      col=color)
 abline(result$par[1],result$par[2]) #회귀선
+abline(result$par)
 ```
 
 
@@ -194,7 +195,9 @@ plot 창 닫기
 
 dev.off() : 초기화
 
-```
+### 스타일
+
+```R
 plot(faithful,
      main='main title',
      sub='sub title',
@@ -280,17 +283,70 @@ plot(dist_mean, type='o',
     
 ```
 
+#### legend
+
+```
+legend(x, y = NULL, legend, fill = NULL, col = par("col"),
+       border = "black", lty, lwd, pch,
+       angle = 45, density = NULL, bty = "o", bg = par("bg"),
+       box.lwd = par("lwd"), box.lty = par("lty"), box.col = 	        par("fg"),
+       pt.bg = NA, cex = 1, pt.cex = cex, pt.lwd = lwd,
+       xjust = 0, yjust = 1, x.intersp = 1, y.intersp = 1,
+       adj = c(0, 0.5), text.width = NULL, text.col = par("col"),
+       text.font = NULL, merge = do.lines && has.pch, trace =            FALSE,
+       plot = TRUE, ncol = 1, horiz = FALSE, title = NULL,
+       inset = 0, xpd, title.col = text.col, title.adj = 0.5,
+       seg.len = 2)
+       
+x : 범례의 x 위치
+y : 범례의 y 위치
+fill : 범례기호 채우기 색
+col : 범례기호 점,선 색
+border : 범례 상자 테두리색
+bg : 범례 상자 배경색
+pch : 범례 기호 모양, 설정 안할경우 디폴트는 사각형.
+cex : 범례 크기
+box.lty : 범례 외곽선의 모양(0으로 할 경우 외곽선 없음)
+
+범례위치 x값
+top, topleft, topright, bottom, bottomleft, bottomright, center, left, right
+```
+
+```
+자주 사용할 만한 범례값
+data=rbind(A=c(1,2,3),B=c(2,4,5))
+
+mybar=barplot(data,beside=T,ylim=c(0,10),names=c("a","b","c"),col=c("red","blue"),border="white")
+text(x=mybar,y=data,labels=data,pos=3,col="black")
+grid(nx=NA,ny=NULL)
+
+legend("topright",legend=c("A","B"),fill=c("red","blue"),border="white",box.lty=0,cex=1.5)
+```
+
+
+
 #### 선그리기
 
-````
+````R
 #선 긋기
 abline(v=3,col='purple')
 abline(h=mean(faithful$waiting),col='green')
 abline(a=coef(faith.lm)[1]+10,b=coef(faith.lm)[2],col='green')
 abline(faith.lm,col='red')
+
+#평균으로 4분면으로 나누기
+mydata <- read.csv('examscore.csv')
+
+plot(mydata$midterm, mydata$final,
+     main='시험점수',
+     xlab='중간',
+     ylab='기말')
+title(sub=paste('상관계수 : ',round(mycorr,4)), adj=1, col.sub='red') #adj=위치. 1=오른쪽아래
+abline(v=xBar,h=yBar)
+
 ````
 
-#### par()
+- par()
 
 ```
 #plot창 분할(그래프 여러개 넣기)
@@ -343,6 +399,7 @@ h <- hist(iris$Sepal.Length,breaks=8)
 h
 #밀도 그래프
 plot(density(iris$Sepal.Width))
+
 #히스토그램과 비교
 hist(iris$Sepal.Width,freq=F)
 lines(density(iris$Sepal.Width))
@@ -384,6 +441,8 @@ ggplot(data=mtcars, aes(x=cyl,y=mpg))+
 ggplot(data=mtcars, aes(x=mpg, fill=cyl))+
   geom_density()+
   labs(title='mpg x cyl density')
+
+ggplot(data, aes(x=, y=, fill=색채우기(factor면 각 factor마다 색 다르게)))+geom_col(position='dodge') #옆으로 내려서 따로 표시할때
 ```
 
 
