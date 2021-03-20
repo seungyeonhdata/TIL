@@ -445,5 +445,17 @@ ggplot(data=mtcars, aes(x=mpg, fill=cyl))+
 ggplot(data, aes(x=, y=, fill=색채우기(factor면 각 factor마다 색 다르게)))+geom_col(position='dodge') #옆으로 내려서 따로 표시할때
 ```
 
+#### x축 라벨 폭
+
+```
+(4) ggplot x축 라벨의 폭(width)을 일정한 값으로 고정하고, 
+     라벨이 일정 폭을 넘으면 다음 줄로 넘겨서 라벨을 명기하기
+   : aes(stringr::str_wrap(V1, 15), V2)
+
+실예)
+aes(stringr::str_wrap(label, 15), value) +
+
+```
+
 
 
