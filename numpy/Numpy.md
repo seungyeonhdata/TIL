@@ -437,6 +437,10 @@ iris.data[0,:]
 
 
 
+참고: 데이터사이언스 스쿨 판다스 자료 정리
+
+https://datascienceschool.net/01%20python/04.01%20%ED%8C%90%EB%8B%A4%EC%8A%A4%20%ED%8C%A8%ED%82%A4%EC%A7%80%EC%9D%98%20%EC%86%8C%EA%B0%9C.html
+
 # Pandas
 
 ```python
@@ -446,6 +450,524 @@ from pandas import Series, DataFrame
 
 
 
+### 데이터 입출력
+
+- 저장
+
+```python
+%%writefile sample1.csv
+c1, c2, c3
+1, 1.11, one
+2, 2.22, two
+3, 3.33, three
+
+=> 내용을 sample1.csv로 저장
+
+%%writefile sample3.txt
+c1        c2        c3        c4
+0.179181 -1.538472  1.347553  0.43381
+1.024209  0.087307 -1.281997  0.49265
+0.417899 -2.002308  0.255245 -1.10515
+
+%%writefile sample4.txt
+파일 제목: sample4.txt
+데이터 포맷의 설명:
+c1, c2, c3
+1, 1.11, one
+2, 2.22, two
+3, 3.33, three
+
+
+%%writefile sample5.csv
+c1, c2, c3
+1, 1.11, one
+2, , two
+누락, 3.33, three
+#na값 지정해서 읽어오기
+data=pd.read_csv('sample5.csv',na_values=['누락',' '])
+#한 것을 다시 저장
+data.to_csv('sample6.txt',sep='|',encoding='euc-kr')
+!type sample6.txt
+#저장내용 확인 가능
+
+#저장하면서
+data.to_csv('sample9.csv',index=False) #행 인덱스 제거
+data.to_csv('sample9.csv',index=False, header=False) #열 인덱스 제거
+```
+
+- 읽어오기
+
+```python
+#특정 열을 행인덱스로 사용하기
+pd.read_csv('sample1.csv',index_col='c1')
+
+#공백문자로 분리된 txt 자료의 경우
+pd.read_table('sample3.txt',sep='\s+') #\s는 공백문자
+
+#필요없는 부분 잘라서 읽어오기
+pd.read_csv('sample4.txt',skiprows=[0,1])
+
+#url로 읽어오기
+df=pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
+
+#\t으로 구분자 되어있는 파일.tsv
+gap=pd.read_csv('pandas_data/gapminder.tsv',sep='\t')
+gap
+```
+
+
+
 ## Series
 
+### 생성
+
+```python
+pd.Series(range(10,14))
+
+
+#딕셔너리로 생성
+sdata={'Seoul':1000, 'Incheon':200, 'Gwangju':100, 'Busan':300}
+
+obj=pd.core.series.Series(sdata, index=['Seoul','Incheon','Gwangju','Suwon'])
+
+#딕셔너리 자료형에서 제공하는 in 연산도 가능하고 items 메서드를 사용하면 for 루프를 통해 각 원소의 키(key)와 값(value)을 접근할 수도 있다
+for k, v in s.items():
+    print("%s = %d" % (k, v))
+
+
+```
+
+```python
+삭제
+del obj['Gwangju']
+```
+
+### 속성
+
+```python
+시리즈는 벡터이므로 연산 가능, 함수 적용 가능, 불리안 참조 가능
+```
+
+```python
+pd.notnull() #불리언
+pd.isnull(obj)
+obj.isnull()
+```
+
+### 인덱싱
+
+```python
+obj=pd.Series([3,1,-5,2], index=['d','a','b','c'])
+obj['b']
+obj[0:3]
+obj[['c','a']]
+obj[obj>0]
+'a' in obj #인덱스 라벨 중에 a 있는가 => True
+obj['a' in obj] #몇번 인덱스인지
+```
+
+
+
+
+
 ## DataFrame
+
+### 생성
+
+```python
+열 이름은 columns, 행 이름은 index로 지정
+
+np.random.seed(1)
+df=pd.DataFrame(np.random.randint(20,size=(5,6)),
+            columns=['c1','c2','c3','c4','c5','c6'],
+            index=['하나','둘','셋','넷','다섯'])
+#또는 나중에 지정
+#df.index=[]
+#df.columns=[]
+
+#열방향/행방향 인덱스에 이름 붙이기
+df.index.name = "도시"
+df.columns.name = "특성"
+```
+
+
+
+### 속성
+
+```python
+gap=pd.read_csv('pandas_data/gapminder.tsv',sep='\t')
+
+np.ndim(gap)
+np.shape(gap)
+gap.size
+gap.index
+gap.columns
+type(gap)
+gap.dtypes
+gap.info() 
+```
+
+
+
+### 인덱싱
+
+```python
+df['c2'] #c2열 시리즈 형태
+df[['c2']] #c2열 데이터프레임 형태
+df[['c1','c5']] #c1열과 c5열
+df['하나':'셋'] #0행부터 2행까지
+df[3] #열이름이 정수일 때 3열 시리즈 형태
+df[1:3] #행이름이 정수일 때 1행부터 2행까지
+-> 행 추출은 슬라이싱(:)만 가능
+
+-> 개별데이터는 열라벨로 인덱싱한 시리즈를 행라벨로 인덱싱하여 얻는다 
+```
+
+
+
+![image-20210325164359721](Numpy.assets/image-20210325164359721.png)
+
+
+
+< (행 인덱스, 열 인덱스) 형식의 2차원 인덱싱 >
+
++ loc : 라벨 인덱스로 데이터 추출
+
+행 인덱싱값은 **정수** 또는 **행 인덱스데이터**이고 열 인덱싱값은 **라벨 문자열**
+
+- - 행 이름 하나
+  - 행 이름 슬라이스
+  - 행 이름 리스트
+  - 같은 행 인덱스를 가지는 불리언 시리즈
+
+- `loc` 인덱서가 없는 경우에 사용했던 라벨 인덱싱이나 라벨 리스트 인덱싱은 불가능하다. (열만 추출은 안됨)
+- 슬라이스의 마지막값 포함
+
+```python
+df.loc[행 인덱싱값]
+df.loc[행 인덱싱값, 열 인덱싱값]
+
+df.loc['셋'] #시리즈 형태
+df.loc[['셋']] #데이터프레임 형태
+
+df.loc['하나':'셋'] #0행부터 2행까지 df['하나':'셋']와 같음
+
+df.loc[['하나','셋']] #0행과 2행 리스트
+
+행,열 인덱스 둘다 슬라이싱 가능
+df.loc['둘':'넷','c2':'c4'] #1행부터 3행까지, c2열부터 c4열까지
+df.loc['셋','c1':'c3'] #2행의 c1열부터 c3열까지의 값, 시리즈
+df.loc['넷':,'c1':'c3'] #3행부터 끝까지, c1열부터 c3열까지
+
+df.loc[df.c1>10] #c1열의 값이 10보다 큰 행 전부 = df[df.c1>10]
+df.c1 = df['c1']
+
+인덱스 값을 반환하는 함수로 인덱싱
+def select_rows(df):
+    return df.c1>10
+df.loc[select_rows(df)]
+
+행인덱스가 불리언시리즈 반환일때, [열 인덱스]로 표현, 슬라이싱 안됨
+df.loc[df.c1>10,['c3','c4']]
+```
+
+![image-20210325181406734](Numpy.assets/image-20210325181406734.png)
+
+
+
+```python
+iloc : 정수 인덱스로 데이터 추출
+    
+gap.iloc[-1] #뒤에서 첫번째
+gap.loc[-1] #-1이라는 라벨 (에러)
+```
+
+
+
+## 조작
+
+### 개수 세기
+
+*Series* 의 행 개수는 **s.size 와 같이 뒤에 () 가 없다**.
+
+**count()**는 **Null 값이 아닌 행**(count Non-null rows)만 세며,
+
+**size()** 는 **Null 값인 행도 모두 포함**해서 행(size of all rows)을 센다
+
+![image-20210325210442794](Numpy.assets/image-20210325210442794.png)
+
+```python
+타이타닉 데이터 결측값 확인
+import seaborn as sns
+t=sns.load_dataset('titanic')
+
+len(t)-t.count()
+
+survived         0
+pclass           0
+sex              0
+age            177
+sibsp            0
+parch            0
+fare             0
+embarked         2
+class            0
+who              0
+adult_male       0
+deck           688
+embark_town      2
+alive            0
+alone            0
+dtype: int64
+```
+
+
+
+```python
+생존/사망(첫번째 열) 분류
+t.iloc[:,0].value_counts()
+
+0    549
+1    342
+Name: survived, dtype: int64
+```
+
+-시리즈는 값이 정수, 문자열 카테고리(팩터) 값일 경우에 각 값이 나온 횟수
+
+-데이터프레임은 각 열마다 별도 적용해야한다.
+
+
+
+### 정렬
+
+`sort_index()` : 행 인덱스 기준 오름차순 정렬
+
+```python
+s2.value_counts().sort_index()
+s.sort_index(ascending=False) #내림차순
+
+#NaN 값이 있는 경우 가장 마지막으로 간다 
+```
+
+`sort_values()` : 열 인덱스 기준 오름차순 정렬
+
+```python
+s2.sort_values()
+
+데이터베이스는 by로 기준
+t.sort_values('age')
+t.sort_values(by=['fare','age'],ascending=False) #리스트로 우선순위
+```
+
+
+
+### 합
+
+```python
+df2.sum() #열 별로
+df.loc['sum',:]=df.sum() #열 별 합을 마지막 행에 추가
+
+df2.sum(axis=1) #행 별로
+df2['RowSum'] = df2.sum(axis=1) #행 별 합을 마지막 열로 추가
+```
+
+
+
+### apply 함수
+
+행이나 열 단위로 복잡한 처리를 하고 싶을 때 **apply** 메서드와 **람다**로 간단 함수
+
+```python
+#각 열의 최대값과 최소값의 차이 구하기
+df3.apply(lambda x: x.max()-x.min()) 
+#x에는 각각의 열이 전달됨
+#axis=0 생략
+
+df3.apply(lambda x: x.max()-x.min(),axis=1) #행단위로
+
+#각 열에 대해 어떤 값이 얼마나 사용되었는지
+df3.apply(lambda x: x.value_counts())
+
+#titanic 나이 20 이상이면 adult 아니면 child
+t['adult_child']=t.apply(lambda x: 'adult' if x.age>=20 else 'child', axis=1)
+```
+
+### fillna
+
+NaN 값을 원하는 값으로 바꾸기
+
+```python
+df3.apply(pd.value_counts).fillna(0)
+t.age=t.age.fillna(t.age.mean())
+```
+
+### astype
+
+전체 데이터 자료형 바꾸기
+
+```python
+df3.apply(pd.value_counts).fillna(0).astype(int)
+
+#타이타닉 데이터 성별+나이로 새로운 열 만들기
+t['category2']=t.sex.astype(str)+t.age.round().astype(str)
+```
+
+### 범주화
+
+- `cut` : 실수 값의 경계선 지정
+- `qcut` : 갯수가 똑같은 구간으로 나누기
+
+> cut 명령이 반환하는 값은 categorical 클래스 객체
+>
+> categories 속성으로 라벨 문자열을,
+>
+> codes 속성으로 인코딩한 카테고리 값을 가진다
+
+```python
+ages = [0, 2, 10, 21, 23, 37, 31, 61, 20, 41, 32, 101]
+bins=[1,20,30,50,100] #(]
+lb=['minor','begin','mid','old']
+
+mycuts=pd.cut(ages,bins,labels=lb)
+#[NaN, minor, minor, begin, begin, ..., old, minor, mid, mid, NaN]
+#Length: 12
+#Categories (4, object): [minor < begin < mid < old]
+
+pd.cut(ages,bins,labels=lb).value_counts()
+#minor    3
+#begin    2
+#mid      4
+#old      1
+#dtype: int64
+
+mycuts2=pd.qcut(ages,4,labels=lb)
+#[minor, minor, minor, begin, begin, ..., old, begin, old, mid, old]
+#Length: 12
+#Categories (4, object): [minor < begin < mid < old]
+
+pd.qcut(ages,4,labels=lb).value_counts()
+#minor    3
+#begin    3
+#mid      3
+#old      3
+#dtype: int64
+
+mycuts.categories
+#Index(['minor', 'begin', 'mid', 'old'], dtype='object')
+
+mycuts.codes #어느 영역에 속하는지 인덱스값(-1은 na값)
+#array([-1,  0,  0,  1,  1,  2,  2,  3,  0,  2,  2, -1], dtype=int8)
+
+df4=pd.DataFrame(ages, columns=['ages'])
+df4['category']=pd.cut(ages,bins,labels=lb)
+#category열은 문자열이 아니다. categorical 형태 (범주형)
+df4.info()
+
+df4['category'].astype(str)+df4['ages'].astype(str)
+
+```
+
+
+
+### 인덱스 지정
+
+데이터프레임에 인덱스로 들어가 있어야 할 데이터가 일반 데이터 열에 있거나 반대의 상황일 때 `set_index` 와 `reset_index`로 교환할 수 있다.
+
+- `set_index` : 데이터 열 중 하나를 행 인덱스로 지정(기존 행 인덱스는 제거)
+- `reset_index `: 행 인덱스를 데이터 열로 추가
+
+```python
+np.random.seed(0)
+df1 = pd.DataFrame(np.vstack([list('ABCDE'),
+                   np.round(np.random.rand(3, 5), 2)]).T,
+                   columns=["C1", "C2", "C3", "C4"])
+df2=df1.set_index('C1')
+df2.reset_index()
+df2.reset_index(drop=True) #행 인덱스 버림
+```
+
+
+
+### 다중인덱스
+
+- 다중 열 인덱스 : `columns` 인수를 리스트의 리스트(행렬) 형태로 넣기
+
+```python
+df3 = pd.DataFrame(np.round(np.random.randn(5, 4), 2),
+                   columns=[["A", "A", "B", "B"],
+                            ["C1", "C2", "C1", "C2"]])
+df3.columns.names=['Cid1','Cid2']
+#다중 인덱스에 이름을 지정하면 편리
+```
+
+- 다중 행 인덱스 : `index` 인수를 행렬로, `index.names` 속성에 리스트 넣어 이름 지정
+
+```python
+np.random.seed(0)
+df4 = pd.DataFrame(np.round(np.random.randn(6, 4), 2),
+                   columns=[["A", "A", "B", "B"],
+                            ["C", "D", "C", "D"]],
+                   index=[["M", "M", "M", "F", "F", "F"],
+                      ["id_"+str(i + 1) for i in range(3)]*2])
+df4.columns.names = ["Cidx1", "Cidx2"]
+df4.index.names = ["Ridx1", "Ridx2"]
+df4
+```
+
+- 인덱스 교환 : `stack` (열 -> 행 인덱스) ,  `unstack` (행 -> 열 인덱스)
+
+> 스택은 열 인덱스가 반시계 방향으로 90도 회전
+>
+> 언스택은 행 인덱스가 시계 방향으로 90도 회전
+>
+> 인덱스를 지정할 때는 문자열 이름과 순서 인덱스 모두 사용 가능하다.
+
+```python
+df4.stack('Cidx1')
+df4.stack(1)
+df4.unstack(0)
+```
+
+- 인덱싱 : 인덱스 값이 `()` 튜플 형태여야 한다.
+
+```python
+상위 인덱스부터 튜플로 지정
+#열 인덱스
+df4['A'] #하나만 넣을때는 가장 상위 열 인덱스 값들 중에서만 가능
+df4[('B', 'C1')]
+
+#loc을 이용한 행, 열 인덱스
+df4['M'] #가장 상위 행 인덱스 중에서만 가능
+df4.loc['id_2',('A','D')]
+df4.loc[('F','id_2'),('A','D')]
+df4.loc[:, ("A", "C")] #열 전체 추출
+df4.loc[("M", "id_1"), :] #행 전체 추출
+
+#iloc는 튜플 형태 안됨
+df4.iloc[3,2] #4행 3열 데이터
+
+#합계 행 만들기 !!
+df4.loc[('All','All'),:]=df4.sum()
+```
+
+- 특정 레벨의 모든 인덱스 값을 인덱싱할 때는 슬라이스를 사용한다.
+- 슬라이싱 가능하나 튜플 내에서는 `:` 대신 `slice(None)`값 사용
+
+```python
+df4.loc[:,('B',slice(None))] #B열의 모든 값 (df4['B']랑 같은 값, B열이 포함된 형태)
+
+df4.loc[(slice(None),'id_1'),:] #모든 id_1행의 모든 열 값
+```
+
+- 인덱스 순서 교환 : `swaplevel(i,j,axis)`
+  - `i`,`j`는 교환하는 인덱스 라벨(혹은 번호)이고 `axis`는 0일 때 행 인덱스, 1일 때 열 인덱스 
+
+```python
+df5 = df4.swaplevel("Ridx1", "Ridx2")
+df6 = df4.swaplevel("Cidx1", "Cidx2", 1)
+```
+
+- 정렬 : level로 어떤 인덱스를 기준으로 정렬하는지 표시
+
+  `sort_index(axis=1, level=0)` 
+
