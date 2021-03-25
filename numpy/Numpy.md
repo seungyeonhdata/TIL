@@ -309,6 +309,8 @@ np.meshgrid() #두 개의 1차원 배열을 입력받아서 가능한 모든 (x,
 
 ### 인덱싱
 
+:특정 데이터만 추출하는 작업
+
 ```python
 0번부터 인덱싱
 
@@ -425,7 +427,7 @@ idx,cnt=np.unique([1,3,5,6,3],return_counts=True) #각 개수도 세줌
 np.bincount([1,1,3,3,5], minlength=7) #0~6까지 숫자들이 나온 횟수 세준다
 ```
 
-iris 데이터 가져오기
+- iris 데이터 가져오기
 
 ```python
 from sklearn.datasets import load_iris
@@ -433,3 +435,17 @@ iris=load_iris()
 iris.data[0,:]
 ```
 
+
+
+# Pandas
+
+```python
+import pandas as pd
+from pandas import Series, DataFrame
+```
+
+
+
+## Series
+
+## DataFrame
