@@ -67,7 +67,7 @@ $ git init
 
 ### Stage 올리기
 
-untracked 상태인 디렉토리의 파일들은 stage에 올려야 commit할 수 있다.
+untracked 상태인 디렉토리의 파일들은 stage에 올려야 commit할 수 있다git .
 
 tracking을 하려면 `$ git add`을 이용하면 된다. `$ git add .` 모든 파일 올리기
 
@@ -117,13 +117,15 @@ $ git log
 
 ### 원격 저장소 등록하기
 
-```$ git remote add origin <URL>
+```
 $ git remote add origin <URL> #origin 키로 url 등록
 
 $ git remote -v #확인하기
 origin <URL>...
 
 $ git remote rm <remote_repo_name>
+
+$ git remote set-url origin <URL> #원격 저장소 주소 변경
 ```
 
 
