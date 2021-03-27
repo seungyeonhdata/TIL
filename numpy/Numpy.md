@@ -663,7 +663,7 @@ df.loc[행 인덱싱값, 열 인덱싱값]
 df.loc['셋'] #시리즈 형태
 df.loc[['셋']] #데이터프레임 형태
 
-df.loc['하나':'셋'] #0행부터 2행까지 df['하나':'셋']와 같음
+df.loc['하나':'셋'] #0행부터 2행까지 df['하나':'넷']와 같음
 
 df.loc[['하나','셋']] #0행과 2행 리스트
 
@@ -771,6 +771,13 @@ s2.sort_values()
 t.sort_values('age')
 t.sort_values(by=['fare','age'],ascending=False) #리스트로 우선순위
 t.sort_values(by=['fare','age'],ascending=[False,True])
+```
+
+`pd.nlargest(data,n,'인덱스'), pd.nsmallest(...)`
+
+```python
+데이터프레임 인덱스 열 기준으로 큰/작은 순서로 n개
+t.nlargest(5,'fare')
 ```
 
 
