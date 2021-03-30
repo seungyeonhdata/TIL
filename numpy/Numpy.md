@@ -609,11 +609,22 @@ df.columns.name = "특성"
 ```python
 gap=pd.read_csv('pandas_data/gapminder.tsv',sep='\t')
 
+#행,열 개수
 np.ndim(gap)
 np.shape(gap)
 gap.size
+
+#행 인덱스
 gap.index
+
+#열인덱스
 gap.columns
+gap.keys()
+
+#값
+gap.values
+
+#데이터타입
 type(gap)
 gap.dtypes
 gap.info() 
