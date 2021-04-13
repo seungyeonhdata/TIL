@@ -1044,6 +1044,24 @@ df6 = df4.swaplevel("Cidx1", "Cidx2", 1)
 - 정렬 : level로 어떤 인덱스를 기준으로 정렬하는지 표시
 
   `sort_index(axis=1, level=0)` 
+  
+- 추출 : `df.reindex(columns=[열 이름], level='기준 레벨')`
+
+```python
+#데이터 예시
+last_name_table=names.pivot_table('births',index=last_letters, 
+                  columns=['gender','year'], aggfunc=sum)
+last_name_table.head()
+```
+
+![image-20210401132247908](Numpy.assets/image-20210401132247908.png)
+
+```python
+#위 데이터에서 연도 몇개만 추출
+last_name_table.reindex(columns=[1910,1960,2010], level='year')
+```
+
+
 
 
 
